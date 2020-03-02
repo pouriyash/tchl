@@ -1,0 +1,183 @@
+﻿@using Tochal.Core.DomainModels.Entity.Blog
+@using Tochal.Core.DomainModels.SSOT
+@using Tochal.Core.DomainModels.Entity.Menu
+@model Tuple<ContentEntity, List<Tochal.Core.DomainModels.Entity.Comment>, List<Tochal.Core.DomainModels.Entity.Content.Gallery>>
+@inject IOptions<FileConfig> fileConfig
+@using Microsoft.Extensions.Options
+@using Microsoft.AspNetCore.Mvc.Localization
+@{
+    var i = 0;
+}
+@inject IViewLocalizer Localizer
+@section styles{
+    <link rel="stylesheet" href="~/styles/page5.css" />
+}
+@section Scripts{
+    <script src="~/script/page5slideshow.js"></script>
+}
+<link rel="stylesheet" href="~/styles/page5.css" />
+<script src="~/script/page5slideshow.js"></script>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link href="~/styles/style.css" rel="stylesheet" />
+    <link href="~/styles/page.css" rel="stylesheet" />
+    <link rel="stylesheet"
+          href="./node_modules/@@fortawesome/fontawesome-free/css/all.css" />
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous" />
+    <link rel="stylesheet"
+          href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css" />
+    <title>@Localizer["Tochal"]</title>
+</head>
+
+<div class="filterdiv" style="display:none;width: 100vw;height: 100vh;background-color: rgba(255, 255, 255, 0.7);z-index: 5000;position: fixed;top: 0;"></div>
+
+<section class="background">
+    <div class="bg-gradient" style="background-color: rgba(0, 0, 0, 0.05);height: 65px;position: absolute;width: 100%;"></div>
+    <div class="backgroundImage">
+        @if (Model.Item1.HeaderImage != null)
+        {
+        <img src="@fileConfig.Value.WebAddress@Model.Item1.HeaderImage" data-item="0" />
+
+        }
+        else
+        {
+        <img src="~/images/background2.jpg" />
+
+        }
+    </div>
+    @if (Model.Item1.MobileImage != null)
+    {
+    <img src="@fileConfig.Value.WebAddress@Model.Item1.MobileImage" data-m-item="0" style="display:none">
+    }
+    <div class="bgdown">
+        <div class="articletitle">
+            <h1>@Model.Item1.Title</h1>
+            <h6>@Model.Item1.SubTitle</h6>
+        </div>
+        <div class="mountains">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 xmlns:xlink="http://www.w3.org/1999/xlink"
+                 width="4.7in"
+                 height="0.639in">
+                <path fill-rule="evenodd"
+                      fill="rgb(204, 204, 204)"
+                      d="M215.000,30.000 L258.000,18.000 L295.000,32.000 L267.000,46.000 L255.000,46.000 L244.000,46.000 L215.000,30.000 Z" />
+                <path fill-rule="evenodd"
+                      fill="rgb(255, 255, 255)"
+                      d="M0.000,46.000 L161.000,-0.000 L245.000,46.000 L0.000,46.000 Z" />
+                <path fill-rule="evenodd"
+                      fill="rgb(255, 255, 255)"
+                      d="M266.000,46.000 L349.000,5.000 L435.000,46.000 L266.000,46.000 Z" />
+            </svg>
+        </div>
+    </div>
+</section>
+
+<section class="article">
+    <h2>
+        @Model.Item1.Title
+    </h2>
+    @if (Model.Item1.MainImage != null)
+    {
+    <img src="@fileConfig.Value.WebAddress@Model.Item1.MainImage" style="max-width:400px !important;margin-bottom:20px">
+    @*<img src="@("http://localhost:59823/repository/FileUpload/"+Model.MainImage)" style="max-width:400px !important;margin-bottom:20px">*@
+
+    }
+    <p>
+        @Html.Raw(Model.Item1.Content)
+    </p>
+    @if (Model.Item3.Count() > 0)
+            {
+
+    <div class="slideshow">
+        <h4>گالری تصاویر</h4>
+
+        <div class="slideshow-img">
+            @foreach (var item4 in Model.Item3)
+                        {
+            <div class="s-item">
+                <img src="@fileConfig.Value.WebAddress@item4.Image" onclick="showipopup(this)" />
+
+            </div>
+
+                        }
+        </div>
+
+    </div>
+            }
+
+</section>
+
+<div id="redirectToHere" style="margin-bottom:20px;"></div>
+<div class="container" dir="rtl" id="commentSection">
+    <div class="col-md-8" id="comments" style="border-top:2px solid #ee0000;padding-top:20px;">
+        <label>دیدگاه ها</label>
+
+
+        @if (Model.Item2.Count > 0)
+        {
+
+        @foreach (var item in Model.Item2)
+            {<div class="comment-item">
+            <div class="comment-avatar">
+                <img src="~/images/randompic.jpg" />
+            </div>
+            <div class="comment-box">
+                <div class="comment-name">
+                    @item.Name
+                    @*<span>نوشته شده در تاریخ 1398</span>*@
+                </div>
+                <div class="comment-message">
+                    @item.Text
+                </div>
+                @if (item.Answer != null)
+                        {
+                <div class="comment-item" style="padding: 10px;margin:0;">
+                    <div class="comment-avatar">
+                        <img src="~/images/randompic.jpg" />
+                    </div>
+                    <div class="comment-box">
+                        <div class="comment-name">
+                            مدیر سایت
+                            @*<span>نوشته شده در تاریخ 1398</span>*@
+                        </div>
+                        <div class="comment-message" style="background:#eee">
+                            @item.Answer
+                        </div>
+                    </div>
+                </div>
+                        }
+            </div>
+        </div>
+            }
+
+        }
+
+    </div>
+    <div class="col-md-4" style="border-top:2px solid #ee0000;padding-top:20px;">
+        <form id="commentForm" asp-action="Create"  asp-controller="Comment">
+            <input type="hidden" name="EntityId" value="@Model.Item1.Id" />
+            <label>افزودن دیدگاه</label>
+            <input type="text" name="Name" class="form-control" required placeholder="نام..." />
+            <textarea name="Text" class="form-control" required placeholder="دیدگاه خود را وارد کنید..." rows="10"></textarea>
+            <input type="submit" class="btn btn-primary" value="ارسال" />
+        </form>
+    </div>
+    <script>
+        function sendLink(link) {
+            window.location.href = link;
+        }
+        $('.comment-replay').on('click', () => {
+            window.location.href = "#redirectToHere";
+            document.querySelector('[name="name"]').focus()
+        })
+    </script>
+</div>
+
+
+<div style="background-color:white;z-index:-1;height:100%;width:100vw;display: table-cell;"></div>

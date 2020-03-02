@@ -1,0 +1,78 @@
+﻿@using Tochal.Core.DomainModels.Entity.Blog
+@using Tochal.Core.DomainModels.SSOT
+@model List<ContentEntity>
+@using Microsoft.Extensions.Options
+@inject IOptions<FileConfig>  fileConfig
+@using DNTPersianUtils.Core
+
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+<section class="eventbox">
+    <h3 class="e-title">@Localizer["Event"]</h3>
+    <div class="events">
+
+
+        @if (Model.Count > 0)
+        {
+            foreach (var item in Model)
+            {
+                <div class="event" id="event">
+                    <img src="@fileConfig.Value.WebAddress@item.MainImage" alt="">
+                    @*<img src="@("http://localhost:59823/repository/FileUpload/"+item.MainImage)" alt="">*@
+                    <div class="eventtext">
+                        @if (item.CreatedDate.HasValue)
+                        {
+                            <h5>@item?.CreatedDate.Value.ToPersianDateTextify()</h5>
+                        }
+                        <h3>@item.Title</h3>
+                        <p>@item.ShortContent</p>
+                        <a href="/Home/Detail?id=@item.Id"><i class="fas fa-angle-left"></i>@Localizer["More"]</a>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+
+            <div class="event" id="event">
+                <img src="http://www.tochal.org/images/contents/14474/222.jpg" alt="">
+                <div class="eventtext">
+                    <h5>هر روز: 29 مهر تا 5 آبان</h5>
+                    <h3>بلیت اتوبوس رایگان</h3>
+                    <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت تفاده قرار گیرد.</p>
+                    <a href="#event"><i class="fas fa-angle-left"></i>ادامه مطلب</a>
+                </div>
+            </div>
+            <div class="event" id="event">
+                <img src="http://www.tochal.org/images/contents/14474/222.jpg" alt="">
+                <div class="eventtext">
+                    <h5>هر روز: 29 مهر تا 5 آبان</h5>
+                    <h3>بلیت اتوبوس رایگان</h3>
+                    <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. کتابهای زیادی در شصت و سه درصد گذشته، حال و آینده شناخت فراوان جامعه و متخصصان را می طلبد تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی و فرهنگ پیشرو در زبان فارسی ایجاد کرد. در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها و شرایط سخت تایپ به پایان رسد وزمان مورد نیاز شامل حروفچینی دستاوردهای اصلی و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.</p>
+                    <a href="#event"><i class="fas fa-angle-left"></i>ادامه مطلب</a>
+                </div>
+            </div>
+            <div class="event" id="event">
+                <img src="http://www.tochal.org/images/contents/14474/222.jpg" alt="">
+                <div class="eventtext">
+                    <h5>هر روز: 29 مهر تا 5 آبان</h5>
+                    <h3>بلیت اتوبوس رایگان</h3>
+                    <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. کتابهای زیادی در شصت و سه درصد گذشته، حال و آینده شناخت فراوان جامعه و متخصصان را می طلبد تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی و فرهنگ پیشرو در زبان فارسی ایجاد کرد. در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها و شرایط سخت تایپ به پایان رسد وزمان مورد نیاز شامل حروفچینی دستاوردهای اصلی و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.</p>
+                    <a href="#event"><i class="fas fa-angle-left"></i>ادامه مطلب</a>
+                </div>
+            </div>
+            <div class="event" id="event">
+                <img src="http://www.tochal.org/images/contents/14474/222.jpg" alt="">
+                <div class="eventtext">
+                    <h5>هر روز: 29 مهر تا 5 آبان</h5>
+                    <h3>بلیت اتوبوس رایگان</h3>
+                    <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. کتابهای زیادی در شصت و سه درصد گذشته، حال و آینده شناخت فراوان جامعه و متخصصان را می طلبد تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی و فرهنگ پیشرو در زبان فارسی ایجاد کرد. در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها و شرایط سخت تایپ به پایان رسد وزمان مورد نیاز شامل حروفچینی دستاوردهای اصلی و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.</p>
+                    <a href="#event"><i class="fas fa-angle-left"></i>ادامه مطلب</a>
+                </div>
+            </div>
+
+        }
+
+    </div>
+    <a href="/Home/MoreEvent" class="e-more" href="#more">@Localizer["MoreEvent"]</a>
+</section>

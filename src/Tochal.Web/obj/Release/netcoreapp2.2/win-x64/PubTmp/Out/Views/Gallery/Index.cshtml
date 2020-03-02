@@ -1,0 +1,173 @@
+﻿@using System.Collections.Generic
+@using Alamut.Data.Paging
+@using Tochal.Core.DomainModels.SSOT
+@using Tochal.Core.DomainModels.DTO.ContentEntity
+@using Tochal.AppService.Helpers
+@using Tochal.Core.DomainModels.Entity.Content
+@using Tochal.Core.DomainModels.DTO
+@inject IOptions<FileConfig> FileConfig
+@model SearchCriteriaPageModel<List<GalleryDTO>, GallerySearchViewModel, int>
+@{
+    ViewBag.Title = " گالری";
+    int count = 1;
+}
+
+<style>
+    table, tr {
+        border: 1px solid #ddd;
+    }
+
+    table {
+        border-radius: 25px;
+    }
+
+    td, th {
+        padding: 10px;
+        text-align: center;
+    }
+
+    tfoot td {
+        padding: 0px 10px;
+    }
+
+    thead {
+        background-color: #ddd;
+        color: #464646;
+    }
+</style>
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">داشبورد</a></li>
+        <li class="breadcrumb-item " aria-current="page"><a href="/GroupGallery/Index">دسته بندی گالری</a></li>
+        <li class="breadcrumb-item active" aria-current="page">گالری</li>
+    </ol>
+</nav>
+<div class="content _page-scroll animate-panel padding-0">
+    <div class="text-center container col-md-12">
+        <form asp-action="Create" asp-controller="Gallery" class="form-horizontal" enctype="multipart/form-data">
+            <input type="hidden" name="GroupGalleryId" value="@Model.SearchCriteria.GroupGalleryId" />
+            <input type="hidden" name="GalleryType" value="@GalleryTypeSSOT.Image" />
+            <div class="col col-lg-5">
+                <div class="form-group row" dir="rtl">
+                    <label dir="rtl" class="control-label col-sm-3"> عنوان:</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" required name="Alt" placeholder=" عنوان">
+                    </div>
+                </div>
+            </div>
+            <div class="col col-lg-5">
+                <div class="form-group row" dir="rtl">
+                    <label dir="rtl" class="control-label col-sm-3"> تصویر:</label>
+                    <div class="col-sm-9">
+                        <input type="file" class="form-control" name="Image" required placeholder=" تصویر">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col col-lg-2">
+                <input type="submit" value="ثبت" class="btn btn-block btn-info">
+            </div>
+        </form>
+        <div class="col-md-2"></div>
+        <table class="col-md-12">
+            <thead>
+                <tr>
+                    <th>ردیف</th>
+                    <th>عنوان</th>
+                    <th>عکس</th>
+                    <th>اقدامات</th>
+                </tr>
+            </thead>
+            <tbody>
+                @*<tr>
+                        <form action="/" method="post">
+                            <td><input placeholder="#" type="text" name="" class="form-control" /></td>
+                            <td><input placeholder="عنوان" type="text" name="" class="form-control" /></td>
+                            <td><input type="submit" name="" class="btn btn-exir" value="جستجو" /></td>
+                        </form>
+                    </tr>*@
+                @foreach (var item in Model.PageModel)
+                {
+                    <tr>
+                        <td>@(count++)</td>
+                        <td>@item?.Alt</td>
+                        <td>
+                            @if (@item.Image != null)
+                            {
+                                <div style="width:100px;height:100px;position:relative;margin:auto;overflow:hidden">
+                                    <img src="@FileConfig.Value.WebAddress@item.Image" style="width:100%;height:100%" />
+                                    @if (item.FirstImage.HasValue&&item.FirstImage.Value)
+                                    {
+                                        <span style="position: absolute;left: 0px;color: white;font-weight: 900;transform: rotate(-45deg);transform-origin: top;background: rgb(212, 64, 64);width: 118%;bottom: 25px;box-shadow:0px 0px 5px black;font-size:10px">تصویر پیشفرض</span>
+
+                                    }
+                                </div>
+                            }
+                        </td>
+                        <td>
+                            @if (!(item.FirstImage.HasValue&&item.FirstImage.Value))
+                            {
+                                <a asp-action="SetFirstImage" asp-controller="Gallery" asp-route-id="@item.Id"
+                                   asp-route-GroupGalleryId="@item.GroupGalleryId" data-role="confirm">
+                                    <i class="fa fa-eye fa-lg text-info" title="عکس پیشفرض" aria-hidden="true"></i>
+                                </a>
+                            }
+
+                            <a asp-action="Delete" asp-controller="Gallery" asp-route-id="@item.Id"
+                                asp-route-GalleryType="@GalleryTypeSSOT.Image"
+                               asp-route-GroupGalleryId="@item.GroupGalleryId" data-role="confirm">
+                                <i class="fa fa-trash fa-lg text-danger" title="حذف" aria-hidden="true"></i>
+                            </a>
+                            
+                            <a asp-action="Edit" asp-controller="Gallery" asp-route-id="@item.Id"
+                                asp-route-GalleryType="@GalleryTypeSSOT.Image"
+                               asp-route-GroupGalleryId="@item.GroupGalleryId" >
+                                <i class="fa fa-file fa-lg text-warning" title="ویرایش" aria-hidden="true"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+            <tfoot>
+
+                <tr>
+                    <td colspan="5">
+                        <nav aria-label="..." style="height:60px">
+                            <ul class="pagination">
+                                <li class="page-item disabled">
+                                    <span class="page-link">««</span>
+                                </li>
+                                <li class="page-item disabled">
+                                    <span class="page-link">«</span>
+                                </li>
+                                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item">
+                                    <span class="page-link" style="padding:3px 12px">
+                                        <input type="text" name="" value="2" class="form-control" style="background-color:#3498db;height: 23px;width: 50px;text-align: center;" />
+                                        @*<span class="sr-only">(current)</span>*@
+                                    </span>
+                                    <span class="hide goToPage">
+                                        <input type="text" name="" value="2" class="form-control" />
+                                    </span>
+                                </li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#">»</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#">»»</a>
+                                </li>
+                            </ul>
+                        </nav>
+                        <div class="text-center size-10">
+                            تعداد کل صفحات: <span>@Model.TotalCount</span>
+                        </div>
+                    </td>
+                </tr>
+
+            </tfoot>
+        </table>
+    </div>
+</div>

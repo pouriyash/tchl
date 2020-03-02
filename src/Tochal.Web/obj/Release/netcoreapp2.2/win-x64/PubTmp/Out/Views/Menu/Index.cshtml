@@ -1,0 +1,150 @@
+﻿@using System.Collections.Generic
+@using Tochal.Web.Helpers
+@using Tochal.AppService.Helpers
+@using MvcPaging
+@using Tochal.Core.DomainModels.DTO.MenuEntity
+@using Tochal.Core.DomainModels.DTO
+@model SearchCriteriaPageModel<List<MenuEntityDTO>, MenuEntitySearchViewModel, int>
+@{
+    ViewBag.Title = "لیست منو و زیرمنو ها";
+    int count = 1;
+    Dictionary<string, string> MyDictionary = ViewBag.actionNameList;
+        }
+
+<style>
+    table, tr {
+        border: 1px solid #ddd;
+    }
+
+    table {
+        border-radius: 25px;
+    }
+
+    td, th {
+        padding: 10px;
+        text-align: center;
+    }
+
+    tfoot td {
+        padding: 0px 10px;
+    }
+
+    thead {
+        background-color: #ddd;
+        color: #464646;
+    }
+</style>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">داشبور</a></li>
+        <li class="breadcrumb-item active" aria-current="page">لیست منو</li>
+    </ol>
+</nav>
+<div class="content _page-scroll animate-panel padding-0">
+    <div class="col-md-12" style="margin-bottom:10px">
+        <div class="col-md-2"></div>
+        <div class="col-md-2 no-padding">
+            <a asp-action="create"
+               asp-route-RowType="@Model.SearchCriteria.RowType"
+               asp-route-parentId="@Model.SearchCriteria.ParentId"
+               asp-controller="Menu" class="btn btn-info btn-block">ایجاد</a>
+        </div>
+    </div>
+    <div class="text-center container col-md-12">
+        <div class="col-md-2"></div>
+
+        <table class="col-md-8">
+            <thead>
+                <tr>
+                    <th>ردیف</th>
+                    <th>عنوان</th>
+                    @if (Model.SearchCriteria.RowType == Tochal.Core.DomainModels.Entity.Menu.RowSSOT.First)
+                    {
+                        <th>نوع صفحه</th>
+                    }
+                    <th>اقدامات</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <form action="/" method="post">
+                        <td><input placeholder="#" type="text" name="" class="form-control" /></td>
+                        <td><input placeholder="عنوان" type="text" name="" class="form-control" /></td>
+                        @if (Model.SearchCriteria.RowType == Tochal.Core.DomainModels.Entity.Menu.RowSSOT.First)
+                        {
+                            <td><input placeholder="نوع صفحه" type="text" name="" class="form-control" /></td>
+
+                        }
+                        <td><input type="submit" name="" class="btn btn-exir" value="جستجو" /></td>
+                    </form>
+                </tr>
+                @foreach (var item in Model.PageModel)
+                {
+                    <tr>
+                        <td>@(count++)</td>
+                        <td>@item?.Title</td>
+                        @if (Model.SearchCriteria.RowType == Tochal.Core.DomainModels.Entity.Menu.RowSSOT.First)
+                        {
+                            <td>@item?.PageType.GetDisplayName()</td>
+                        }
+                        <td>
+
+                            @if ((item.PageType == Tochal.Core.DomainModels.Entity.Menu.PageTypeSSOT.List && item.Row == Tochal.Core.DomainModels.Entity.Menu.RowSSOT.First) || item.Row == Tochal.Core.DomainModels.Entity.Menu.RowSSOT.Title)
+                            {
+                                if (item.Row == Tochal.Core.DomainModels.Entity.Menu.RowSSOT.First)
+                                {
+                                    <a asp-action="Index" asp-route-RowType="@Tochal.Core.DomainModels.Entity.Menu.RowSSOT.Title" asp-route-ParentId="@item.Id">
+                                        <i title="لیست عناوین" class="fa fa-list fa-lg text-info margin-left-10"></i>
+
+                                    </a>
+                                }
+                                else if (item.Row == Tochal.Core.DomainModels.Entity.Menu.RowSSOT.Title)
+                                {
+                                    <a asp-action="Index" asp-route-RowType="@Tochal.Core.DomainModels.Entity.Menu.RowSSOT.Second" asp-route-ParentId="@item.Id">
+                                        <i title="لیست زیر منو ها" class="fa fa-list fa-lg text-info margin-left-10"></i>
+                                    </a>
+                                }
+                            }
+
+                            <a asp-action="Edit" asp-route-id="@item.Id" asp-route-Row="@item.Row">
+                                <i class="fa fa-edit fa-lg text-info margin-left-10"></i>
+                            </a>
+
+                            @if (item.Row == Tochal.Core.DomainModels.Entity.Menu.RowSSOT.First)
+                            {
+                                <a href="/Menu/DeleteParent?Id=@item.Id" data-role="confirm">
+                                    <i class="fa fa-trash fa-lg text-danger"></i>
+                                </a>
+                            }
+                            else if (item.Row == Tochal.Core.DomainModels.Entity.Menu.RowSSOT.Title)
+                            {
+                                <a href="/Menu/DeleteTitle?Id=@item.Id&parentId=@item.ParentId" data-role="confirm">
+                                    <i class="fa fa-trash fa-lg text-danger"></i>
+                                </a>
+                            }
+                            else if (item.Row == Tochal.Core.DomainModels.Entity.Menu.RowSSOT.Second)
+                            {
+                                <a href="/Menu/DeleteChild?Id=@item.Id&parentId=@item.ParentId" data-role="confirm">
+                                    <i class="fa fa-trash fa-lg text-danger"></i>
+                                </a>
+                            }
+
+
+
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+            @*@Html.Pager(Model.SearchCriteria.pageSize, Model.SearchCriteria.pageNumber, Model.SearchCriteria.totalItemCount)*@
+        </table>
+    </div>
+</div>
+
+<script>
+
+    $('.active').on('mouseover', () => {
+        $('.goToPage').show()
+    })
+
+</script>

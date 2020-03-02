@@ -1,0 +1,94 @@
+﻿#wrapper {
+    border: none;
+}
+
+.print-link {
+    position: fixed;
+    top: 15px;
+    left: 25px;
+    z-index: 9999;
+}
+
+.hpanel {
+    margin-bottom: 0;
+}
+
+    .hpanel .panel-body {
+        border-width: 2px 0 0 0;
+    }
+
+hr {
+    border: none;
+}
+
+.state--required::after {
+    display: inline-block;
+    content: ":";
+    color: #333;
+    font-family: IRANSans;
+    font-size: 14px;
+    line-height: 0;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    margin-right: 0;
+}
+
+.notAfter.state--required::after {
+    display: none;
+}
+
+.form-group {
+    border-bottom: 1px solid #eee;
+    padding: 10px 0;
+    margin-bottom: 0;
+}
+
+.form-horizontal .control-label {
+    padding-top: 0;
+}
+
+@page {
+    size: A4 portrait;
+}
+
+@media print {
+    .isNoPrint {
+        display: none;
+    }
+
+    .print-link {
+        display: none;
+    }
+
+    .hpanel {
+        page-break-after: always;
+        /*width: 210mm;
+        height: 297mm;*/
+    }
+
+    .noPages .hpanel {
+        page-break-after: avoid !important;
+    }
+
+    .noBreakPage .hpanel {
+        page-break-after: avoid !important;
+    }
+
+    .col-sm-3 {
+        float: right;
+        width: 40%;
+        text-align: right;
+    }
+
+    .col-sm-7 {
+        float: right;
+        width: 60%;
+    }
+
+    .form-control {
+        font-size: inherit;
+        background-color: #fff !important;
+        border-color: #fff !important;
+        box-shadow: 0 0 0 !important;
+    }
+}

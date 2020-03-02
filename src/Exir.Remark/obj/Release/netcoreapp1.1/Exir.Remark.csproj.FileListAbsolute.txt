@@ -1,0 +1,9 @@
+E:\NewGit\src\Exir.Remark\bin\Release\netcoreapp1.1\Exir.Remark.deps.json
+E:\NewGit\src\Exir.Remark\bin\Release\netcoreapp1.1\Exir.Remark.dll
+E:\NewGit\src\Exir.Remark\bin\Release\netcoreapp1.1\Exir.Remark.pdb
+E:\NewGit\src\Exir.Remark\obj\Release\netcoreapp1.1\Exir.Remark.csprojAssemblyReference.cache
+E:\NewGit\src\Exir.Remark\obj\Release\netcoreapp1.1\Exir.Remark.csproj.CoreCompileInputs.cache
+E:\NewGit\src\Exir.Remark\obj\Release\netcoreapp1.1\Exir.Remark.AssemblyInfoInputs.cache
+E:\NewGit\src\Exir.Remark\obj\Release\netcoreapp1.1\Exir.Remark.AssemblyInfo.cs
+E:\NewGit\src\Exir.Remark\obj\Release\netcoreapp1.1\Exir.Remark.dll
+E:\NewGit\src\Exir.Remark\obj\Release\netcoreapp1.1\Exir.Remark.pdb

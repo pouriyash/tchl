@@ -1,0 +1,14 @@
+﻿@using Microsoft.AspNetCore.Routing
+@model PagedUsersListViewModel
+
+@{
+    var roleId = (string)this.Context.GetRouteValue("Id");
+    var roleName = $"«{Model.Roles.First(x => x.Id.ToString() == roleId).Name}»";
+    ViewData["Title"] = $"کاربران نقش {roleName}";
+}
+
+<h2>@ViewData["Title"]</h2>
+ 
+<div id="gridcontainer" class="mt-5">
+    <partial name="~/Areas/Identity/Views/UsersManager/_UsersList.cshtml" model="Model" />
+</div>

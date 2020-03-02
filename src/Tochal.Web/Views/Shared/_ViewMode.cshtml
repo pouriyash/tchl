@@ -1,0 +1,50 @@
+﻿@*@using Research.City.Admin.Toolkit*@
+@{
+    @*var mode = Context.Request.Query["mode"];
+    if (mode == "View")
+    {
+        @Html.Raw(Styles.MakeLayoutBlank())
+
+        <style>
+            [data-role="hidden-in-view"] {
+                display: none;
+            }
+
+            [data-role="readonly-in-view"] [type="submit"] {
+                display: none;
+            }
+
+            [data-role="readonly-in-view"] input,
+            [data-role="readonly-in-view"] select,
+            [data-role="readonly-in-view"] textarea {
+                pointer-events: none;
+            }
+
+            .form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+                background: inherit;
+            }
+
+            [id*="RegateImage__"][id*="__upload"],
+            [id*="RegateImage__"][id*="__remove"] {
+                display: none;
+            }
+        </style>
+            <script>
+                $(function () {
+                    // $('body').removeClass('fixed-navbar');
+                    $('[data-role="readonly-in-view"]').attr('disabled', 'disabled');
+                    $('[data-role="readonly-in-view"] [type="submit"]').attr('disabled', 'disabled');
+                    $('[data-role="readonly-in-view"] :input').prop('readonly', true);
+                    $('[data-role="readonly-in-view"] select').prop('readonly', true);
+                    $('[data-role="readonly-in-view"] :input').css('pointer-events', 'none');
+                    $('[data-role="readonly-in-view"] label').css('pointer-events', 'none');
+                    $('[data-role="readonly-in-view"] select').css('pointer-events', 'none');
+                    $('[data-role="readonly-in-view"] .select2').css('pointer-events', 'none');
+
+                    $('a.progress_info').each(function() {
+                        this.href += '?mode=View';
+                    });
+                });
+        </script>
+    }*@
+}

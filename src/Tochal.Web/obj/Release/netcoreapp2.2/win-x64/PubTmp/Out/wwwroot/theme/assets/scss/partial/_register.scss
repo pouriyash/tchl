@@ -1,0 +1,42 @@
+.register__control {
+    .fullscreen-bg {
+        display: none;
+    }
+
+    .dark-translucent-bg {
+        min-height: auto;
+
+        &:after {
+            display: none;
+        }
+
+        .padding-bottom-20 {
+            padding-bottom: 0px !important;
+        }
+
+        .padding-bottom-20 {
+            padding-bottom: 0px !important;
+        }
+    }
+
+    .form-block {
+        padding: 15px !important;
+        
+        &.register-block {
+            width: 100%;
+
+            .login-block hr {
+                display: none;
+            }
+
+            .login-link {
+                display: none;
+            }
+        }
+    }
+
+    .register__footer {
+        display: none;
+        ;
+    }
+}

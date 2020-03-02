@@ -1,0 +1,151 @@
+﻿@using System.Globalization
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Tochal.Core.DomainModels.Entity.Blog
+@using Tochal.Core.DomainModels.SSOT
+@using Tochal.Core.DomainModels.Entity.Menu
+
+@inject IViewLocalizer Localizer
+@model Tuple<MenuEntity, List<Tochal.Core.DomainModels.Entity.Content.GalleryEntity>>
+@using Microsoft.Extensions.Options
+@inject IOptions<FileConfig> fileConfig
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+    @if (CultureInfo.CurrentCulture.Name == "fa-IR")
+    {
+        <link rel="stylesheet" href="~/styles/style.css">
+    }
+    else
+    {
+        <link rel="stylesheet" href="~/styles/style-ltr.css">
+    }
+    <link rel="stylesheet" href="~/styles/page5.css" />
+    <link href="~/styles/page.css" rel="stylesheet" />
+    <link rel="stylesheet"
+          href="./node_modules/@@fortawesome/fontawesome-free/css/all.css" />
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous" />
+    <link rel="stylesheet"
+          href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css" />
+    <link rel="stylesheet" href="https://cdn.map.ir/web-sdk/1.4.2/css/mapp.min.css">
+    <link rel="stylesheet" href="https://cdn.map.ir/web-sdk/1.4.2/css/fa/style.css">
+
+    <title>تله کابین توچال</title>
+</head>
+<style>
+
+    #app {
+        width: 100%;
+        height: 100%;
+    }
+
+    #mapSection {
+        display: grid;
+        width: 100%;
+        height: 100%;
+        place-items: center;
+    }
+
+    .wrapTheMap {
+        width: 500px;
+        height: 500px;
+        justify-content: center;
+        border: 5px solid #6a6a6a;
+        border-radius: 6px;
+    }
+</style>
+<div class="filterdiv" style="display:none;width: 100vw;height: 100vh;background-color: rgba(255, 255, 255, 0.7);z-index: 5000;position: fixed;top: 0;"></div>
+
+<section class="background">
+    <div class="bg-gradient" style="background-color: rgba(0, 0, 0, 0.05);height: 65px;position: absolute;width: 100%;"></div>
+    <div class="backgroundImage">
+        <img src="~/images/background2.jpg" />
+    </div>
+    <img src="~/images/background2.jpg" data-m-item="0" style="display:none">
+    <div class="bgdown">
+        <div class="articletitle">
+            <h1>ارتباط با ما</h1>
+            <h6>ارتباط با شرکت تلکابین توچال</h6>
+        </div>
+        <div class="mountains">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 xmlns:xlink="http://www.w3.org/1999/xlink"
+                 width="4.7in"
+                 height="0.639in">
+                <path fill-rule="evenodd"
+                      fill="rgb(204, 204, 204)"
+                      d="M215.000,30.000 L258.000,18.000 L295.000,32.000 L267.000,46.000 L255.000,46.000 L244.000,46.000 L215.000,30.000 Z" />
+                <path fill-rule="evenodd"
+                      fill="rgb(255, 255, 255)"
+                      d="M0.000,46.000 L161.000,-0.000 L245.000,46.000 L0.000,46.000 Z" />
+                <path fill-rule="evenodd"
+                      fill="rgb(255, 255, 255)"
+                      d="M266.000,46.000 L349.000,5.000 L435.000,46.000 L266.000,46.000 Z" />
+            </svg>
+        </div>
+    </div>
+</section>
+
+<section class="article">
+    <h2>
+        ارتباط با ما
+    </h2>
+    
+    <div class="col-md-6">
+        <div id="mapSection">
+            <div class="wrapTheMap">
+                <div id="app"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <form asp-controller="ContactUs" asp-action="Create" method="post">
+            <label style="font-size:24px">پیام ارتباط با ما</label>
+            <input type="text" class="form-control" name="name" placeholder="نام" value="" style="padding:15px;margin:10px 0" />
+            <textarea placeholder="متن پیام" class="form-control" rows="10" name="Message" style="margin-bottom:15px"></textarea>
+            <button class="btn btn-primary" style="width:200px;float:left">ثبت</button>
+        </form>
+    </div>
+</section>
+<script type="text/javascript" src="https://cdn.map.ir/web-sdk/1.4.2/js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="https://cdn.map.ir/web-sdk/1.4.2/js/mapp.env.js"></script>
+<script type="text/javascript" src="https://cdn.map.ir/web-sdk/1.4.2/js/mapp.min.js"></script>
+<script>
+    let token = "eyJhdWQiOiI4MDU5IiwianRpIjoiNTMyOGU0ODU4ODIwOTc1MWU3OGY2NjFiZmRkMmY3MDIwNzE1YTZiYTRmOTJkZjhhYzgyNjJlMTU3NTI5NTgyZjcwZGZhMWYyODI1NjUxNzQiLCJpYXQiOjE1ODI1MzEyMDAsIm5iZiI6MTU4MjUzMTIwMCwiZXhwIjoxNTg0OTQ2ODAwLCJzdWIiOiIiLCJzY29wZXMiOlsiYmFzaWMiXX0";
+    $(document).ready(function () {
+        var app = new Mapp({
+            element: '#app',
+            presets: {
+                latlng: {
+                    lat: 35.812,
+                    lng: 51.39448285102844,
+                },
+                zoom: 16,
+            },
+            apiKey: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjUzMjhlNDg1ODgyMDk3NTFlNzhmNjYxYmZkZDJmNzAyMDcxNWE2YmE0ZjkyZGY4YWM4MjYyZTE1NzUyOTU4MmY3MGRmYTFmMjgyNTY1MTc0In0.eyJhdWQiOiI4MDU5IiwianRpIjoiNTMyOGU0ODU4ODIwOTc1MWU3OGY2NjFiZmRkMmY3MDIwNzE1YTZiYTRmOTJkZjhhYzgyNjJlMTU3NTI5NTgyZjcwZGZhMWYyODI1NjUxNzQiLCJpYXQiOjE1ODI1MzEyMDAsIm5iZiI6MTU4MjUzMTIwMCwiZXhwIjoxNTg0OTQ2ODAwLCJzdWIiOiIiLCJzY29wZXMiOlsiYmFzaWMiXX0.SXtj52HhdbVALX2mdHI6shQHltMAR38J1GbcCs-ahG8yZurkUQEybo3Luws4peiXb4xnZHZ24emrZuHBLA655Gu1FENkS5RNDNZLe6TjHgm8Ig7QCR1ECzjiFqbyRImMhumqoBOKTolmpMJ-rgz2qD6sTUMB9bqf6mddjXiw_pB2fmDX4YycUX-TIK3AORJMTg47zV48VoBm9FPVz3GQN1shyxVEuHFUzGS2Yjg6Q7jXFds1WkDaQtU0p97c8d_yTWiWhVOzg8OJbJ42d9UvVXiL1UkmMw42BUBtrBUXQYMdQ6mGf_r5XOtcwGXlVeYP3QQJl22q3cxntBw4nxzKZA'
+        });
+        app.addLayers();
+        app.addMarker({
+            name: 'basic-marker',
+            latlng: {
+                lat: 35.81237558552703,
+                lng: 51.39448285102844,
+            },
+            icon: app.icons.red,
+            popup: {
+                title: {
+                    html: 'شرکت تلکابین توچال',
+                },
+                description: {
+                    html: 'توچال اینجاست!',
+                },
+                open: true,
+            },
+        });
+    });
+</script>
+<div style="background-color:white;z-index:-1;height:100%;width:100vw;display: table-cell;"></div>

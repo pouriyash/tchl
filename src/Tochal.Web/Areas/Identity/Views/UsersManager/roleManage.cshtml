@@ -1,0 +1,36 @@
+﻿@model PagedUsersListViewModel
+
+@{
+    var user = Model.Users.FirstOrDefault();
+}
+
+    <form method="post"
+          asp-controller="UsersManager"
+          asp-action="ChangeUserRoles"
+          role="form"
+          data-ajax="true"
+          data-ajax-begin="dataAjaxBegin"
+          data-ajax-success="dataAjaxSuccess"
+          data-ajax-failure="dataAjaxFailure"
+          data-ajax-update="#usercard-@user.Id">
+        <input name="userId" value="@user.Id" type="hidden" />
+        <div class="panel-body panel__content">
+            <div class="form-card tab-content">
+                @foreach (var role in Model.Roles)
+                {
+                    var selected = user.Roles.Any(userRole => userRole.RoleId == role.Id) ? "checked" : "";
+                    <div class="col-lg-4 col-md-4">
+                        <input type="checkbox" name="roleIds" value="@role.Id" @selected />
+                        @role.Name
+                    </div>
+                }
+
+
+                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 text-center ">
+                    <input class="btn w-lg btn-exir pull-right m-t-lg" type="submit" value="ثبت">
+                </div>
+
+            </div>
+        </div>
+
+    </form>

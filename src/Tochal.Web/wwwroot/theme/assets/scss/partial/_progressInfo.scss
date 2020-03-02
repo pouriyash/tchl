@@ -1,0 +1,23 @@
+﻿.progress {
+  &_info {
+    display: block;
+    padding: 15px;
+    &+& {
+      border-top: 1px solid #eee;
+    }
+    &:hover {
+      background-color: rgba(52, 152, 219, 0.2);
+    }
+    &.active {
+      background-color: #ffc;
+    }
+    @media (min-width: 767px) {
+      .col-md-5 {
+        padding-left: 0;
+      }
+    }
+  }
+  &_sumbitform {
+    margin: 0 15px;
+  }
+}

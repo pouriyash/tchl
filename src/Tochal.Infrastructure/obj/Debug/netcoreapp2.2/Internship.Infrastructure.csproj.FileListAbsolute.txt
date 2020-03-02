@@ -1,0 +1,16 @@
+E:\NewGit\src\Internship.Infrastructure\bin\Debug\netcoreapp2.2\Internship.Infrastructure.deps.json
+E:\NewGit\src\Internship.Infrastructure\bin\Debug\netcoreapp2.2\Internship.Infrastructure.runtimeconfig.json
+E:\NewGit\src\Internship.Infrastructure\bin\Debug\netcoreapp2.2\Internship.Infrastructure.runtimeconfig.dev.json
+E:\NewGit\src\Internship.Infrastructure\bin\Debug\netcoreapp2.2\Internship.Infrastructure.dll
+E:\NewGit\src\Internship.Infrastructure\bin\Debug\netcoreapp2.2\Internship.Infrastructure.pdb
+E:\NewGit\src\Internship.Infrastructure\bin\Debug\netcoreapp2.2\Alamut.Service.Messaging.dll
+E:\NewGit\src\Internship.Infrastructure\bin\Debug\netcoreapp2.2\Internship.Core.dll
+E:\NewGit\src\Internship.Infrastructure\bin\Debug\netcoreapp2.2\Alamut.Service.Messaging.pdb
+E:\NewGit\src\Internship.Infrastructure\bin\Debug\netcoreapp2.2\Internship.Core.pdb
+E:\NewGit\src\Internship.Infrastructure\obj\Debug\netcoreapp2.2\Internship.Infrastructure.csprojAssemblyReference.cache
+E:\NewGit\src\Internship.Infrastructure\obj\Debug\netcoreapp2.2\Internship.Infrastructure.csproj.CoreCompileInputs.cache
+E:\NewGit\src\Internship.Infrastructure\obj\Debug\netcoreapp2.2\Internship.Infrastructure.AssemblyInfoInputs.cache
+E:\NewGit\src\Internship.Infrastructure\obj\Debug\netcoreapp2.2\Internship.Infrastructure.AssemblyInfo.cs
+E:\NewGit\src\Internship.Infrastructure\obj\Debug\netcoreapp2.2\Internship.Infrastructure.csproj.CopyComplete
+E:\NewGit\src\Internship.Infrastructure\obj\Debug\netcoreapp2.2\Internship.Infrastructure.dll
+E:\NewGit\src\Internship.Infrastructure\obj\Debug\netcoreapp2.2\Internship.Infrastructure.pdb

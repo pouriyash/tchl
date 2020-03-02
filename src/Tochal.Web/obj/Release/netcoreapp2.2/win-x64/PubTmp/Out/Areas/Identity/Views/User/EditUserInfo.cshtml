@@ -1,0 +1,505 @@
+﻿@model Tochal.Core.DomainModels.Entity.Identity.User
+@using Tochal.Core.DomainModels.SSOT
+@using DNTPersianUtils.Core.IranCities
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    bool? CreateByAdmin = ViewBag.CreateByAdmin;
+}
+
+<div class="row">
+    <div class="dark-translucent-bg padding-top-20 padding-bottom-20">
+        <div class="container">
+            <div class="row">
+                <div class="object-visible">
+                    <div class="form-block center-block register-block">
+                        <div class="text-center">
+
+                        </div>
+
+                        <div class="box-form text-right">
+
+                            <form asp-controller="User"
+                                  asp-action="EditUserInfo"
+                                  method="post">
+                                <input value="@ViewBag.UserType" type="hidden" name="UserType" />
+                                <input type="hidden" asp-for="Id" />
+                                <input type="hidden" asp-for="UserName" />
+                                <div class="col-md-12 col-sm-12 col-xs-12  company university" style="margin-right:0px;padding-right:0px">
+                                    <div class="form-radio form-radio-inline" style="margin-right:0px;padding-right:0px">
+                                        <div class="form-radio-legend col col-form-label col-md-3 state--required" style="margin-right:0px;padding-right:0px">نوع مرکز :</div>
+                                        <label class="form-radio-label">
+                                            <input asp-for="CenterType" class="form-radio-field" type="radio" data-val="true" value="true" />
+                                            <i class="form-radio-button"></i>
+                                            <span>
+                                                مستقل
+                                            </span>
+                                        </label>
+                                        <label class="form-radio-label">
+                                            <input asp-for="CenterType" class="form-radio-field" type="radio" data-val="false" value="false" />
+                                            <i class="form-radio-button"></i>
+                                            <span>
+                                                غيرمستقل
+                                            </span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group row company university related" style="display: none;">
+                                    <label asp-for="CompanyNationalId" class="col-md-3 col-form-label text-md-left"></label>
+                                    <div class="col-md-9">
+                                        <input dir="ltr" asp-for="CompanyNationalId" class="form-control" />
+                                        <span asp-validation-for="CompanyNationalId" class="text-danger"></span>
+                                        <span class="optional-label"> </span>
+                                    </div>
+                                </div>
+                                <div class="form-group row company university nonRelated" style="display: none;">
+                                    <label asp-for="CompanyNationalMainId" class="col-md-3 col-form-label text-md-left"></label>
+                                    <div class="col-md-9">
+                                        <input dir="ltr" asp-for="CompanyNationalMainId" class="form-control" />
+                                        <span asp-validation-for="CompanyNationalMainId" class="text-danger"></span>
+                                        <span class="optional-label"> </span>
+                                    </div>
+                                </div>
+                                <div class="form-group row company university nonRelated" style="display: none;">
+                                    <label asp-for="CompanyNationalMainName" class="col-md-3 col-form-label text-md-left"></label>
+                                    <div class="col-md-9">
+                                        <input dir="ltr" asp-for="CompanyNationalMainName" class="form-control" />
+                                        <span asp-validation-for="CompanyNationalMainName" class="text-danger"></span>
+                                        <span class="optional-label"> </span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row student">
+                                    <label asp-for="FirstName" class="col-md-3 col-form-label text-md-left"></label>
+                                    <div class="col-md-9">
+                                        <input dir="rtl" asp-for="FirstName" class="form-control" />
+                                        <span asp-validation-for="FirstName" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row student">
+                                    <label asp-for="LastName" class="col-md-3 col-form-label text-md-left"></label>
+                                    <div class="col-md-9">
+                                        <input dir="rtl" asp-for="LastName" class="form-control" />
+                                        <span asp-validation-for="LastName" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label asp-for="Fax" class="col-md-3 col-form-label text-md-left"></label>
+                                    <div class="col-md-9">
+                                        <input dir="rtl" asp-for="Fax" class="form-control" />
+                                        <span asp-validation-for="Fax" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label asp-for="CallNumber" class="col-md-3 col-form-label text-md-left"></label>
+                                    <div class="col-md-9">
+                                        <input dir="rtl" asp-for="CallNumber" class="form-control" />
+                                        <span asp-validation-for="CallNumber" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label asp-for="PhoneNumber" class="col-md-3 col-form-label text-md-left"></label>
+                                    <div class="col-md-9">
+                                        <input dir="rtl" asp-for="PhoneNumber" class="form-control" />
+                                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row company" style="display: none;">
+                                    <label asp-for="CompanyName" class="col-md-3 col-form-label text-md-left"></label>
+                                    <div class="col-md-9">
+                                        <input dir="rtl" asp-for="CompanyName" class="form-control" />
+                                        <span asp-validation-for="CompanyName" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                @*<div class="form-group row company" style="display: none;">
+                                        <label asp-for="CompanyNameEn" class="col-md-3 col-form-label text-md-left"></label>
+                                        <div class="col-md-9">
+                                            <input dir="rtl" asp-for="CompanyNameEn" class="form-control" />
+                                            <span asp-validation-for="CompanyNameEn" class="text-danger"></span>
+                                        </div>
+                                    </div>*@
+
+                                <div class="form-group row company" style="display: none;">
+                                    <label class="col-md-3 col-form-label text-md-left">زمينه فعاليت واحد صنعتی :</label>
+                                    <div class="col-md-9">
+                                        <input dir="rtl" asp-for="ActivityField" class="form-control" />
+                                        <span asp-validation-for="ActivityField" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row student">
+                                    <label asp-for="NationalCode" class="col-md-3 col-form-label text-md-left"></label>
+                                    <div class="col-md-9">
+                                        <input dir="ltr" asp-for="NationalCode" class="form-control" />
+                                        <span asp-validation-for="NationalCode" class="text-danger"></span>
+                                        <span class="optional-label"> </span>
+                                    </div>
+                                </div>
+                                <div class="form-group row student">
+                                    <div class="form-radio-legend col col-md-3 ">
+                                        <!-- state--required -->
+                                        <label asp-for="IsIrainian" class="text-right"></label>
+                                    </div>
+                                    <div class="form-radio form-radio-inline">
+                                        <label class="form-radio-label" style="margin-right: 14px;">
+                                            <input asp-for="IsIrainian" class="form-radio-field" type="radio" value="true" />
+                                            <i class="form-radio-button"></i>
+                                            <span>ایرانی</span>
+                                        </label>
+                                        <label class="form-radio-label">
+                                            <input asp-for="IsIrainian" class="form-radio-field" type="radio" value="false" />
+                                            <i class="form-radio-button"></i>
+                                            <span>غیر ایرانی</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group row student">
+                                    <div class="form-radio form-radio-inline">
+                                        <label asp-for="Gender" class="col-md-3 col-form-label text-md-left"></label>
+                                        <label class="form-radio-label" style="margin-right: 14px;">
+                                            <input asp-for="Gender" class="form-radio-field" type="radio" value="true" />
+                                            <i class="form-radio-button"></i>
+                                            <span>مرد</span>
+                                        </label>
+                                        <label class="form-radio-label">
+                                            <input asp-for="Gender" class="form-radio-field" type="radio" value="false" />
+                                            <i class="form-radio-button"></i>
+                                            <span>زن</span>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-md-3 col-form-label text-md-left">
+                                        استان
+                                    </label>
+
+                                    <div class="form-element form-select col col-md-9">
+                                        <select required name="ProvinceId" id="ProvinceDrop" data-role="province" class="form-element-field form-control" placeholder="استان">
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row col-provience">
+                                    <label class="col-md-3 col-form-label text-md-left">
+                                        شهر
+                                    </label>
+
+                                    <div class="form-element form-select col col-md-9">
+                                        <select class="form-element-field form-control selectCity" name="CityId" id="CityDrop" placeholder="شهر ">
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row company col-md-12 col-sm-12 col-xs-12" style="margin-right:0px!important; padding-right:0px!important">
+                                    <label class="col-lg-3 col-form-label text-md-left" style="margin-right:0px!important; padding-right:0px!important">
+
+                                        وابسته به
+                                    </label>
+                                    <div class="col-md-8">
+                                        <select class="form-control" name="RelatedOn" id="RelatedOnDrop">
+                                        </select>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group row university col-md-12 col-sm-12 col-xs-12" style="margin-right:0px!important; padding-right:0px!important">
+                                    <label class="col-lg-3 col-form-label text-md-left" style="margin-right:0px!important; padding-right:0px!important">
+
+                                        نوع دانشگاه
+                                    </label>
+
+
+
+                                    <div class="col-md-9">
+                                        <select class="form-control" name="UniTypeId" id="UniTypeDrop">
+                                        </select>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group row company">
+                                    <label class="col-md-3 col-form-label text-md-left">شماره ثبت</label>
+                                    <div class="col-md-9">
+                                        <input dir="rtl" name="registrationNumber" class="form-control" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label asp-for="Address" class="col-md-3 col-form-label text-md-left"></label>
+                                    <div class="col-md-9">
+                                        <input dir="rtl" name="Address" asp-for="Address" class="form-control" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group row company">
+                                    <label class="col-md-3 col-form-label text-md-left">سال تاسیس</label>
+                                    <div class="col-md-9">
+                                        <input dir="rtl" name="StartDate" class="form-control" />
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group row company">
+                                    <label class="col-md-3 col-form-label text-md-left">نام رئیس واحد صنعتی</label>
+                                    <div class="col-md-9">
+                                        <input dir="rtl" name="ManagerName" class="form-control" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group row company">
+                                    <label class="col-md-3 col-form-label text-md-left">نام مسئول کارآموزی</label>
+                                    <div class="col-md-9">
+                                        <input dir="rtl" name="ExpertTochal" class="form-control" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group row university">
+                                    <label class="col-md-3 col-form-label text-md-left">نام دانشگاه</label>
+                                    <div class="col-md-9">
+                                        <input dir="rtl" asp-for="UniversityName" class="form-control" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group row university">
+                                    <label class="col-md-3 col-form-label text-md-left">نام رئیس دانشگاه</label>
+                                    <div class="col-md-9">
+                                        <input dir="rtl" asp-for="UniManagerName" class="form-control" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group row university">
+                                    <label class="col-md-3 col-form-label text-md-left">نام مسئول کارآموزی</label>
+                                    <div class="col-md-9">
+                                        <input dir="rtl" asp-for="ExpertTochal" class="form-control" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group row university">
+                                    <label class="col-md-3 col-form-label text-md-left">مدير ارتباط با صنعت</label>
+                                    <div class="col-md-9">
+                                        <input dir="rtl" asp-for="IndustryRelationsManagerName" class="form-control" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group row university">
+                                    <label class="col-md-3 col-form-label text-md-left">ايميل مدير ارتباط با صنعت</label>
+                                    <div class="col-md-9">
+                                        <input dir="rtl" asp-for="IndustryRelationsManagerEmail" class="form-control" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group row company">
+                                    <label class="col-md-3 col-form-label text-md-left">
+
+
+                                        نوع واحد صنعتی :
+                                    </label>
+                                    <div class="col-md-9">
+                                        <select asp-for="industrialType" asp-items="Html.GetEnumSelectList<industrialTypeSSOT>()" class="form-control ">
+                                            <option value=""></option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label asp-for="Email" class="col-md-3 col-form-label text-md-left"></label>
+                                    <div class="col-md-9">
+                                        <input id="ccc" dir="ltr" asp-for="Email" class="form-control" />
+                                        <span asp-validation-for="Email" class="text-danger"></span>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <button type="submit" class="btn btn-exir btn-block">ویرایش</button>
+                                    </div>
+                                </div>
+
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+
+    $(document).ready(function () {
+        debugger;
+        var UserType = @((int)ViewBag.UserType);
+
+            if (UserType == 0) {
+
+                $(".company :input").prop('value', "");
+
+                $(".company").hide();
+                //$(".company :input").prop('required', false);
+
+                $(".university").hide();
+                //$(".company :input").prop('required', true);
+
+                $(".student").show();
+                //$(".intership :input").prop('required', true);
+
+            }
+            else if (UserType == 1) {
+
+                $(".student :input").prop('value', "");
+
+                $(".student").hide();
+
+                $(".university").hide();
+                //$(".company :input").prop('required', true);
+
+                $(".company").show();
+                //$(".company :input").prop('required', true);
+
+
+                $.ajax({
+                    type: "Get",
+                    url: '/Ministry/ApiGetAll',
+                    dataType: 'json',
+                    success: function (json) {
+                        var $el = $("#RelatedOnDrop");
+                        $el.append($("<option></option>")
+                            .attr("value", '').text('لطفا انتخاب کنید...'));
+                        $.each(json, function (value, key) {
+                            $el.append($("<option></option>")
+                                .attr("value", key.id).text(key.name));
+                        });
+
+                    }
+                });
+
+        }
+        else if (UserType == 2) {
+
+                $(".university :input").prop('value', "");
+
+                $(".student").hide();
+
+                $(".company").hide();
+                //$(".intership :input").prop('required', false);
+
+                $(".university").show();
+                //$(".company :input").prop('required', true);
+
+                 $.ajax({
+                    type: "Get",
+                    url: '/BankUniversityType/ApiUniversityTypes',
+                    dataType: 'json',
+                    success: function (json) {
+                        var $el = $("#UniTypeDrop");
+                        $el.append($("<option></option>")
+                            .attr("value", '').text('لطفا انتخاب کنید...'));
+                        $.each(json, function (value, key) {
+                            $el.append($("<option></option>")
+                                .attr("value", key.id).text(key.title));
+                        });
+
+                    }
+                });
+        }
+
+        $(".nonRelated").hide();
+
+
+        $("input[type='radio'][name='CenterType']").on('change', function () {
+           debugger;
+             var radioSelected = $("input[type='radio'][name='CenterType']:checked").data('val');
+             if (radioSelected == true) {
+
+             $(".related").show();
+             $(".nonRelated").hide();
+
+             } else if (radioSelected == false){
+
+             $(".related").hide();
+             $(".nonRelated").show();
+
+             }
+         });
+
+
+
+
+        $('form').submit(function (e) {
+            e.preventdefault();
+            var company = $(".company :[]")
+        })
+    });
+
+</script>
+
+
+<script>
+
+    $.ajax({
+        type: "Get",
+        url: '/Identity/Register/ApiBankProvinces',
+        dataType: 'json',
+        success: function (json) {
+            var $el = $("#ProvinceDrop");
+            $el.append($("<option selected disabled></option>")
+                .attr("value", '').text('استان'));
+            $.each(json, function (value, key) {
+                $el.append($("<option></option>")
+                    .attr("value", key.id).text(key.provinceName));
+            });
+    $('#ProvinceDrop option[value="'+ @Model.ProvinceId +'"]').prop('selected', true);
+        }
+    });
+
+    $(document).on("change", '#ProvinceDrop', function (e) {
+
+        var ProvinceId = $(this).val();
+        $('#CityDrop').show();
+        $("#CityDrop option").remove();
+        $.ajax({
+            type: "Get",
+            data: { id: ProvinceId },
+            url: '/Identity/Register/ApiBankCities',
+            dataType: 'json',
+            success: function (json) {
+                var $el = $("#CityDrop");
+                $.each(json, function (value, key) {
+
+                    $el.append($("<option></option>")
+                        .attr("value", key.id).text(key.cityName));
+                });
+
+            }
+        });
+
+    });
+
+    $.ajax({
+            type: "Get",
+            data: { id: @Model.ProvinceId },
+            url: '/Identity/Register/ApiBankCities',
+            dataType: 'json',
+            success: function (json) {
+                var $el = $("#CityDrop");
+                $.each(json, function (value, key) {
+
+                    $el.append($("<option></option>")
+                        .attr("value", key.id).text(key.cityName));
+                });
+
+               $('#CityDrop option[value="' + @Model.CityId +'"]').prop('selected', true);
+
+            }
+    });
+</script>

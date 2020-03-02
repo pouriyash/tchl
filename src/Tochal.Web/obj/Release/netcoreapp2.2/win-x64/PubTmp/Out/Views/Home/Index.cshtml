@@ -1,0 +1,212 @@
+﻿@using DNTCommon.Web.Core
+@using System.Reflection;
+@using Tochal.Web.Helpers
+
+@model UserModulesAccessViewModel
+
+
+<style>
+
+    .card-img {
+        width: 175px;
+        height: 100px;
+    }
+
+    .list-group-item-success {
+        color: #3c763d;
+    }
+
+    .ddd {
+    }
+
+        .ddd:hover {
+            transform: scale(1.02);
+        }
+</style>
+
+<script src="~/theme/assets/scripts/isotope.pkgd.min.js"></script>
+
+@if (Model.IsAdmin)
+{
+    @foreach (var item in Model.SecuredControllerActions.GroupBy(p => p.Key))
+    {
+
+        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 grid-item-container-dashboard" >
+            <div class="hpanel horange contact-panel">
+
+                <div class="panel-body p-xs">
+                    <div class="media social-profile clearfix">
+                        <div style="display:grid;place-items:center;"> 
+                            <img style="width: 65px !important;height: 65px !important;" src="~/theme/assets/images/dashboard-icon/@(item.Key).png" />
+                        </div>
+                        <div class="media-body">
+                            <h4 class="weight-500 size-15 text-wrap " style="text-align:center">@item.Key</h4>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel-footer contact-footer no-padding">
+                    <ul class="list-group text-center weight-500">
+                        @foreach (var action in item)
+                        {
+                            <li class="list-group-item text-right ">
+                                <a href="@(action.Actions.ControllerId.Replace(":", "/"))/@(action.Actions.ActionName.Replace(":", "/"))" class="dashboard_list_item " name="actionIdss">
+                                    <span style="word-break: break-all">
+                                        @action.Actions.ActionDisplayName
+                                    </span>
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+
+    }
+}
+else
+{
+
+    @foreach (var item in Model.SecuredControllerActions.GroupBy(p => p.Key))
+    {
+        if (item.Any(p => Model.RoleClaims.Select(q => q.ClaimValue).Contains(p.Actions.ActionId)))
+        {
+
+
+            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 grid-item-container-dashboard">
+                <div class="hpanel horange contact-panel" >
+                    <div class="panel-body p-xs">
+                        <div class="media social-profile clearfix">
+                            <div style="display:grid;place-items:center;">
+                                <img style="width: 65px !important;height: 65px !important;" src="~/theme/assets/images/dashboard-icon/@(item.Key).png" />
+                            </div>
+                            <div class="media-body">
+                                <h4 class="weight-500 size-15 text-wrap " style="text-align:center">@item.Key</h4>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel-footer contact-footer no-padding">
+                        <ul class="list-group text-center weight-500">
+                            @foreach (var action in item)
+                            {
+                                if (Model.RoleClaims.Any(p => p.ClaimValue == action.Actions.ActionId))
+                                {
+                                    <li class="list-group-item text-right ">
+                                        <a href="@(action.Actions.ControllerId.Replace(":", "/"))/@(action.Actions.ActionName.Replace(":", "/"))" class="dashboard_list_item " name="actionIdss">
+                                            <span style="word-break: break-all;">
+                                                @action.Actions.ActionDisplayName
+                                            </span>
+
+                                        </a>
+                                    </li>
+                                }
+                            }
+                        </ul>
+                    </div>
+
+
+                </div>
+            </div>
+        }
+    }
+}
+
+@section Scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //$('input[name="actionIds"]').click(function () {
+            //    if ($(this).is(':checked')) {
+            //        $(this).parent().addClass('list-group-item-success');
+            //    } else {
+            //        $(this).parent().removeClass('list-group-item-success');
+            //    }
+            //});
+
+            $('[name="actionIdss"]').click(function () {
+
+
+                if ($(this).attr('name') == "actionIdss") {
+
+
+
+                    if ($(this).children(".fff").is(':checked')) {
+
+                        $(this).addClass('list-group-item-success');
+
+                    } else {
+
+                        $(this).removeClass('list-group-item-success');
+
+
+                    }
+                }
+                //else {
+                //    if ($(this).is(':checked')) {
+                //        $(this).parent().addClass('list-group-item-success');
+                //    } else {
+                //        $(this).parent().removeClass('list-group-item-success');
+                //    }
+                //}
+            });
+        });
+    </script>
+
+    <script>
+        $(function () {
+
+            grid = $('.grid-container-dashboard').isotope({
+                itemSelector: '.grid-item-container-dashboard',
+                layoutMode: 'masonry',
+                isOriginLeft: false
+            });
+
+            setTimeout(function () {
+                grid.isotope('layout');
+            }, 0);
+
+            $('body').on('click', '.homer-side-toggler', function () {
+                setTimeout(function () {
+                    grid.isotope('layout');
+                }, 300);
+            });
+        })
+
+        $(function () {
+            $('body').on('keyup', '[data-search-input]', function () {
+                var name = $(this).data('search-input');
+                var value = $.trim($(this).val());
+                //console.log(value)
+                var container = $('[data-search-container=' + name + ']');
+                var selector = $(this).data('search-item');
+                var items = $(selector);
+                console.log(items);
+                items.removeClass("isVis");
+                grid.isotope({
+                    filter: '*'
+                });
+                items.each(function () {
+                    $(this).html($(this).text());
+                    //console.log(items);
+                });
+                if (!value.length) {
+                    return;
+                }
+                items.each(function () {
+                    if ($(this).text().indexOf(value) != -1) {
+                        $(this).addClass('isVis');
+                        var nText = $(this).html().replace(value, '<span class="isVis-match weight-600">' + value + '</span>');
+                        $(this).html(nText);
+                        //console.log(nText)
+                    }
+                });
+                grid.isotope({
+                    filter: $('.isVis').closest('.grid-item-container-dashboard')
+                });
+            });
+        });
+    </script>
+
+}

@@ -1,0 +1,126 @@
+@import "./fontface";
+@import "navbar";
+@import "digitalsell";
+
+$primary: #da251e;
+$secondary: #06084d;
+$greydark: #333333;
+$greylight: #4d4d4f;
+
+footer {
+  margin-top: 100px;
+}
+
+.background {
+  position: relative;
+  .backgroundImage {
+    position: relative;
+    height: 500px;
+    img {
+      clip-path: unset;
+    }
+  }
+}
+
+.page-content {
+  text-align: right;
+  color: $greydark;
+  width: 80%;
+  margin: auto;
+  position: relative;
+  .page-header {
+    text-align: center;
+    margin: 110px 0;
+    line-height: 16px;
+    p {
+      font-family: "BYekan";
+      font-weight: 100;
+      font-size: 16px;
+      color: #aaa;
+    }
+    h4 {
+      font-size: 62px;
+      font-family: "DYekan_bold";
+      color: $greydark;
+      transition: 1s ease;
+      word-spacing: 25px;
+      animation: hanimation .5s ease infinite alternate;
+      @keyframes hanimation{
+          to{
+            word-spacing: normal;
+          }
+      }
+    }
+  }
+  .content {
+    article {
+      display: flex;
+      flex-direction: row;
+      direction: rtl;
+      gap: 35px;
+      position: relative;
+      margin-bottom: 60px;
+      img {
+        object-fit: cover;
+        height: 180px;
+        width: 400px;
+      }
+      .article-title {
+        h1 {
+          font-family: "DYekan_bold";
+        font-size: 40px;
+          padding: 10px 0;
+        }
+        p {
+          font-family: "IranSans";
+          font-size: 14px;
+          height: 45px;
+          overflow: hidden;
+          color: #858585;
+        }
+        div span a {
+          color: $primary;
+          text-decoration: none;
+          font-size: 13px;
+          font-family: "BYekan";
+          &::after {
+            content: " / ";
+            color: $greydark;
+          }
+        }
+        div span:last-child a::after {
+          content: "  ";
+        }
+      }
+      &::after {
+        content: "";
+        position: absolute;
+        bottom: -30px;
+        left: 0;
+        width: 100%;
+        height: 1px;
+        background-color: #e5e5e5;
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 624px) and (max-width: 900px) {
+  .content article img {
+      width: 250px !important;
+  }
+}
+
+@media only screen and (max-width: 624px) {
+article{
+    flex-direction: column !important;
+    margin-bottom: 85px !important;
+    img{
+        width: 100% !important;
+    }
+    
+}
+.page-content{
+    margin-bottom: 150px;
+}
+}

@@ -1,0 +1,97 @@
+﻿@using Tochal.Core.DomainModels.Entity.Blog
+@using Tochal.Core.DomainModels.SSOT
+@using Tochal.Core.DomainModels.Entity.Menu
+@using System.Globalization
+
+@model List<Tochal.Core.DomainModels.Entity.Content.GroupGallery>
+@using Microsoft.Extensions.Options
+@inject IOptions<FileConfig> fileConfig
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    @if (CultureInfo.CurrentCulture.Name == "fa-IR")
+    {
+        <link rel="stylesheet" href="~/styles/style.css">
+    }
+    else
+    {
+        <link rel="stylesheet" href="~/styles/style-ltr.css">
+    }
+    <link rel="stylesheet" href="~/styles/page5.css" />
+    <link href="~/styles/page.css" rel="stylesheet" />
+    <link rel="stylesheet"
+          href="./node_modules/@@fortawesome/fontawesome-free/css/all.css" />
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous" />
+    <link rel="stylesheet"
+          href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css" />
+    <title>تله کابین توچال</title>
+</head>
+
+<div class="filterdiv" style="display:none;width: 100vw;height: 100vh;background-color: rgba(255, 255, 255, 0.7);z-index: 5000;position: fixed;top: 0;"></div>
+
+<section class="background">
+    <div class="bg-gradient" style="background-color: rgba(0, 0, 0, 0.05);height: 65px;position: absolute;width: 100%;"></div>
+    <div class="backgroundImage">
+
+        <img src="~/images/background2.jpg" />
+
+    </div>
+
+    <img src="~/images/background2.jpg" data-m-item="0" style="display:none">
+
+    <div class="bgdown">
+        <div class="articletitle">
+            <h1>گالری فیلم ها</h1>
+        </div>
+        <div class="mountains">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 xmlns:xlink="http://www.w3.org/1999/xlink"
+                 width="4.7in"
+                 height="0.639in">
+                <path fill-rule="evenodd"
+                      fill="rgb(204, 204, 204)"
+                      d="M215.000,30.000 L258.000,18.000 L295.000,32.000 L267.000,46.000 L255.000,46.000 L244.000,46.000 L215.000,30.000 Z" />
+                <path fill-rule="evenodd"
+                      fill="rgb(255, 255, 255)"
+                      d="M0.000,46.000 L161.000,-0.000 L245.000,46.000 L0.000,46.000 Z" />
+                <path fill-rule="evenodd"
+                      fill="rgb(255, 255, 255)"
+                      d="M266.000,46.000 L349.000,5.000 L435.000,46.000 L266.000,46.000 Z" />
+            </svg>
+        </div>
+    </div>
+</section>
+
+<section class="article">
+
+
+    @if (Model.Count > 0)
+    {
+
+        <div class="slideshow"> 
+
+            <div class="slideshow-img">
+                @foreach (var item in Model)
+                {
+                <div class="s-item">
+                    <img src="@fileConfig.Value.WebAddress@item.Image" onclick="sendLink('@Url.Action("GroupGalleryClip","Home",new {id=item.Id})')">
+                    <h6>@item.Title</h6>
+                </div>
+                }
+            </div>
+
+        </div>
+    }
+</section>
+
+<div style="background-color:white;z-index:-1;height:100%;width:100vw;display: table-cell;"></div>
+
+<script>
+    function sendLink(link) {
+        window.location.href = link;
+    }
+</script>

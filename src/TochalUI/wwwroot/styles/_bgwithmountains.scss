@@ -1,0 +1,43 @@
+
+.background {
+    position: relative;
+    .backgroundImage {
+      position: relative;
+      height: 500px;
+    }
+    .bgdown {
+      background: linear-gradient(3.3deg, #4d4d4f 30%, #4d4d4f 40%);
+      width: 100vw;
+      opacity:.7;
+      height: 220px;
+      position: relative;
+      top: -170px;
+      z-index: auto;
+      clip-path: polygon(0 0, 100% 30%, 100% 100%, 0 70%);
+      .articletitle {
+        text-align: right;
+        position: relative;
+        float: left;
+        top: 30%;
+        color: white;
+        left: 30%;
+        z-index: 10;
+        padding-right: 20px;
+        h6 {
+          font-size: 13px;
+        }
+        h1 {
+          font-family: "DYekan_bold" !important;
+          font-size: 32px;
+          // text-shadow: -2px 2px 0px rgba(0, 0, 0, 0.1);
+        }
+      }
+      .mountains {
+        position: absolute;
+        right: 0;
+        bottom: -0.41vw;
+        transform: rotate(2.4deg);
+      }
+    }
+  }
+  

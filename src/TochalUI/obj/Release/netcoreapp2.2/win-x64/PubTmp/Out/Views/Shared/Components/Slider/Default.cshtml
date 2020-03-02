@@ -1,0 +1,32 @@
+﻿@using Tochal.Core.DomainModels.Entity.Blog
+@using Tochal.Core.DomainModels.SSOT
+@model List<ContentEntity>
+@using Microsoft.Extensions.Options
+@inject IOptions<FileConfig> fileConfig
+
+@using Microsoft.AspNetCore.Mvc.Localization
+
+<div class="backgroundImage">
+    @{
+        var i = 0;
+        foreach (var item in Model)
+        {
+            <img src="@fileConfig.Value.WebAddress@item.MainImage" data-item="@(i++)" alt="background">
+        }
+    }
+
+
+    @*<img src="~/images/background.jpg" alt="background">
+        <img src="https://cdn.cnn.com/cnnnext/dam/assets/150826163012-photo-adrian-nordenborg-skiier-filip-nilsson-iran-tochal-3900m-teheran-www-pathfindertravels-eu-super-169.jpg" alt="background" style="display: none">
+        <img src="http://www.intercaspian.com/photobank/iran/tehran/images/tochal-01735a.jpg" alt="background" style="display: none">
+        <img src="~/images/background2.jpg" alt="background" style="display: none">*@
+</div>
+
+@{
+    i = 0;
+    foreach (var item in Model)
+    {
+        <img src="@fileConfig.Value.WebAddress@item.MobileImage" data-m-item="@(i++)" style="display:none">
+    }
+}
+

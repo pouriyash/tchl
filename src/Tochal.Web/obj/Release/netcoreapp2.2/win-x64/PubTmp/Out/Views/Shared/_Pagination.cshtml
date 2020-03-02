@@ -1,0 +1,83 @@
+﻿@using System.Threading.Tasks
+@using Microsoft.AspNetCore.Hosting.Internal
+@using Tochal.Core.DomainModels.Entity;
+@model PageModel
+
+@{ var count = 3; }
+
+@{
+    var querystringDictionary = Context.Request.Query.Keys.ToDictionary(k => k, v => Context.Request.Query[v]);
+    var qs = "";
+    long PageCount = (Model.TotalItems / Model.ItemsPerPage);
+
+}
+
+
+@if (Model.TotalItems != 0)
+{
+    <nav class="pagination-nav text-center">
+        <ul class="pagination margin-top-2 margin-bottom-0">
+            @{
+                querystringDictionary["CurrentPage"] = "1";
+                qs = string.Join("&", querystringDictionary.Select((x) => x.Key + "=" + x.Value));
+            }
+            <li><a href="?@qs">««</a></li>
+
+            @{
+                querystringDictionary["CurrentPage"] = (Model.CurrentPage - 1).ToString();
+                qs = string.Join("&", querystringDictionary.Select((x) => x.Key + "=" + x.Value));
+            }
+            <li><a href="?@qs">«</a></li>
+
+
+            @for (var i = Model.CurrentPage - count; i <= Model.CurrentPage - 1; i++)
+            {
+                if (i >= 1)
+                {
+                    {
+                        querystringDictionary["CurrentPage"] = i.ToString();
+                        qs = string.Join("&", querystringDictionary.Select((x) => x.Key + "=" + x.Value));
+                    }
+
+                    <li><a href="?@qs">@i</a></li>
+                }
+            }
+
+
+            @{
+                querystringDictionary["CurrentPage"] = Model.CurrentPage.ToString();
+                qs = string.Join("&", querystringDictionary.Select((x) => x.Key + "=" + x.Value));
+            }
+            <li class="active"><a href="?@qs">صفحه @Model.CurrentPage از @(PageCount == 0 ? PageCount + 1 : PageCount)</a></li>
+
+
+            @for (var i = Model.CurrentPage + 1; i <= Model.CurrentPage + count; i++)
+            {
+                if (i <= PageCount)
+                {
+                    {
+                        querystringDictionary["CurrentPage"] = i.ToString();
+                        qs = string.Join("&", querystringDictionary.Select((x) => x.Key + "=" + x.Value));
+                    }
+
+                    <li><a href="?@qs">@i</a></li>
+                }
+            }
+
+
+            @{
+                querystringDictionary["CurrentPage"] = (Model.CurrentPage + 1).ToString();
+                qs = string.Join("&", querystringDictionary.Select((x) => x.Key + "=" + x.Value));
+            }
+            <li><a href="?@qs">»</a></li>
+
+            @{
+                querystringDictionary["CurrentPage"] = PageCount.ToString();
+                qs = string.Join("&", querystringDictionary.Select((x) => x.Key + "=" + x.Value));
+            }
+            <li><a href="?@qs">»»</a></li>
+        </ul>
+
+    </nav>
+
+}

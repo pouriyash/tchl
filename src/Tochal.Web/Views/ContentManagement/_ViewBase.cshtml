@@ -1,0 +1,29 @@
+﻿@using Tochal.Core.DomainModels.DTO.MenuEntity
+@using Tochal.Core.DomainModels.DTO;
+@using Tochal.Core.DomainModels.Entity.Menu
+
+@model SearchCriteriaPageModel<List<MenuEntityDTO>, MenuEntitySearchViewModel, int>
+
+@{
+    DetailTypeSSOT TypePage = (DetailTypeSSOT)TempData["PageType"];
+}
+
+@switch (TypePage)
+{
+    case DetailTypeSSOT.Blog:
+        @Html.PartialAsync("_BlogList", Model)
+        break;
+
+    case DetailTypeSSOT.Pro:
+        @Html.PartialAsync("_ProList", Model)
+        break;
+
+    case DetailTypeSSOT.Simple:
+        @Html.PartialAsync("_SimpleList", Model)
+        break;
+
+    default:
+        @Html.PartialAsync("_BlogList", Model)
+
+        break;
+}

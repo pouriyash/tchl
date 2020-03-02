@@ -1,0 +1,101 @@
+﻿@using System.Collections.Generic
+@using Alamut.Data.Paging
+@using Tochal.Core.DomainModels.SSOT
+@using Microsoft.AspNetCore.Mvc
+@using Microsoft.AspNetCore.Mvc.Rendering
+@using Tochal.Core.DomainModels.DTO.Routine2
+@using Tochal.Core.DomainModels.DTO.Test
+@using Tochal.Core.DomainModels.ViewModel.Test
+@using Tochal.Core.DomainModels.ViewModel.Routine2
+@inject FileConfig FileConfig
+
+@model Routine2PageModel<IPaginated<TestSummeryDTO>, TestSearchCriteriaViewModel, TestDashboard>
+
+@{
+    ViewBag.Description = "روال تستی";
+}
+
+
+@{ var count = 1; }
+
+
+
+<div class="hpanel">
+    <ul class="nav nav-tabs nav-flex">
+
+        <li data-dashboardtype="@DashboardTypes.New">
+            <a asp-controller="AcademicStaffRegistrationAbsorb" asp-action="Manage"
+               asp-route-CurrentDashboard="@Model.CurrentDashboard"
+               asp-route-DashboardType="@DashboardTypes.New">تازه‌ها</a>
+        </li>
+
+
+        <li data-dashboardtype="@DashboardTypes.Archived">
+            <a asp-controller="AcademicStaffRegistrationAbsorb" asp-action="Manage"
+               asp-route-CurrentDashboard="@Model.CurrentDashboard"
+               asp-route-DashboardType="@DashboardTypes.Archived">ارسال شده‌ها</a>
+        </li>
+
+
+        <li data-dashboardtype="@DashboardTypes.Done">
+            <a asp-controller="AcademicStaffRegistrationAbsorb" asp-action="Manage"
+               asp-route-CurrentDashboard="@Model.CurrentDashboard"
+               asp-route-DashboardType="@DashboardTypes.Done">خاتمه‌یافته‌ها</a>
+        </li>
+    </ul>
+
+    <script>
+        $('[data-dashboardtype="@Model.SearchCriteria.DashboardType"]').addClass('active');
+    </script>
+
+    <div class="tab-content tab-content-flex">
+        <div class="tab-pane active">
+            <div class="hpanel  margin-bottom-0">
+                <div class="panel-body panel-scroll" data-equalheight="box">
+                    @if (Model.PageModel.Data != null && Model.PageModel.Data.Any())
+                    {
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover table-valigned" data-role="Routine2ManageTable" data-routine-id="@TestRoutine.RoutineId">
+                                <thead>
+                                    <tr>
+
+                                        <th width="1">#</th>
+                                        <th width="100">تاریخ ارسال</th>
+                                        <th width="1">اقدامات</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.PageModel.Data)
+                                    {
+                                        <tr data-role="record" data-record-id="@item.Id" data-record-routinestep="@item.RoutineStep">
+
+                                            <td>@(count++)</td>
+                                            <td>@(item.RoutineStepChangeDate)</td>
+
+                                            <td style="white-space: nowrap;">
+
+                                                @if (Model.SearchCriteria.DashboardType == DashboardTypes.New)
+                                                {
+                                                    @Html.Partial("_Routine2/_DefaultActions", item.Id)
+                                                }
+
+                                            </td>
+                                        </tr>
+                                    }
+
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <div class="hpanel">
+                <div class="panel-body padding-10" style="min-height: 0">
+                    @Html.Partial("_Pagination", Model.PageModel)
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

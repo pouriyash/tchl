@@ -1,0 +1,475 @@
+@import "./fontface";
+@import "navbar";
+@import "digitalsell";
+@import 'bgwithmountains';
+
+$primary: #da251e;
+$secondary: #06084d;
+$greydark: #333333;
+$greylight: #4d4d4f;
+
+footer {
+  margin-top: 150px;
+}
+
+.page-content {
+  text-align: right;
+  color: $greydark;
+  width: 60%;
+  margin: auto;
+  position: relative;
+  .content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    .slideshow {
+      width: 100%;
+      overflow: hidden;
+      position: relative;
+      height: 350px;
+      .slideshow-img {
+        display: grid;
+        grid-auto-flow: column;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 10px;
+        position: relative;
+        left: -12.5%;
+        width: 100%;
+        transition: left 1s ease-out;
+        img {
+          width: calc(15vw - 11px);
+          height: 250px;
+          object-fit: cover;
+          border-radius: 15px 15px 0 0;
+          transition: 1s ease-out;
+          box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+          // padding: 10px;
+        }
+        .selectedimg {
+          height: 300px;
+        }
+      }
+      .imgnavigator {
+        // width:50%;
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        justify-content: center;
+        place-items: flex-end;
+        padding-top: 25px;
+        gap: 10px;
+        span {
+          margin: 2px;
+        }
+        i {
+          font-size: 20px;
+          cursor: pointer;
+          background-color: $primary;
+          width: 25px;
+          height: 25px;
+          display: grid;
+          place-items: center;
+          color: white;
+          border-radius: 50px;
+          box-shadow: 0px 0px 0px #da251e;
+          transition: 0.2s ease-in;
+          &:hover {
+            box-shadow: 0px 0px 10px #da251e;
+          }
+        }
+        .arrownotice {
+          animation: arrownotice 0.5s ease-out alternate;
+        }
+        @keyframes arrownotice {
+          0% {
+            box-shadow: 0px 0px 0px #da251e;
+          }
+          25% {
+            box-shadow: 0px 0px 15px #da251e;
+          }
+          50% {
+            box-shadow: 0px 0px 0px #da251e;
+          }
+          100% {
+            box-shadow: 0px 0px 15px #da251e;
+          }
+        }
+      }
+    }
+    .content-text {
+      width: 75vw;
+      position: relative;
+      left: 50%;
+      transform: translateX(-50%);
+      h2 {
+        text-align: center;
+        color: $primary;
+        font-family: "DYekan_bold";
+        font-size: 32px;
+        margin-bottom: 15px;
+      }
+      hr {
+        border-bottom: 2px solid $primary;
+        background-color: transparent;
+        width: 25%;
+        margin: auto;
+      }
+      p {
+        padding: 50px 0 30px 0;
+        font-family: "IranSans";
+        font-size: 13px;
+        direction: rtl;
+        line-height: 25px;
+        text-align: justify;
+      }
+    }
+  }
+}
+
+@import "./fontface";
+
+$primary: #da251e;
+$secondary: #06084d;
+$greydark: #333333;
+$greylight: #4d4d4f;
+
+.digitalSell,
+.digitalSell2 {
+  width: 0vw;
+  left: 60%;
+  transform: translateX(-50%);
+  direction: rtl;
+  position: relative;
+  margin: 0 auto 50px auto;
+
+  .leftside {
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: 60% 40%;
+    align-items: center;
+    justify-content: space-between;
+    text-align: center;
+    width: 65vw;
+    position: relative;
+    direction: ltr;
+    background: linear-gradient(179.39deg, white 2.3%, $primary 2.5%) right/100%
+        90% no-repeat,
+      linear-gradient(-179.29deg, transparent, $primary 95%, transparent 95.2%)
+        right/100% 100% no-repeat,
+      linear-gradient(transparent, transparent) top/100% 80% no-repeat;
+    .titling {
+      width: 100%;
+      height: 50%;
+      align-content: space-between;
+      display: grid;
+      justify-content: center;
+      color: $greydark;
+
+      .sc-title {
+        color: white;
+        text-shadow: none;
+      }
+      .sc-pname {
+        position: relative;
+        // text-shadow: $primary 0px 0px 4px;
+        color: $primary;
+        border-top: 1px solid $primary;
+        background: linear-gradient(
+          to top,
+          transparent 50%,
+          hsla(0, 0%, 100%, 0.3) 80%
+        );
+        background-color: rgba(255, 255, 255, 0.15);
+        border-radius: 10px;
+        padding: 5px 10px;
+        margin: auto;
+        margin-bottom: 15px;
+      }
+      h2 {
+        font-family: "DYekan_bold";
+        font-size: 26px;
+        text-align: right;
+        padding-right: 30px;
+      }
+      .purchase {
+        button {
+          width: 50%;
+          border: none;
+          background: linear-gradient(
+            to left,
+            #ac1611 35%,
+            #d34e57 50%,
+            #ac1611 65%
+          );
+          background-size: 300%;
+          height: 40px;
+          border-radius: 4px;
+          color: white;
+          outline: none;
+          &:hover {
+            animation: pba 0.8s ease-in-out infinite;
+          }
+          @keyframes pba {
+            20%,
+            100% {
+              background-position: 100% 100%;
+            }
+          }
+        }
+      }
+      .sc-p {
+        p {
+          font-family: "IranSans";
+          overflow: hidden;
+          direction: rtl;
+          text-align: justify;
+          height: 102px;
+          padding: 0 35px 0 25px;
+          font-size: 14px;
+          color: white;
+        }
+      }
+    }
+    .viewBox {
+      position: relative;
+      left: -75px;
+      top: 5px;
+      img {
+        width: 40vw;
+        height: 350px;
+        position: relative;
+        object-fit: cover;
+        animation: imgan 0.5s ease-out 1;
+      }
+      @keyframes imgan {
+        from {
+          left: -50px;
+        }
+        to {
+          left: 0;
+        }
+      }
+    }
+  }
+}
+
+.digitalSell2 {
+  .titling {
+    height: 65% !important;
+  }
+  .leftside {
+    transform: scaleX(-1);
+    background: linear-gradient(179.39deg, white 2.3%, #e1e1e1 2.5%) right/100%
+        90% no-repeat,
+      linear-gradient(-179.29deg, transparent, #e1e1e1 95%, transparent 95.2%)
+        right/100% 100% no-repeat,
+      linear-gradient(transparent, transparent) top/100% 80% no-repeat !important;
+    padding: 65px 0;
+  }
+  p {
+    padding: 0 25px 0 35px !important;
+  }
+  img,
+  .purchase,
+  .sc-title,
+  p {
+    transform: scaleX(-1);
+    color: $greydark !important;
+  }
+}
+
+.ev {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  .evs {
+    display: flex;
+    flex-direction: row;
+    width: 80vw;
+    margin: auto;
+    flex-wrap: wrap;
+    gap: 50px 24px;
+    .eve {
+      background-color: #fff !important;
+      flex-basis: 38vw;
+      height: 220px;
+      place-items: center;
+      display: grid;
+      grid-auto-flow: column;
+      text-align: right;
+      // margin: 12px auto;
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .eve-text {
+        color: $greydark;
+        padding: 20px 20px 0 20px;
+        height: 100%;
+        overflow: hidden;
+        h3 {
+          font-family: "DYekan_bold";
+          font-size: 26px;
+          color: $primary;
+        }
+        p {
+          direction: rtl;
+          height: 75px;
+          overflow: hidden;
+          font-family: "iranSans";
+          font-size: 0.9em;
+          max-width: 320px;
+          padding: 10px 0 0 0;
+        }
+        a {
+          display: grid;
+          grid-auto-flow: column;
+          color: white;
+          background-color: $greydark;
+          padding: 5px 10px;
+          box-shadow: inset 0px 0px 50px #29292948;
+          float: right;
+          align-items: center;
+          justify-content: space-evenly;
+          border-radius: 5px;
+          offset: 1px 1px black inset;
+          i {
+            position: relative;
+            padding: 0 5px;
+          }
+          * {
+            flex: 1;
+          }
+          &:hover {
+            text-decoration: none;
+            i {
+              animation: ian 0.5s ease-in-out infinite;
+            }
+          }
+          @keyframes ian {
+            from {
+              right: 0;
+            }
+            to {
+              right: 10px;
+            }
+          }
+        }
+      }
+    }
+  }
+  .e-more {
+    color: white;
+    padding: 10px 60px;
+    border-radius: 5px;
+    font-size: 12px;
+    background-color: $greydark;
+    transition: 0.3s ease;
+
+    &:hover {
+      background-color: #1d1d1d;
+
+      text-decoration: none;
+    }
+  }
+}
+
+@media only screen and (max-width: 945px) {
+  .digitalSell {
+    height: calc(auto + 100px) !important;
+    grid-auto-flow: row !important;
+    grid-template-columns: unset !important;
+  }
+  .digitalSell, .digitalSell2{
+    width: inherit !important;
+    left:29.5% !important;
+    padding: 0 20px;
+  }
+  .leftside {
+    grid-auto-flow: row !important;
+    grid-template: 50% 50% !important;
+    width: 100% !important;
+    padding-right: 15px;
+    .viewBox {
+      left: 0px !important;
+      img {
+        width: 80% !important;
+        border-radius: 7px;
+      }
+    }
+    .titling {
+      margin: 0 !important;
+    }
+  }
+}
+@media only screen and (max-width: 600px) {
+  
+  .leftside {
+    padding-bottom: 50px;
+    padding-right: 15px;
+  }
+  .sc-p p {
+    padding: 0 15px !important;
+  }
+  .sc-pname h2 {
+    font-size: 26px !important;
+  }
+  .viewBox {
+    left: 0px !important;
+    box-sizing: content-box !important;
+    img {
+      padding-top: 50px;
+    }
+  }
+  .sc-nav {
+    grid-auto-flow: column;
+    justify-content: space-between !important;
+    padding: 0 !important;
+    .sc-btn {
+      // width:85px;
+      height: 75px;
+      place-items: center;
+    }
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  .backgroundImage img {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 94%) !important;
+  }
+  .bgdown {
+    top: -80px !important;
+    clip-path: polygon(0 0, 100% 14%, 100% 100%, 0 86%) !important;
+    height: 200px !important;
+    .mountains {
+      bottom: -11px !important;
+      transform: rotate(1.4deg) !important;
+      left: 0%;
+    }
+    .articletitle {
+      left: 0% !important;
+      right: 0;
+      top: 0% !important;
+      float: right !important;
+      padding: 50px !important;
+      text-align: right;
+    }
+  }
+}
+
+@media only screen and (max-width: 485px) {
+  .mountains {
+    position: absolute;
+    left: -15vw !important;
+  }
+}
+
+@media only screen and (max-width: 595px){
+  .ev .evs .eve{
+    flex-basis: unset !important;
+  }
+}

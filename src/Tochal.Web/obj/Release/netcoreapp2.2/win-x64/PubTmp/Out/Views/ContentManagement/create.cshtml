@@ -1,0 +1,479 @@
+﻿@using System.Collections.Generic
+@using Alamut.Data.Paging
+@using Tochal.Core.DomainModels.SSOT
+@inject IOptions<FileConfig> FileConfig
+@using Tochal.AppService.Helpers
+@using Tochal.Core.DomainModels.Entity
+@using Tochal.Core.DomainModels.Entity.Blog
+@{
+    ViewBag.Title = "ایجاد";
+    ShowlocationTypeSSOT Showlocation = ViewBag.Showlocation;
+    MainPageContentTypeSSOT? MainPageContentType = ViewBag.MainPageContentType;
+    List<Tochal.Core.DomainModels.Entity.Content.GroupGallery> GalleryList = ViewBag.GalleryList;
+
+}
+
+<style>
+    table, tr {
+        border: 1px solid #ddd;
+    }
+
+    table {
+        border-radius: 25px;
+    }
+
+    td, th {
+        padding: 10px;
+        text-align: center;
+    }
+
+    tfoot td {
+        padding: 0px 10px;
+    }
+
+    thead {
+        background-color: #ddd;
+        color: #464646;
+    }
+
+    th.active {
+        background-color: #d5d5d5;
+    }
+
+    th {
+        padding: 0;
+    }
+
+        th a {
+            width: 100%;
+            height: 37px;
+            display: inline-block;
+            line-height: 37px;
+            position: relative;
+        }
+
+    .fa-sort {
+        line-height: 37px;
+        position: absolute;
+        left: 12px;
+        color: #aaa
+    }
+
+    h3 {
+        font-weight: 900;
+        background-color: #e3e3e3;
+        border: 1px solid #ccc;
+        width: max-content;
+        padding: 10px 20px;
+        border-radius: 10px 0 0 10px;
+        transform: translateX(36px);
+    }
+
+    .Create form, .Edit form {
+        padding: 20px;
+        padding-bottom: 40px;
+        border: 1px solid #ccc;
+        border-radius: 0px 30px
+    }
+</style>
+<style>
+    #picture1,
+    #mainVideo {
+        width: 100%;
+        border-radius: 10px;
+        box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
+        object-fit: cover;
+        max-height: 300px;
+    }
+
+    .popup-bg {
+        background-color: rgba(0, 0, 0, 0.35);
+        width: 100vw;
+        height: 100vh;
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        display: grid;
+        place-items: center;
+    }
+
+    .popup-body {
+        position: relative;
+    }
+
+        .popup-body img,
+        .popup-body video {
+            max-width: 90vw;
+            max-height: 75vh;
+        }
+
+    .popup-close {
+        display: grid;
+        place-items: center;
+        background-color: red;
+        color: white;
+        font-size: 24px;
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        position: absolute;
+        top: -20px;
+        left: -20px;
+        box-shadow: 0px 0px 7px #0000004a;
+    }
+
+    .hide {
+        display: none;
+    }
+</style>
+<style>
+
+    #galley-input-list {
+        list-style-type: none;
+        display: flex;
+        flex-direction: column;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        text-align: right;
+        padding-right: 0;
+        background: #fafbfc
+    }
+
+        #galley-input-list li {
+            background: #f1f3f6;
+            padding: 10px;
+            margin: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: 0.2s ease;
+            user-select: none;
+            cursor: pointer;
+        }
+
+        #galley-input-list .active {
+            background-color: #d3f1ff;
+        }
+</style>
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">داشبور</a></li>
+        <li class="breadcrumb-item"><a href="/ContentManagement/Index">لیست محتوا</a></li>
+        <li class="breadcrumb-item active" aria-current="page">ایجاد محتوا</li>
+    </ol>
+</nav>
+<div class="row " style="margin:40px;padding:40px;border:1px solid grey;border-radius: 25px;position: relative;z-index: 0;">
+
+    <!-- Image Section -->
+
+    <div class="col-md-4 pull-right" id="imageSection" style="position: relative;">
+        <img src="~/images/Default.png" alt="" id="picture1">
+        <video src="" class="hide" id="mainVideo" controls>
+            Please change your browser to Chrome or firefox to show the video.
+        </video>
+
+    </div>
+
+    <!-- Form Section -->
+
+    <div class="col-md-8 pull-left" id="formSection" style="height: 72vh;overflow-y: auto;">
+
+        <form asp-action="Create" asp-controller="ContentManagement" id="contentForm" class="form-horizontal" enctype="multipart/form-data">
+            <input type="hidden" name="Showlocation" value="@Showlocation" />
+            <input type="hidden" name="MainPageContentType" value="@MainPageContentType" />
+
+            <div class="form-group row" dir="rtl">
+                <label dir="rtl" class="control-label col-sm-3">زبان مطلب:</label>
+                <div class="col-sm-9">
+                    <select name="Lang_Id" class="form-control" required>
+                        <option value="" disabled selected>--- انتخاب کنید ---</option>
+                        @foreach (var item in Enum.GetValues(typeof(LangSSOT)))
+                        {
+                            <option value="@(item)">@(((LangSSOT)item).GetDisplayName())</option>
+                        }
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group row" dir="rtl">
+                <label dir="rtl" class="control-label col-sm-3">منو:</label>
+                <div class="col-sm-9">
+                    <select placeholder="منو" class="minimal form-control" name="MenuId" id="MenuDrop">
+                    </select>
+                </div>
+                <script>
+                    $.ajax({
+                        type: "Get",
+                        url: '/Menu/ApiGetParents',
+                        dataType: 'json',
+                        success: function (json) {
+                            var $el = $("#MenuDrop");
+                            $el.empty();
+                            $el.append($("<option selected disabled></option>")
+                                .attr("value", '').text('منو'));
+                            $.each(json, function (value, key) {
+                                $el.append($("<option></option>")
+                                    .attr("value", key.id).text(key.title));
+                            });
+
+                        }
+                    });
+                </script>
+            </div>
+
+
+
+            <div class="form-group row" dir="rtl">
+                <label dir="rtl" class="control-label col-sm-3">عناوین:</label>
+                <div class="col-sm-9">
+                    <select placeholder="عناوین" class="minimal form-control" name="MenuTitleId" id="MenuTitleDrop">
+                    </select>
+                </div>
+
+            </div>
+
+            <div class="form-group row" dir="rtl">
+                <label dir="rtl" class="control-label col-sm-3">زیرمنوها:</label>
+                <div class="col-sm-9">
+                    <select placeholder="زیرمنوها" class="minimal form-control" name="SubMenuId" id="SubMenuDrop">
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row" dir="rtl">
+                <label dir="rtl" class="control-label col-sm-3">نوع صفحه :</label>
+                <div class="col-sm-9">
+                    <select name="BlogContentEntityType" class="form-control">
+                        <option value="">--- انتخاب کنید ---</option>
+                        @foreach (var item in Enum.GetValues(typeof(BlogContentEntityTypeSSOT)))
+                        {
+                            <option value="@(item)">@(((BlogContentEntityTypeSSOT)item).GetDisplayName())</option>
+                        }
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group row" dir="rtl">
+                <label dir="rtl" class="control-label col-sm-3">عنوان:</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" name="Title" placeholder="عنوان">
+                </div>
+            </div>
+
+            <div class="form-group row" dir="rtl">
+                <label dir="rtl" class="control-label col-sm-3">زیر عنوان:</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" name="SubTitle" placeholder="زیر عنوان">
+                </div>
+            </div>
+            <div class="form-group row" dir="rtl">
+                <label dir="rtl" class="control-label col-sm-3">خلاصه محتوا:</label>
+                <div class="col-sm-9">
+                    <textarea required name="ShortContent" placeholder="خلاصه محتوا" class="form-control"></textarea>
+                </div>
+            </div>
+            <div class="form-group row" dir="rtl">
+                <label dir="rtl" class="control-label col-sm-3">محتوا:</label>
+                <div class="col-sm-9" id="wysiwyg">
+                    <textarea required name="Content" id="Content" placeholder="محتوا" class="form-control"></textarea>
+                </div>
+            </div>
+
+            <div class="inputs">
+                <div class="form-group row fileDiv" dir="rtl">
+                    <label dir="rtl" class="control-label col-sm-3"> عکس:</label>
+                    <div class="col-sm-9">
+                        <input type="file" input-id="1" name="mainImage" class="form-control" onchange="checkFile(this)">
+                    </div>
+                </div>
+            </div>
+            <div class="inputs" dir="rtl">
+                <div class="form-group row fileDiv" dir="rtl">
+                    <label dir="rtl" class="control-label col-sm-3">عکس موبایل :</label>
+                    <div class="col-sm-9">
+                        <input type="file" name="mobileImage" class="form-control" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row " id="galleryinput" dir="rtl">
+                <label dir="rtl" class="control-label col-sm-3">انتخاب گالری:</label>
+                <div class="col-sm-9">
+                    <ul id="galley-input-list">
+                        @foreach (var item in GalleryList)
+                        {
+                        <li>
+                            @if (item.Gallery!=null||item.Gallery.Image!=null)
+                            {
+
+                                <img src="@FileConfig.Value.WebAddress@item.Gallery.Image" alt="@item.Title" style="width:100px;height:100px" />
+                            }
+                            else
+                            {
+                                <img src="/images/Default.png" alt="@item.Title" style="width:100px;height:100px" />
+
+                            }
+                            <label>@item.Title</label>
+                            <input type="checkbox" name="Gallery" value="@item.Id" />
+                        </li>
+                        }
+                    </ul>
+                </div>
+                <script>
+                    $(function () {
+                        $('#galley-input-list li').on('click', (e) => {
+                            if (e.target.nodeName == "IMG") {
+                                $(e.target).parent().find('input').click();
+                                $(e.target).toggleClass('active');
+                            } else {
+                                $(e.target).find('input').click();
+                                $(e.target).parent().toggleClass('active');
+                            }
+                        })
+                    })
+                </script>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="ارسال مطلب" class="btn btn-block btn-info">
+            </div>
+        </form>
+
+    </div>
+</div>
+
+<script src="~/js/create-form.js"></script>
+<script>
+    $(function () {
+        $('[name="headerImage"]').on('change', (e) => {
+            var url = URL.createObjectURL(e.target.files[0]);
+            $('#headerImageDiv').removeClass('hide')
+            $('#headerImageDiv > a').attr('href', url)
+        })
+        $('[name="Showlocation"]').trigger('change');
+        debugger;
+        if ($('[name="MainPageContentType"]').val() != "") {
+            $('[name="MainPageContentType"]').trigger('change');
+        }
+
+        if ($('[name="MainPageContentType"]').val() == 'Slider') {
+            $('#imageSection').removeClass('col-md-4').addClass('col-md-10')
+            $('#formSection').removeClass('col-md-8').addClass('col-md-2');
+            $('[name="MenuTitleId"]').parent().parent().remove();
+            $('[name="SubMenuId"]').parent().parent().remove();
+            $('[name="headerImageName"]').parent().parent().remove();
+            $('[name="ShortContent"]').parent().parent().remove();
+            $('[name="Content"]').parent().parent().remove();
+            $('[name="Title"]').parent().parent().remove();
+            $('[name="SubTitle"]').parent().parent().remove();
+            $('[name="mainImage"]').parent().next().remove();
+            $('[name="mainImage"]').parent().removeClass('col-sm-6').addClass('col-sm-8');
+            $('[name="mainImageName"]').prev().addClass('btn-block')
+            $('#imageSection img').css('max-height', '500px');
+            $('[name="mobileImage"]').parent().parent().show();
+        }
+    })
+</script>
+
+<script>
+    //var editor = new FroalaEditor('#wysiwyg');
+    new FroalaEditor('#Content', {
+        // Set the image upload URL.
+        imageUploadURL: '/UploadFiles',
+
+        imageUploadParams: {
+            id: 'my_editor'
+        }
+    })
+
+    document.querySelectorAll('[enctype="multipart/form-data"] input,[enctype="multipart/form-data"] select,[enctype="multipart/form-data"] textarea').forEach((e) => {
+        $(e).parent().parent().hide();
+    })
+    $('[name="Lang_Id"]').parent().parent().show();
+    $('#galley-input-list').show();
+    $('[name="Showlocation"]').parent().parent().show();
+    $('[enctype="multipart/form-data"]').parent().show();
+    $('[enctype="multipart/form-data"]').show();
+
+    let MainPageContentType = $('[name="MainPageContentType"]').parent().parent()
+    let headerImage = $('[name="headerImage"]').parent().parent()
+    let ShortContent = $('[name="ShortContent"]').parent().parent()
+    let Content = $('#wysiwyg').parent();
+    Content.hide();
+    let MenuId = $('[name="MenuId"]').parent().parent()
+    let MenuTitle = $('[name="MenuTitleId"]').parent().parent()
+    let SubMenu = $('[name="SubMenuId"]').parent().parent()
+    let BlogContentEntityType = $('[name="BlogContentEntityType"]').parent().parent()
+    let Title = $('[name="Title"]').parent().parent()
+    let SubTitle = $('[name="SubTitle"]').parent().parent()
+    let mainImage = $('[name="mainImage"]').parent().parent()
+
+    $('[name="Showlocation"]').on('change', () => {
+        debugger;
+        if ($('[name="Showlocation"]').val() == 'FirstPage') {
+            MainPageContentType.show();
+            ShortContent.show();
+            Content.show();
+            mainImage.show();
+            Title.show();
+            SubTitle.show();
+            MenuId.hide();
+            headerImage.hide();
+        }
+        if ($('[name="Showlocation"]').val() == 'Post') {
+            debugger;
+            MenuId.show();
+            Title.show();
+            SubTitle.show();
+            mainImage.show();
+            ShortContent.show();
+            Content.show();
+            headerImage.show();
+        }
+    })
+
+    $('[name="MenuId"]').on('change', () => {
+        let ParentId = $('[name="MenuId"]').val();
+        $.ajax({
+            type: "Get",
+            url: '/Menu/ApiGetTitles?ParentId=' + ParentId,
+            dataType: 'json',
+            success: function (json) {
+                var $el = $("#MenuTitleDrop");
+                $el.empty();
+                $el.append($("<option selected disabled></option>")
+                    .attr("value", '').text('منو'));
+                debugger;
+                $.each(json, function (value, key) {
+                    $el.append($("<option></option>")
+                        .attr("value", key.id).text(key.title));
+                });
+                MenuTitle.show();
+
+            }
+        });
+    })
+
+    $('[name="MenuTitleId"]').on('change', () => {
+        let ParentId = $('[name="MenuTitleId"]').val();
+        $.ajax({
+            type: "Get",
+            url: '/Menu/ApiGetChilds?parentId=' + ParentId,
+            dataType: 'json',
+            success: function (json) {
+                var $el = $("#SubMenuDrop");
+                $el.empty();
+                $el.append($("<option selected disabled></option>")
+                    .attr("value", '').text('منو'));
+                $.each(json, function (value, key) {
+                    $el.append($("<option></option>")
+                        .attr("value", key.id).text(key.title));
+                });
+                SubMenu.show();
+
+            }
+        });
+
+    })
+
+</script>

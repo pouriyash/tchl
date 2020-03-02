@@ -1,0 +1,18 @@
+﻿@using Tochal.Core.DomainModels.Entity.Routine2
+@model Tuple<int, int>
+
+<button type="button" id="routine_record_action_Edit_@Model.Item1" data-popover="Routine_Action_Edit_@Model.Item1" class="text-warning exir--transparent-btn" style="display: none;">
+    <i class="pe-7s-attention largeicon" title="نیاز به اصلاح" data-toggle="tooltip"></i>
+</button>
+
+<div data-role="popover-content" id="Routine_Action_Edit_@Model.Item1">
+    <form data-role="routine-ajax-form">
+        <input type="hidden" name="Id" value="@Model.Item1" />
+        <input type="hidden" name="Action" value="@RoutineActions.Edit" />
+        <input type="hidden" name="CurrentStep" value="@Model.Item2" />
+
+        <input type="text" class="form-control" name="Description" required />
+        <button type="submit" class="btn btn-warning btn-block m-t-xs">نیاز به اصلاح</button>
+    </form>
+</div>
+

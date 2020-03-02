@@ -1,0 +1,41 @@
+﻿@using Exir.Regate
+@using Tochal.Toolkit
+@model Tochal.Core.DomainModels.Entity.Identity.User
+
+@{
+    ViewData["Title"] = "ویرایش اطلاعات";
+    Layout = "_Layout";
+}
+@Html.Raw(Styles.MakeLayoutBlank())
+@Html.Raw(RegateDropdowns.Initialize())
+
+
+<div class="row">
+    <div class="dark-translucent-bg padding-top-20 padding-bottom-20">
+        <div class="object-visible form-block center-block register-block box-form container">
+
+            <form asp-controller="UsersManager"
+                  asp-action="Edit"
+                  method="post">
+
+                <div class="form-group row">
+                    <label class="col-md-2 col-form-label text-md-left">ایمیل</label>
+                    <div class="col-md-10">
+                        <input type="email" id="ccc" dir="ltr" asp-for="Email" class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <input type="hidden" name="Id" value="@ViewBag.Id" />
+
+                <div class="col-md-10 col-lg-10">
+                    <button type="submit" class="btn btn-exir">ثبت</button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+
+

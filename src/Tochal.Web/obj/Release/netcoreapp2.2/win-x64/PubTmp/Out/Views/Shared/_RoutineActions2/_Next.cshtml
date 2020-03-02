@@ -1,0 +1,19 @@
+﻿@using Tochal.Core.DomainModels.Entity.Routine2
+@model Tuple<int, int>
+
+
+<button type="button" id="routine_record_action_Next_@Model.Item1" data-popover="Routine_Action_Next_@Model.Item1" class="text-info exir--transparent-btn" style="display: none;">
+    <i class="pe-7s-play largeicon" title="ارسال" data-toggle="tooltip"></i>
+</button>
+
+<div data-role="popover-content" id="Routine_Action_Next_@Model.Item1">
+    <form data-role="routine-ajax-form">
+        <input type="hidden" name="Id" value="@Model.Item1" />
+        <input type="hidden" name="Action" value="@RoutineActions.Next" />
+        <input type="hidden" name="CurrentStep" value="@Model.Item2" />
+
+        <input type="text" class="form-control" name="Description" />
+        <button type="submit" class="btn btn-info btn-block m-t-xs">ارسال</button>
+    </form>
+</div>
+

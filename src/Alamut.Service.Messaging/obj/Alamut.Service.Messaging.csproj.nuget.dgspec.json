@@ -1,0 +1,82 @@
+{
+  "format": 1,
+  "restore": {
+    "E:\\NewGit\\src\\Alamut.Service.Messaging\\Alamut.Service.Messaging.csproj": {}
+  },
+  "projects": {
+    "E:\\NewGit\\src\\Alamut.Service.Messaging\\Alamut.Service.Messaging.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "E:\\NewGit\\src\\Alamut.Service.Messaging\\Alamut.Service.Messaging.csproj",
+        "projectName": "Alamut.Service.Messaging",
+        "projectPath": "E:\\NewGit\\src\\Alamut.Service.Messaging\\Alamut.Service.Messaging.csproj",
+        "packagesPath": "C:\\Users\\Pouriya\\.nuget\\packages\\",
+        "outputPath": "E:\\NewGit\\src\\Alamut.Service.Messaging\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Pouriya\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard1.4"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard1.4": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard1.4": {
+          "dependencies": {
+            "MailKit": {
+              "target": "Package",
+              "version": "[1.16.1, )"
+            },
+            "Microsoft.Extensions.Logging.Abstractions": {
+              "target": "Package",
+              "version": "[1.1.2, )"
+            },
+            "NETStandard.Library": {
+              "target": "Package",
+              "version": "[2.0.0, )",
+              "autoReferenced": true
+            },
+            "System.ServiceModel.Duplex": {
+              "target": "Package",
+              "version": "[4.0.*, )"
+            },
+            "System.ServiceModel.Http": {
+              "target": "Package",
+              "version": "[4.1.*, )"
+            },
+            "System.ServiceModel.NetTcp": {
+              "target": "Package",
+              "version": "[4.1.*, )"
+            },
+            "System.ServiceModel.Security": {
+              "target": "Package",
+              "version": "[4.0.*, )"
+            },
+            "System.Xml.XmlSerializer": {
+              "target": "Package",
+              "version": "[4.0.*, )"
+            }
+          }
+        }
+      }
+    }
+  }
+}

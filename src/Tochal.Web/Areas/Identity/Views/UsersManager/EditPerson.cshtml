@@ -1,0 +1,580 @@
+﻿@using Exir.Regate
+@using Tochal.Toolkit
+@using Tochal.Core.DomainModels.SSOT
+@using DNTPersianUtils.Core.IranCities
+@using Tochal.AppService.Helpers;
+@model Tochal.Core.DomainModels.Entity.Identity.User
+
+@{ ViewBag.Title = "مشخصات";
+}
+
+@Html.Raw(Styles.MakeLayoutBlank())
+
+<style>
+
+    form {
+        width: 90%;
+        margin: auto;
+        padding-top: 50px;
+    }
+
+    .form-control {
+        font-weight: 200 !important;
+        line-height: 1.5 !important;
+        color: black;
+        background-color: white !important;
+        background-clip: padding-box !important;
+        border: 1px solid #ced4da !important;
+        border-radius: .25rem !important;
+        transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out !important;
+    }
+
+        .form-control:placeholder {
+            color: #808080;
+        }
+
+    .form-group {
+        margin-top: 14px;
+        margin-bottom: 14px !important;
+    }
+
+    form label, .form-radio-legend.col.col-md-4.state--required {
+        text-align: left;
+    }
+
+    .radioform {
+    }
+
+    .phtl {
+        position: relative;
+    }
+
+        .phtl .placeholder-to-label {
+            position: absolute;
+            background: linear-gradient(#f8f8f8 50%,#fff 60%);
+            transition: all .05s ease-out;
+            top: 10px;
+            right: 10px;
+            padding: 0 5px;
+            font-size: 11px !important;
+            font-weight: 100;
+            color: #565656;
+        }
+</style>
+<style>
+
+    .preload * {
+        opacity: 0 !important;
+    }
+
+    .form-control {
+        box-shadow: none;
+    }
+
+    .sweet-alert h2,
+    .sweet-alert p,
+    .sweet-alert button {
+        font-family: 'IRANSans';
+    }
+</style>
+<style>
+
+    .preload * {
+        opacity: 0 !important;
+    }
+
+    .form-control {
+        box-shadow: none;
+    }
+
+    .register-block .form-control {
+        border-radius: 5px !important;
+    }
+
+    .sweet-alert h2,
+    .sweet-alert p,
+    .sweet-alert button {
+        font-family: 'IRANSans';
+    }
+
+    .form-control {
+        margin-bottom: 13px;
+        height: 35px;
+    }
+
+    form div label {
+        font-weight: 400;
+    }
+
+    .radiocon {
+        display: inline;
+        position: relative;
+        padding-left: 35px;
+        margin-bottom: 12px;
+        cursor: pointer;
+        background-color: #eaeaea;
+        padding: 8px 0;
+        text-align: center;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        cursor: pointer !important;
+    }
+
+        /* Hide the browser's default radio button */
+        .radiocon input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .radiocon:hover {
+            background-color: #bdeeee;
+        }
+
+    .checked {
+        color: white;
+        background-color: #11c7c5;
+        box-shadow: inset 0px 0px 5px 1px rgba(128, 128, 128, 0.3);
+    }
+
+    .headtitle {
+        margin-top: 50px;
+        font-size: 1.5em;
+        color: #11c7c5;
+    }
+
+        .headtitle::after {
+            color: black;
+            content: ' » '
+        }
+
+        .headtitle::before {
+            content: ' « ';
+            color: black;
+        }
+
+
+    .fullscrn-bg {
+        background-position: 50% 0;
+        background-repeat: no-repeat;
+        position: fixed;
+        top: 0px;
+        left: 0px;
+        right: 0px;
+        bottom: 0px;
+        background-size: cover;
+    }
+
+    .content {
+        padding: 0px;
+    }
+
+    .invalidi {
+        border-color: #e74c3c !important
+    }
+
+        .invalidi::placeholder {
+            color: red;
+        }
+
+    .text-danger {
+        position: relative;
+        top: -9px;
+    }
+</style>
+<style>
+    #loading {
+        width: 100%;
+        height: 100vh;
+        background-color: white;
+        z-index: 100;
+        display: grid;
+        place-items: center;
+        animation: loadinganimation 1s ease-out infinite alternate;
+        position: absolute;
+    }
+
+    @@keyframes loadinganimation {
+        from {
+            word-spacing: 0;
+        }
+
+        to {
+            word-spacing: 5px;
+        }
+    }
+
+    .row {
+        z-index: 1;
+    }
+</style>
+
+<div id="loading">‌فرم در حال بارگذاری می‌‍‌باشد...</div>
+<div class="row">
+
+    <div class="col-lg-12 col-md-12">
+        <div style="text-align:center">
+            <h2 class="headtitle university">ویرایش اطلاعات دانشجو</h2>
+        </div>
+        <form asp-controller="UsersManager" asp-action="Edit" class="form-horizontal myform">
+
+            <div class="row">
+                <div class="col-xs-6">
+                    <div class="phtl">
+                        <input placeholder="نام" dir="rtl" asp-for="FirstName" class="form-control" />
+                        <span class="placeholder-to-label"></span>
+                        <span asp-validation-for="FirstName" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="col-xs-6">
+                    <div class="phtl">
+                        <input placeholder="نام خانوادگی" dir="rtl" asp-for="LastName" class="form-control" />
+                        <span class="placeholder-to-label"></span>
+                        <span asp-validation-for="LastName" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="form-radio form-radio-inline col-xs-6">
+                    <div>
+                        <label id="maleGender" name="Gender" class="radiocon col-xs-6" style="border-radius:0px 5px 5px 0px;border-left-color:#ddd">
+                            مرد
+                        </label>
+                        <label id="femaleGender" name="Gender" class="radiocon col-xs-6" style="border-radius:5px 0px 0px 5px;border-left-color:#ddd">
+                            زن
+                        </label>
+                        <input id="GenderInput" class="optionalfield" type="hidden" name="Gender" asp-for="Gender" />
+                    </div>
+                </div>
+
+                <div class="form-radio form-radio-inline col-xs-6">
+                    <div>
+                        <label id="itsIranian" name="IsIrainian" class="radiocon col-xs-6" style="border-radius:0px 5px 5px 0px;border-left-color:#ddd">
+                            ایرانی
+                        </label>
+                        <label id="notIranian" name="IsIrainian" class="radiocon col-xs-6" style="border-radius:5px 0px 0px 5px;border-left-color:#ddd">
+                            غیر ایرانی
+                        </label>
+                        <input id="iranianInput" class="optionalfield" type="hidden" name="IsIrainian" asp-for="IsIrainian" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="phtl">
+                    <input placeholder="کد ملی" dir="rtl" pattern="[0-9]" maxlength="10" asp-for="NationalCode" class="form-control" />
+                    <span class="placeholder-to-label"></span>
+                    <span asp-validation-for="NationalCode" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row testcity">
+                <div class="col-xs-6">
+                    <div class="form-element form-select phtl">
+                        <select required name="ProvinceId" id="ProvinceDrop" data-role="province" class="form-element-field form-control" placeholder="استان ">
+                        </select>
+                        <span class="placeholder-to-label"></span>
+                    </div>
+                </div>
+
+                <div class="col-xs-6 col-provience">
+                    <div class="form-element form-select phtl">
+                        <select class="form-element-field form-control selectCity" name="CityId" id="CityDrop" placeholder="شهر ">
+                        </select>
+                        <span class="placeholder-to-label"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="phtl">
+                    <input placeholder="نشانی" dir="rtl" class="form-control" asp-for="Address" />
+                    <span class="placeholder-to-label"></span>
+                    <span asp-validation-for="Address" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-6">
+                    <div class="phtl">
+                        <input placeholder="تلفن ثابت" dir="rtl" pattern="[0-9]" maxlength="11" asp-for="CallNumber" class="form-control optionalfield" />
+                        <span class="placeholder-to-label"></span>
+                        <span asp-validation-for="CallNumber" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-xs-6">
+                    <div class="phtl">
+                        <input placeholder="تلفن همراه" dir="rtl" asp-for="PhoneNumber" class="form-control text-right" />
+                        <span class="placeholder-to-label"></span>
+                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row testmail">
+                <div class="phtl">
+                    <input placeholder="نام کاربری ( ایمیل )" dir="rtl" asp-for="Email" class="form-control" />
+                    <span class="placeholder-to-label"></span>
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+            </div>
+
+            <input type="hidden" name="Id" value="@ViewBag.Id" />
+            <input type="hidden" name="UserType" value="@ViewBag.UserType">
+
+            <div class="row" style="margin-top:30px">
+                <div class="col-md-3" style="float:left">
+                    <button type="submit" class="btn btn-exir col-md-12">ثبت اطلاعات</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+
+    // Ajax
+
+    $(document).ready(function () {
+        $.ajax({
+            type: "Get",
+            url: '/Ministry/ApiGetAll',
+            dataType: 'json',
+            success: function (json) {
+                var $el = $("#RelatedOnDrop");
+                $el.append($("<option></option>")
+                    .attr("value", '').text('لطفا انتخاب کنید...'));
+                $.each(json, function (value, key) {
+                    $el.append($("<option></option>")
+                        .attr("value", key.id).text(key.name));
+                });
+
+            }
+        });
+    })
+
+    $.ajax({
+        type: "Get",
+        url: '/Identity/Register/ApiBankProvinces',
+        dataType: 'json',
+        success: function (json) {
+            var $el = $("#ProvinceDrop");
+            $el.append($("<option selected disabled></option>")
+                .attr("value", '').text('استان'));
+            $.each(json, function (value, key) {
+                $el.append($("<option></option>")
+                    .attr("value", key.id).text(key.provinceName));
+            });
+            $('#ProvinceDrop option[value="' + @Model.ProvinceId +'"]').prop('selected', true);
+        }
+    }).done(function () {
+        $('#loading').fadeOut();
+        $('html').attr('style', 'overflow-y:auto !important')
+    });
+
+    $(document).on("change", '#ProvinceDrop', function (e) {
+
+        var ProvinceId = $(this).val();
+        $('#CityDrop').show();
+        $("#CityDrop option").remove();
+        $.ajax({
+            type: "Get",
+            data: { id: ProvinceId },
+            url: '/Identity/Register/ApiBankCities',
+            dataType: 'json',
+            success: function (json) {
+                var $el = $("#CityDrop");
+                $.each(json, function (value, key) {
+
+                    $el.append($("<option></option>")
+                        .attr("value", key.id).text(key.cityName));
+                });
+
+            }
+        });
+
+    });
+
+    $.ajax({
+            type: "Get",
+            data: { id: @Model.ProvinceId },
+            url: '/Identity/Register/ApiBankCities',
+            dataType: 'json',
+            success: function (json) {
+                var $el = $("#CityDrop");
+                $.each(json, function (value, key) {
+
+                    $el.append($("<option></option>")
+                        .attr("value", key.id).text(key.cityName));
+                });
+
+               $('#CityDrop option[value="' + @Model.CityId +'"]').prop('selected', true);
+
+            }
+    });
+</script>
+<script>
+
+    // Form validation script
+
+    let myforminputs = $('.myform input');
+
+    myforminputs.not($('.optionalfield')).keydown(() => {
+        $('button').prop('disabled', false);
+    })
+
+    $('select').change(() => {
+        $('button').prop('disabled', false);
+    })
+
+    $('#uploadFileButton__CompanyConfirm').on('click', () => {
+        console.log("testestetewt");
+        $('#uploadFileButton__CompanyConfirm').css('border-color', 'rgba(27, 31, 35, 0.2)').removeClass('invalidi')
+    })
+
+    myforminputs.not($('.optionalfield')).on('keyup', (e) => {
+        if (e.target.value.length <= 0) {
+            $(e.target).addClass('invalidi')
+        }
+    })
+
+    myforminputs.not($('.optionalfield')).on('focus', (e) => {
+        if (!$(e.target).hasClass('valid')) {
+            $(e.target).addClass('invalidi');
+        }
+    })
+
+    myforminputs.not($('.optionalfield')).on('blur', (e) => {
+        if (e.target.value.length <= 0) {
+            $(e.target).addClass('invalidi')
+            $(e.target).removeClass('valid')
+        }
+        if ($(e.target).hasClass('valid')) {
+            $(e.target).removeClass('invalidi');
+        }
+    })
+
+    $('select').on('change', (e) => {
+        e.target.classList.remove('invalidi')
+    })
+
+    $('[name= "ProvinceId"]').on('change', () => {
+
+        $('.selectCity').removeAttr('required');
+
+        $('[name= "CityId"]').attr('required', 'required');
+    })
+
+</script>
+<script>
+
+    // Form submit script
+
+    $('form').on('submit', (e) => {
+        let inputss = document.querySelectorAll('.myform input');
+
+        // Prevent from submit when has class invalidi
+        if ($(inputss).hasClass('invalidi')) {
+            e.preventDefault();
+            console.clear();
+            document.querySelectorAll('.invalidi').forEach((e) => {
+                console.warn('This input must fill or has errors', e)
+            })
+        }
+
+        inputss.forEach((e) => {
+            if (e.value.length == 0) {
+                $(e).not($('.optionalfield')).addClass('invalidi')
+            }
+        })
+
+        let selecthandler = document.querySelectorAll('select');
+        selecthandler.forEach((e) => {
+
+            if (e.value == 0) {
+                $(e).not($('.optionalfield')).addClass('invalidi')
+            }
+        })
+
+        var test = $('#fileupload__file__CompanyConfirm').attr('href');
+        if (test === "") {
+            $('#uploadFileButton__CompanyConfirm').css('border', '1px solid').addClass('invalidi')
+        }
+        else {
+            $('#uploadFileButton__CompanyConfirm').css('border', 'none').removeClass('invalidi')
+        }
+    })
+</script>
+<script>
+
+    // Custome radio(radiocon) script
+
+    $('.radiocon').on('click', function (e) {
+        $(e.target).addClass('checked');
+        $(e.target).next().removeClass('checked')
+        $(e.target).prev().removeClass('checked')
+    });
+
+    let gendervalue = $('#GenderInput').val();
+    (gendervalue == 'True') ? $('#maleGender').addClass('checked') : $('#femaleGender').addClass('checked');
+
+    let isIranianValue = $("#iranianInput").val();
+    (isIranianValue == 'True') ? $('#itsIranian').addClass('checked') : $('#notIranian').addClass('checked');
+
+    $('#maleGender').on('click', function () {
+        $("[name='Gender']").val('true')
+    })
+
+    $('#femaleGender').on('click', function () {
+        $("[name='Gender']").val('false')
+
+    })
+    $('#itsIranian').on('click', function () {
+        $("[name='IsIrainian']").val('true')
+    })
+
+    $('#notIranian').on('click', function () {
+        $("[name='IsIrainian']").val('false')
+
+    })
+</script>
+<script>
+
+    // Placeholder to label Script
+
+    let inputs = [];
+    let ph = [];
+    let newlabel = document.querySelectorAll('.placeholder-to-label');
+    newlabel.forEach((el, val) => {
+        inputs.push(el.previousSibling.previousSibling);
+        if (inputs[val].placeholder == undefined) {
+            console.log('undefined', $(inputs[val]).attr('placeholder'))
+            ph.push($(inputs[val]).attr('placeholder'));
+        } else {
+            ph.push(inputs[val].placeholder);
+        }
+        $(inputs[val]).on('focus', () => {
+            $(inputs[val]).attr('placeholder', '')
+            $(el).html(`<span>${ph[val]}</span>`);
+            $(el).css('top', '-8px')
+        })
+        $(inputs[val]).on('blur', () => {
+            $(inputs[val]).attr('placeholder', ph[val])
+            if ($(inputs[val]).val() == 0) {
+                $(el).html(`<span></span>`);
+                $(el).css('top', '10px')
+            }
+        })
+        if ($(inputs[val]).val() !== 0) {
+            $(inputs[val]).attr('placeholder', '')
+            $(el).html(`<span>${ph[val]}</span>`);
+            $(el).css('top', '-8px')
+        }
+    })
+</script>
+<script>
+    $('html').attr('style', 'overflow-y:hidden !important')
+</script>

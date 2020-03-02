@@ -1,0 +1,37 @@
+﻿
+<tfoot>
+    <tr>
+        <td colspan="5">
+            <nav aria-label="..." style="height:60px">
+                <ul class="pagination">
+                    <li class="page-item disabled">
+                        <span class="page-link">««</span>
+                    </li>
+                    <li class="page-item disabled">
+                        <span class="page-link">«</span>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item">
+                        <span class="page-link" style="padding:3px 12px">
+                            <input type="text" name="" value="2" class="form-control" style="background-color:#3498db;height: 23px;width: 50px;text-align: center;" />
+                            @*<span class="sr-only">(current)</span>*@
+                        </span>
+                        <span class="hide goToPage">
+                            <input type="text" name="" value="2" class="form-control" />
+                        </span>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">»</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">»»</a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="text-center size-10">
+                تعداد کل صفحات: <span>@Model.TotalCount</span>
+            </div>
+        </td>
+    </tr>
+</tfoot>

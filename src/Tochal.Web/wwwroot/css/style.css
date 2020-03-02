@@ -1,0 +1,91 @@
+@font-face {
+  font-family: 'mitra';
+  src: url("../fonts/BMitra.eot");
+  src: url("../fonts/BMitra.eot?#iefix") format("embedded-opentype"), url("../fonts/BMitra.woff") format("woff"), url("../fonts/BMitra.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'mitra';
+  src: url("../fonts/BMitraBold.eot");
+  src: url("../fonts/BMitraBold.eot?#iefix") format("embedded-opentype"), url("../fonts/BMitraBold.woff") format("woff"), url("../fonts/BMitraBold.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+body section {
+  font-family: 'mitra';
+  width: 80%;
+  position: absolute;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  left: 50%;
+  top: 50%;
+  background-color: #e7e7e7;
+  direction: rtl;
+  padding: 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  font-size: 1.3em;
+  font-weight: bold;
+  line-height: 40px;
+}
+
+* > input {
+  margin: 0 10px;
+  border: none;
+  border-bottom: rgba(255, 0, 0, 0.534) 2px solid;
+  background-color: unset;
+  font-family: 'mitra';
+  font-size: 1.3em;
+  text-align: center;
+}
+
+* > input:focus {
+  outline: none;
+}
+
+body section span:nth-of-type(1) {
+  margin: 10px 0;
+}
+
+body section span:nth-of-type(2) {
+  margin: 20px 0 20px 0;
+}
+
+body section span:nth-of-type(3) {
+  direction: ltr;
+  margin: 30px 0;
+  display: -ms-grid;
+  display: grid;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  line-height: 10px;
+  padding-top: 50px;
+  padding-left: 30px;
+  font-weight: normal;
+}
+
+body section span:nth-of-type(3) span:nth-of-type(2) {
+  margin: 25px 0 0 0;
+  padding: 0 40px;
+}
+
+body section span:nth-of-type(3) span:nth-of-type(3) {
+  padding: 0 40px;
+}

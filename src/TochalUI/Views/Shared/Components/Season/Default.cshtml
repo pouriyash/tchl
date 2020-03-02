@@ -1,0 +1,86 @@
+﻿@using Tochal.Core.DomainModels.Entity.Blog
+@using Tochal.Core.DomainModels.SSOT
+@model Tochal.Core.DomainModels.Entity.Season
+@using Microsoft.Extensions.Options
+@inject IOptions<FileConfig>  fileConfig
+
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+@{
+    int count = 0;
+}
+    <section class="seasons" style="box-shadow:none">
+
+        @* spring *@
+        <div class="s-img" style="display: none;">
+            <img src="@fileConfig.Value.WebAddress@Model.SpringHeaderImage" alt="">
+        </div>
+        <div class="s-text">
+            <h3><span>@Model.SpringShortDescription</span></h3>
+            @* <h3>@Localizer["TochalIn"] <span>@item.ShortContent</span></h3>*@
+            <div class="wrapMe">
+                @Html.Raw(Model.SpringContent)
+            </div>
+            <div class="s-more">
+                <a href="~/Home/Spring"><i class="fas fa-angle-left"></i>@Localizer["More"]</a>
+            </div>
+        </div>
+
+        @* summer *@
+        <div class="s-img" style="display: none;">
+            <img src="@fileConfig.Value.WebAddress@Model.SummerHeaderImage" alt="">
+        </div>
+        <div class="s-text">
+            <h3><span>@Model.SummerShortDescription</span></h3>
+            @* <h3>@Localizer["TochalIn"] <span>@item.ShortContent</span></h3>*@
+            <div class="wrapMe">
+                @Html.Raw(Model.SummerContent)
+            </div>
+            <div class="s-more">
+                <a href="~/Home/Summer"><i class="fas fa-angle-left"></i>@Localizer["More"]</a>
+            </div>
+        </div>
+
+        @* Autumn *@
+        <div class="s-img" style="display: none;">
+            <img src="@fileConfig.Value.WebAddress@Model.AutumnHeaderImage" alt="">
+        </div>
+        <div class="s-text">
+            <h3><span>@Model.AutumnShortDescription</span></h3>
+            @* <h3>@Localizer["TochalIn"] <span>@item.ShortContent</span></h3>*@
+            <div class="wrapMe">
+                @Html.Raw(Model.AutumnContent)
+            </div>
+            <div class="s-more">
+                <a href="~/Home/Autumn"><i class="fas fa-angle-left"></i>@Localizer["More"]</a>
+            </div>
+        </div>
+
+        @* Winter *@
+        <div class="s-img" style="display: none;">
+            <img src="@fileConfig.Value.WebAddress@Model.WinterHeaderImage" alt="">
+        </div>
+        <div class="s-text">
+            <h3><span>@Model.WinterShortDescription</span></h3>
+            @* <h3>@Localizer["TochalIn"] <span>@item.ShortContent</span></h3>*@
+            <div class="wrapMe">
+                @Html.Raw(Model.WinterContent)
+            </div>
+            <div class="s-more">
+                <a href="~/Home/Winter"><i class="fas fa-angle-left"></i>@Localizer["More"]</a>
+            </div>
+        </div>
+
+        <div class="s-btns" style="position:absolute;right:0;">
+            @*@foreach (var item in Model)
+            {
+                <a href="#seasons" onclick="seasonSlider(@(count++))">@item.Title</a>
+
+            }*@
+            <a href="#seasons" onclick="seasonSlider(@(count++))">@Model.SpringTitle</a>
+            <a href="#seasons" onclick="seasonSlider(@(count++))">@Model.SummerTitle</a>
+            <a href="#seasons" onclick="seasonSlider(@(count++))">@Model.AutumnTitle</a>
+            <a href="#seasons" onclick="seasonSlider(@(count++))">@Model.WinterTitle</a>
+
+        </div>
+    </section>

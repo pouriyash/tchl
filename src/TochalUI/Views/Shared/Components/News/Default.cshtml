@@ -1,0 +1,47 @@
+﻿@using Tochal.Core.DomainModels.Entity.Blog
+@using Tochal.Core.DomainModels.SSOT
+@model List<ContentEntity>
+@using DNTPersianUtils.Core
+@using System.Globalization 
+@using Microsoft.Extensions.Options
+@inject IOptions<FileConfig>  fileConfig
+@{
+    var lang = CultureInfo.CurrentCulture.Name;
+}
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
+<div class="boxnews-shadow">
+    <div class="boxNews">
+
+        @if (Model.Count > 0)
+        {
+            foreach (var item in Model)
+            {
+                <div class="newspost">
+                    <span class="titr">
+                        <h2 class="boxRefrence">@Localizer["News"]</h2>
+                        @if (lang == "fa-IR")
+                        {
+                            <p class="boxauthor">نوشته شده در <span>@item.CreatedDate.ToShortPersianDateString()</span> </p>
+
+                        }
+                        else
+                        {
+                            <p class="boxauthor">Written In <span>@item.CreatedDate.Value.ToString("yyyy/MM/dd")</span> </p>
+
+                        }
+                    </span>
+                    <h2 class="boxTitle">@item.Title</h2>
+                    <p class="boxp">@item.ShortContent</p>
+                    <a href="/Home/Detail?id=@item.Id" type="button" id='morebtn'>@Localizer["More"]</a>
+                </div>
+            }
+        }
+
+        <button type="button" id='nextbtn'>
+            <i class="fas fa-angle-left"></i>
+        </button>
+    </div>
+</div>
+

@@ -1,0 +1,512 @@
+﻿@using System.Collections.Generic
+@using Alamut.Data.Paging
+@using Tochal.Core.DomainModels.SSOT
+@using Tochal.Core.DomainModels.Entity.Menu
+@using Tochal.AppService.Helpers
+@inject IOptions<FileConfig> FileConfig
+@using Tochal.Core.DomainModels.Entity
+@{
+    ViewBag.Title = "ایجاد";
+    List<Tochal.Core.DomainModels.Entity.Content.GroupGallery> GalleryList = ViewBag.GalleryList;
+
+}
+
+<style>
+    table, tr {
+        border: 1px solid #ddd;
+    }
+
+    table {
+        border-radius: 25px;
+    }
+
+    td, th {
+        padding: 10px;
+        text-align: center;
+    }
+
+    tfoot td {
+        padding: 0px 10px;
+    }
+
+    thead {
+        background-color: #ddd;
+        color: #464646;
+    }
+
+    th.active {
+        background-color: #d5d5d5;
+    }
+
+    th {
+        padding: 0;
+    }
+
+        th a {
+            width: 100%;
+            height: 37px;
+            display: inline-block;
+            line-height: 37px;
+            position: relative;
+        }
+
+    .fa-sort {
+        line-height: 37px;
+        position: absolute;
+        left: 12px;
+        color: #aaa
+    }
+
+    h3 {
+        font-weight: 900;
+        background-color: #e3e3e3;
+        border: 1px solid #ccc;
+        width: max-content;
+        padding: 10px 20px;
+        border-radius: 10px 0 0 10px;
+        transform: translateX(36px);
+    }
+
+    .Create form, .Edit form {
+        padding: 20px;
+        padding-bottom: 40px;
+        border: 1px solid #ccc;
+        border-radius: 0px 30px
+    }
+</style>
+<style>
+    #picture1,
+    #mainVideo {
+        width: 100%;
+        border-radius: 10px;
+        box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
+        object-fit: cover;
+        max-height: 300px;
+    }
+
+    .gallery {
+        background: rgba(0, 0, 0, 0.3);
+        overflow: hidden;
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: center;
+        padding: 10px;
+        border-radius: 10px;
+        margin-top: 10px;
+        box-shadow: 0px 0px 15px gray inset;
+    }
+
+        .gallery img,
+        .gallery video {
+            margin-right: 10px;
+            width: 100px;
+            height: 100px;
+        }
+
+    .gallery-images {
+        position: relative;
+        transition: .3s ease-out;
+        z-index: 1;
+        left: 0;
+        display: inline-flex;
+    }
+
+    .gallery:hover .gallery-btns {
+        opacity: 1;
+    }
+
+    .gallery-item {
+        cursor: pointer;
+    }
+
+    .gallery-btn--left {
+        float: left;
+        left: 10px;
+    }
+
+    .gallery-btn--right {
+        float: right;
+        right: 10px;
+    }
+
+    .gallery-btn--right,
+    .gallery-btn--left {
+        cursor: pointer;
+        z-index: 2;
+        position: absolute;
+        font-size: 15px;
+        transition: .3s ease;
+        background-color: rgba(255, 255, 255, 0.25);
+        border-radius: 50%;
+        width: 25px;
+        height: 25px;
+        display: grid;
+        place-items: center;
+        opacity: 0;
+    }
+
+    .gallery-plus {
+        cursor: pointer;
+        margin-right: 5px;
+        padding: 10px;
+        display: grid;
+        place-items: center;
+        border-radius: 25px;
+        background-color: rgba(255, 255, 255, 0.2);
+        height: 30px;
+        margin-top: 30px;
+    }
+
+    .popup-bg {
+        background-color: rgba(0, 0, 0, 0.35);
+        width: 100vw;
+        height: 100vh;
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        display: grid;
+        place-items: center;
+    }
+
+    .popup-body {
+        position: relative;
+    }
+
+        .popup-body img,
+        .popup-body video {
+            max-width: 90vw;
+            max-height: 75vh;
+        }
+
+    .popup-close {
+        display: grid;
+        place-items: center;
+        background-color: red;
+        color: white;
+        font-size: 24px;
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        position: absolute;
+        top: -20px;
+        left: -20px;
+        box-shadow: 0px 0px 7px #0000004a;
+    }
+
+    .hide {
+        display: none;
+    }
+</style>
+<style>
+
+    #galley-input-list {
+        list-style-type: none;
+        display: flex;
+        flex-direction: column;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        text-align: right;
+        padding-right: 0;
+        background: #fafbfc
+    }
+
+        #galley-input-list li {
+            background: #f1f3f6;
+            padding: 10px;
+            margin: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: 0.2s ease;
+            user-select: none;
+            cursor: pointer;
+        }
+
+        #galley-input-list .active {
+            background-color: #d3f1ff;
+        }
+</style>
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">داشبور</a></li>
+        <li class="breadcrumb-item"><a href="/Menu/Index">لیست منو</a></li>
+        <li class="breadcrumb-item active" aria-current="page">ایجاد منو</li>
+    </ol>
+</nav>
+<div class="content _page-scroll animate-panel padding-0">
+    <div class="text-center container col-md-12">
+        <div class="row " style="margin:40px;padding:40px;border:1px solid grey;border-radius: 25px;position: relative;z-index: 0;">
+
+            <!-- Image Section -->
+
+            <div class="col-md-4 pull-right" id="imageSection" style="position: relative;">
+                <img src="~/images/Default.png" alt="" id="picture1">
+                <video src="" class="hide" id="mainVideo" controls>
+                    Please change your browser to Chrome or firefox to show the video.
+                </video>
+                <!-- Gallery Section -->
+
+                <div class="gallery col-md-12 hide">
+                    <!-- <div class="gallery-btns"> -->
+                    <div class="gallery-btn gallery-btn--left gallery-btns">
+                        <i class="fa fa-angle-left fa-lg" onclick="slideLeft()"></i>
+                    </div>
+                    <div class="gallery-btn gallery-btn--right gallery-btns">
+                        <i class="fa fa-angle-right fa-lg" onclick="slideRight()"></i>
+                    </div>
+                    <!-- </div> -->
+                    <div class="gallery-images">
+                        <img class="gallery-item hide" img-id="1" src="~/images/Default.png">
+                        <label class="gallery-plus" onclick="newGalleryImage(this)" for="gallerylabel[0]">
+                            <i class="fa fa-plus fa-lg"></i>
+                        </label>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-8 pull-left" id="formSection" style="height: 72vh;overflow-y: auto;">
+                <form asp-action="Create" asp-controller="Menu" id="contentForm" class="form-horizontal" enctype="multipart/form-data">
+                    <input type="hidden" name="Row" value="@ViewBag.rowType" />
+                    <input type="hidden" name="ParentId" value="@ViewBag.ParentId" />
+
+                    <div class="form-group row" id="zabanSafhe" dir="rtl">
+                        <label dir="rtl" class="control-label col-sm-3">زبان:</label>
+                        <div class="col-sm-9">
+                            <select name="Lang_Id" class="form-control" required>
+                                <option value="" disabled selected>--- انتخاب کنید ---</option>
+                                @foreach (var item in Enum.GetValues(typeof(LangSSOT)))
+                                {
+                                    <option value="@(item)">@(((LangSSOT)item).GetDisplayName())</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+
+                    @* در صورتی که فرزند نداشته باشد *@
+                    <div class="row form-group  " id="noeSafhe" style="display:block">
+                        <label class="control-label col-sm-3">نوع صفحه</label>
+                        <div class="col-sm-9">
+                            <select name="PageType" class="form-control">
+                                <option value="" selected disabled>--- انتخاب کنید ---</option>
+                                @foreach (var item in Enum.GetValues(typeof(PageTypeSSOT)))
+                                {
+                                    <option value="@(item)">@(((PageTypeSSOT)item).GetDisplayName())</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row form-group" id="onvan">
+                        <label class="control-label col-sm-3">عنوان</label>
+                        <div class="col-sm-9">
+                            <input required placeholder="عنوان" class="form-control" type="text" name="Title" />
+                        </div>
+                    </div>
+
+                    <div class="row form-group" id="zironvan">
+                        <label class="control-label col-sm-3">زیر عنوان</label>
+                        <div class="col-sm-9">
+                            <input placeholder="زیر عنوان" class="form-control" type="text" name="SubTitle" />
+                        </div>
+                    </div>
+                    <div class="form-group row " id="headerImage" dir="rtl">
+                        <label dir="rtl" class="control-label col-sm-3">تصویر هدر:</label>
+                        <div class="col-sm-9">
+                            <input type="file" input-id="1" name="headerImage" class="form-control" onchange="checkFile(this)">
+                        </div>
+                    </div>
+                    <div class="form-group row " id="mobileImage" dir="rtl">
+                        <label dir="rtl" class="control-label col-sm-3">تصویر موبایل هدر:</label>
+                        <div class="col-sm-9">
+                            <input type="file" name="mobileImage" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group row " id="video" dir="rtl">
+                        <label dir="rtl" class="control-label col-sm-3">افزودن فیلم:</label>
+                        <div class="col-sm-9">
+                            <input type="file" name="mainVideo" class="form-control">
+                        </div>
+                    </div>
+                    @* در صورتی که فرزند نداشته باشد *@
+                    @* در صورتی که نوع نمایشش تک صفحه ای باشد *@
+                    <div class="row form-group" id="kholaseMatlab">
+                        <label class="control-label col-sm-3">خلاصه مطلب</label>
+                        <div class="col-sm-9">
+                            <textarea name="ShortContent" placeholder="خلاصه محتوا" class="form-control"></textarea>
+                        </div>
+                    </div>
+                    <div class="row form-group" id="mohtava">
+                        <label class="control-label col-sm-3">محتوا</label>
+                        <div class="col-sm-9">
+                            <textarea id="Content" name="Content" placeholder="محتوا" class="form-control"></textarea>
+                        </div>
+                    </div>
+                    @*<div class="form-group row " id="galleryinput" dir="rtl">
+                            <label dir="rtl" class="control-label col-sm-3">افزودن گالری:</label>
+                            <div class="col-sm-9">
+                                <a class="btn btn-block btn-primary" onclick="$('.gallery').removeClass('hide')">کلیک کنید</a>
+                            </div>
+                        </div>*@
+
+                    <div class="form-group row " id="galleryinput" style="display:none" dir="rtl">
+                        <label dir="rtl" class="control-label col-sm-3">انتخاب گالری:</label>
+                        <div class="col-sm-9">
+                            <ul id="galley-input-list">
+                                @foreach (var item in GalleryList)
+                                {
+                                <li>
+                                    @if (item.Gallery != null || item.Gallery.Image != null)
+                                    {
+
+                                        <img src="@FileConfig.Value.WebAddress@item.Gallery.Image" alt="@item.Title" style="width:100px;height:100px" />
+                                    }
+                                    else
+                                    {
+                                        <img src="/images/Default.png" alt="@item.Title" style="width:100px;height:100px" />
+
+                                    }
+                                    <label>@item.Title</label>
+                                    <input type="checkbox" name="Gallery" value="@item.Id" />
+                                </li>
+                                }
+                            </ul>
+                        </div>
+                        <script>
+                            $(function () {
+                                $('#galley-input-list li').on('click', (e) => {
+                                    if (e.target.nodeName == "IMG") {
+                                        $(e.target).parent().find('input').click();
+                                        $(e.target).toggleClass('active');
+                                    } else {
+                                        $(e.target).find('input').click();
+                                        $(e.target).parent().toggleClass('active');
+                                    }
+                                })
+                            })
+                        </script>
+                    </div>
+                    @* در صورتی که فرزند نداشته باشد *@
+                    @* در صورتی که نوع نمایشش لینک خارجی باشد باشد *@
+                    <div class="row form-group" id="linkKhareji">
+                        <label class="control-label col-sm-3">لینک خارجی</label>
+                        <div class="col-sm-9">
+                            <input placeholder="لینک خارجی" class="form-control" type="text" name="Link" />
+                        </div>
+                    </div>
+
+                    <div class="col-md-9"></div>
+                    <div class="col-md-3"><input class="btn btn-block btn-exir" type="submit" value="ثبت" /></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    new FroalaEditor('#Content', {
+        // Set the image upload URL.
+        imageUploadURL: '/UploadFiles',
+
+        imageUploadParams: {
+            id: 'my_editor'
+        }
+    })
+</script>
+<script src="~/js/create-form.js"></script>
+<script>
+    $(function () {
+
+        $('#mohtava').hide();
+        $('#kholaseMatlab').hide();
+        $('#linkKhareji').hide();
+        $('#noeNamayesh').hide();
+        $('#onvan').hide();
+        $('#zironvan').hide();
+        $('#headerImage').hide();
+        $('#imageSection').hide();
+        $('#galleryinput').hide();
+        $('#mobileImage').hide();
+        $('#video').hide();
+        $('[name="PageType"]').on('change', () => {
+            let value = $('[name="PageType"]').val();
+            switch (value) {
+                case 'Single': {
+                    $('#mohtava').show();
+                    $('#kholaseMatlab').show();
+                    $('#linkKhareji').hide();
+                    $('#onvan').show();
+                    $('#zironvan').show();
+                    $('#headerImage').show();
+                    $('#imageSection').show();
+                    $('#galleryinput').show();
+                    $('#mobileImage').show();
+                    $('#video').show();
+                    $("input[name='Link']").removeAttr('required');
+                    //$("textarea[name='Content']").attr('required', 'required');
+                    //$("textarea[name='ShortContent']").attr('required', 'required');
+
+                    break;
+                }
+                case 'List': {
+                    $('#onvan').show();
+                    $('#zironvan').show();
+                    $('#mohtava').hide();
+                    $('#kholaseMatlab').hide();
+                    $('#noeNamayesh').show();
+                    $('#linkKhareji').hide();
+                    $('#headerImage').hide();
+                    $('#imageSection').hide();
+                    $('#galleryinput').hide();
+                    $('#mobileImage').hide();
+                    $('#video').hide();
+                    $("input[name='Link']").removeAttr('required');
+                    //$("textarea[name='Content']").removeAttr('required');
+                    //$("textarea[name='ShortContent']").removeAttr('required');
+                    break;
+                }
+                case 'ExternalLink': {
+                    $('#mohtava').hide();
+                    $('#kholaseMatlab').hide();
+                    $('#onvan').show();
+                    $('#zironvan').show();
+                    $('#noeNamayesh').hide();
+                    $('#linkKhareji').show();
+                    $('#headerImage').hide();
+                    $('#imageSection').hide();
+                    $('#galleryinput').hide();
+                    $('#mobileImage').hide();
+                    $('#video').hide();
+                    $("input[name='Link']").attr('required', 'required');
+                    //$("textarea[name='Content']").removeAttr('required');
+                    //$("textarea[name='ShortContent']").removeAttr('required');
+                    break;
+                }
+                default: {
+                    $('#mohtava').hide();
+                    $('#kholaseMatlab').hide();
+                    $('#linkKhareji').hide();
+                    $('#noeNamayesh').hide();
+                    $('#onvan').hide();
+                    $('#zironvan').hide();
+                    $('#headerImage').hide();
+                    $('#imageSection').hide();
+                    $('#galleryinput').hide();
+                    $('#mobileImage').hide();
+                    $('#video').hide();
+                    $("input[name='Link']").removeAttr('required');
+                    $("input[name='Link']").removeAttr('required');
+                    $("input[name='Link']").removeAttr('required');
+                }
+            }
+        })
+        $('[type="submit"]').on('click', (e) => {
+            if ($('[name="PageType"]').val() == "") {
+                alert('لطفا نوع صفحه را مشخص کنید.')
+                e.preventDefault();
+            }
+        })
+    })
+</script>

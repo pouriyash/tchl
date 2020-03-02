@@ -1,0 +1,16 @@
+E:\NewGit\src\AppService\bin\Release\netcoreapp2.2\AppService.deps.json
+E:\NewGit\src\AppService\bin\Release\netcoreapp2.2\AppService.dll
+E:\NewGit\src\AppService\bin\Release\netcoreapp2.2\AppService.pdb
+E:\NewGit\src\AppService\bin\Release\netcoreapp2.2\Alamut.Service.Messaging.dll
+E:\NewGit\src\AppService\bin\Release\netcoreapp2.2\Tochal.Core.dll
+E:\NewGit\src\AppService\bin\Release\netcoreapp2.2\Tochal.Infrastructure.dll
+E:\NewGit\src\AppService\bin\Release\netcoreapp2.2\Tochal.Core.pdb
+E:\NewGit\src\AppService\bin\Release\netcoreapp2.2\Tochal.Infrastructure.pdb
+E:\NewGit\src\AppService\bin\Release\netcoreapp2.2\Alamut.Service.Messaging.pdb
+E:\NewGit\src\AppService\obj\Release\netcoreapp2.2\AppService.csprojAssemblyReference.cache
+E:\NewGit\src\AppService\obj\Release\netcoreapp2.2\AppService.csproj.CoreCompileInputs.cache
+E:\NewGit\src\AppService\obj\Release\netcoreapp2.2\AppService.AssemblyInfoInputs.cache
+E:\NewGit\src\AppService\obj\Release\netcoreapp2.2\AppService.AssemblyInfo.cs
+E:\NewGit\src\AppService\obj\Release\netcoreapp2.2\AppService.csproj.CopyComplete
+E:\NewGit\src\AppService\obj\Release\netcoreapp2.2\AppService.dll
+E:\NewGit\src\AppService\obj\Release\netcoreapp2.2\AppService.pdb

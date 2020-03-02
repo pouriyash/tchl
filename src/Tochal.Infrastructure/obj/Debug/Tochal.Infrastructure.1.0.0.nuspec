@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Tochal.Infrastructure</id>
+    <version>1.0.0</version>
+    <authors>Tochal.Infrastructure</authors>
+    <owners>Tochal.Infrastructure</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Package Description</description>
+    <dependencies>
+      <group targetFramework=".NETCoreApp2.2">
+        <dependency id="Alamut.Service.Messaging" version="1.0.0" exclude="Build,Analyzers" />
+        <dependency id="Tochal.Core" version="1.0.0" exclude="Build,Analyzers" />
+        <dependency id="Alamut.Data" version="3.0.4" exclude="Build,Analyzers" />
+        <dependency id="Alamut.Utilities" version="3.0.3" exclude="Build,Analyzers" />
+        <dependency id="AutoMapper" version="7.0.1" exclude="Build,Analyzers" />
+        <dependency id="DNTCommon.Web.Core" version="1.6.0" exclude="Build,Analyzers" />
+        <dependency id="DNTPersianUtils.Core" version="3.5.0" exclude="Build,Analyzers" />
+        <dependency id="Dapper" version="2.0.4" exclude="Build,Analyzers" />
+        <dependency id="MailKit" version="2.3.1.6" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.AspNetCore.Identity.EntityFrameworkCore" version="2.2.0" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.AspNetCore.Mvc.Razor" version="2.2.0" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.EntityFrameworkCore" version="2.2.4" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.EntityFrameworkCore.InMemory" version="2.2.4" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.EntityFrameworkCore.SqlServer" version="2.2.4" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.Extensions.Configuration" version="2.2.0" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.Extensions.Configuration.Abstractions" version="2.2.0" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.Extensions.Configuration.Binder" version="2.2.4" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.Extensions.Configuration.Json" version="2.2.0" exclude="Build,Analyzers" />
+        <dependency id="SmsIrRestful" version="1.1.0" exclude="Build,Analyzers" />
+        <dependency id="System.Drawing.Common" version="4.5.1" exclude="Build,Analyzers" />
+        <dependency id="System.Linq.Dynamic.Core" version="1.0.19" exclude="Build,Analyzers" />
+        <dependency id="System.ServiceModel.Duplex" version="4.6.0" exclude="Build,Analyzers" />
+        <dependency id="System.ServiceModel.Http" version="4.6.0" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="E:\NewGit\src\Tochal.Infrastructure\bin\Debug\netcoreapp2.2\Tochal.Infrastructure.runtimeconfig.json" target="lib\netcoreapp2.2\Tochal.Infrastructure.runtimeconfig.json" />
+    <file src="E:\NewGit\src\Tochal.Infrastructure\bin\Debug\netcoreapp2.2\Tochal.Infrastructure.dll" target="lib\netcoreapp2.2\Tochal.Infrastructure.dll" />
+  </files>
+</package>

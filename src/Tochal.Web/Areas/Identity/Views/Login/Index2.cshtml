@@ -1,0 +1,81 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+
+
+</head> 
+<body class="preload">
+    <!--=== Content Part ===-->
+    <div class="container-fluid">
+
+        @*@Html.Partial("_Message")
+
+        @RenderBody()*@
+
+    </div>
+    <!--=== End Content Part ===-->
+    <!-- JS Global Compulsory -->
+    <script src="~/theme/assets/vendor/jquery/dist/jquery.min.js"></script>
+    <script src="~/theme/assets/scripts/login/jquery-migrate.min.js"></script>
+    <script src="~/theme/assets/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <!-- JS Implementing Plugins -->
+    <script src="~/lib/matchHeight-0.7.2/dist/jquery.matchHeight-min.js?v0.7.2"></script>
+    <script src="~/theme/assets/scripts/login/jquery-backstretch.min.js"></script>
+
+    <!-- JS Page Level -->
+    <script src="~/theme/assets/scripts/login/app.js"></script>
+
+    <script>
+        $(".equal-height-column").matchHeight();
+    </script>
+
+    <script>
+    @*$(".image-block").backstretch(@Html.Raw(JsonConvert.SerializeObject(ContactInfo.LoginImages)), {
+        fade: 1000,
+        duration: 7000
+    });*@
+    </script>
+
+    <script>
+        var qs = (function (a) {
+            if (a == "") return {};
+            var b = {};
+            for (var i = 0; i < a.length; ++i) {
+                var p = a[i].split('=', 2);
+                if (p.length == 1)
+                    b[p[0]] = "";
+                else
+                    b[p[0]] = decodeURIComponent(p[1].replace(/\+/g, " "));
+            }
+            return b;
+        })(window.location.search.substr(1).split('&'));
+
+        var username = qs['username'];
+        var password = qs['password'];
+
+        if (username && password) {
+            $('[name="UserName"]').val(username);
+            $('[name="Password"]').val(password);
+            $('[name="loginForm"]').submit();
+        } else {
+            $('body').removeClass('preload');
+        }
+    </script>
+
+    @RenderSection("Scripts", false)
+    <!--[if lt IE 9]>
+        <script src="~/theme/assets/scripts/login/respond.js"></script>
+        <script src="~/theme/assets/scripts/login/html5shiv.js"></script>
+        <script src="~/theme/assets/scripts/login/placeholder-IE-fixes.js"></script>
+        <![endif]-->
+</body>
+</html>

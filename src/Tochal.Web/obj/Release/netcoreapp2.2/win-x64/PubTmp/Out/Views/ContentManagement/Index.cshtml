@@ -1,0 +1,136 @@
+﻿@using System.Collections.Generic
+@using Alamut.Data.Paging
+@using Tochal.Core.DomainModels.SSOT
+@using Tochal.Core.DomainModels.DTO.ContentEntity
+@using Tochal.AppService.Helpers
+@using Tochal.Web.Helpers
+@using Tochal.Core.DomainModels.DTO
+@model SearchCriteriaPageModel<List<ContentEntityDTO>, ContentEntitySearchViewModel, int>
+@{
+    ViewBag.Title = "لیست محتواها";
+    int count = 1;
+}
+
+<style>
+    table, tr {
+        border: 1px solid #ddd;
+    }
+
+    table {
+        border-radius: 25px;
+    }
+
+    td, th {
+        padding: 10px;
+        text-align: center;
+    }
+
+    tfoot td {
+        padding: 0px 10px;
+    }
+
+    thead {
+        background-color: #ddd;
+        color: #464646;
+    }
+</style>
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">داشبور</a></li>
+        <li class="breadcrumb-item active" aria-current="page">لیست محتوا</li>
+    </ol>
+</nav>
+<div class="content _page-scroll animate-panel padding-0">
+    <div class="col-md-12" style="margin-bottom:10px">
+        <div class="col-md-2"></div>
+        <div class="col-md-2 no-padding">
+            <a asp-action="Create" asp-controller="ContentManagement" asp-route-Showlocation="@Model.SearchCriteria.Showlocation" asp-route-MainPageContentType="@Model.SearchCriteria.MainPageContentType" class="btn btn-info btn-block">ایجاد</a>
+        </div>
+    </div>
+    <div class="text-center container col-md-12">
+        <div class="col-md-2"></div>
+        <table class="col-md-8">
+            <thead>
+                <tr>
+                    <th>ردیف</th>
+                    <th>عنوان</th>
+                    <th>نوع </th>
+                    <th>جایگاه نمایشی </th>
+                    <th>اقدامات</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <form action="/" method="post">
+                        <td><input placeholder="#" type="text" name="" class="form-control" /></td>
+                        <td><input placeholder="عنوان" type="text" name="" class="form-control" /></td>
+                        <td><input placeholder="نوع " type="text" name="" class="form-control" /></td>
+                        <td><input placeholder="جایگاه نمایشی" type="text" name="" class="form-control" /></td>
+                        <td><input type="submit" name="" class="btn btn-exir" value="جستجو" /></td>
+                    </form>
+                </tr>
+                @foreach (var item in Model.PageModel)
+                {
+                    <tr>
+                        <td>@(count++)</td>
+                        <td>@item?.Title</td>
+                        <td>@(item.Showlocation == Tochal.Core.DomainModels.Entity.Blog.ShowlocationTypeSSOT.FirstPage ? (item?.MainPageContentType.GetDisplayName()) : (item?.BlogContentEntityType.GetDisplayName()))</td>
+                        <td>@item?.Showlocation.GetDisplayName()</td>
+                        <td>
+                            <a asp-action="Edit" asp-controller="ContentManagement" asp-route-Id="@item.Id"><i class="fa fa-edit fa-lg text-info margin-left-10"></i></a>
+                            <a asp-action="Delete" asp-controller="ContentManagement" asp-route-Id="@item.Id" asp-route-Showlocation="@item.Showlocation" asp-route-MainPageContentType="@item.MainPageContentType" data-role="confirm"><i class="fa fa-trash fa-lg text-danger" aria-hidden="true"></i></a>
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+            <tfoot>
+
+                <tr>
+                    <td colspan="5">
+                        <nav aria-label="..." style="height:60px">
+                            <ul class="pagination">
+                                <li class="page-item disabled">
+                                    <span class="page-link">««</span>
+                                </li>
+                                <li class="page-item disabled">
+                                    <span class="page-link">«</span>
+                                </li>
+                                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item">
+                                    <span class="page-link" style="padding:3px 12px">
+                                        <input type="text" name="" value="2" class="form-control" style="background-color:#3498db;height: 23px;width: 50px;text-align: center;" />
+                                        @*<span class="sr-only">(current)</span>*@
+                                    </span>
+                                    <span class="hide goToPage">
+                                        <input type="text" name="" value="2" class="form-control" />
+                                    </span>
+                                </li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#">»</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#">»»</a>
+                                </li>
+                            </ul>
+                        </nav>
+                        <div class="text-center size-10">
+                            تعداد کل صفحات: <span>@Model.TotalCount</span>
+                        </div>
+                    </td>
+                </tr>
+
+            </tfoot>
+        </table>
+    </div>
+</div>
+
+<script>
+
+    $('.active').on('mouseover', () => {
+        $('.goToPage').show()
+    })
+
+</script>

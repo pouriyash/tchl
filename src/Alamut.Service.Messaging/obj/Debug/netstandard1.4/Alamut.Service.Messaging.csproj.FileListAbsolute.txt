@@ -1,0 +1,9 @@
+E:\NewGit\src\Alamut.Service.Messaging\bin\Debug\netstandard1.4\Alamut.Service.Messaging.deps.json
+E:\NewGit\src\Alamut.Service.Messaging\bin\Debug\netstandard1.4\Alamut.Service.Messaging.dll
+E:\NewGit\src\Alamut.Service.Messaging\bin\Debug\netstandard1.4\Alamut.Service.Messaging.pdb
+E:\NewGit\src\Alamut.Service.Messaging\obj\Debug\netstandard1.4\Alamut.Service.Messaging.AssemblyInfoInputs.cache
+E:\NewGit\src\Alamut.Service.Messaging\obj\Debug\netstandard1.4\Alamut.Service.Messaging.AssemblyInfo.cs
+E:\NewGit\src\Alamut.Service.Messaging\obj\Debug\netstandard1.4\Alamut.Service.Messaging.dll
+E:\NewGit\src\Alamut.Service.Messaging\obj\Debug\netstandard1.4\Alamut.Service.Messaging.pdb
+E:\NewGit\src\Alamut.Service.Messaging\obj\Debug\netstandard1.4\Alamut.Service.Messaging.csprojAssemblyReference.cache
+E:\NewGit\src\Alamut.Service.Messaging\obj\Debug\netstandard1.4\Alamut.Service.Messaging.csproj.CoreCompileInputs.cache

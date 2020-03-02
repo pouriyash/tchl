@@ -1,0 +1,61 @@
+﻿@using Tochal.Core.DomainModels.Entity.Blog
+@using Tochal.Core.DomainModels.SSOT
+@model List<ContentEntity>
+@using Microsoft.Extensions.Options
+@inject IOptions<FileConfig>  fileConfig
+@using DNTPersianUtils.Core
+@{ 
+    int count = 1;
+}
+
+
+<div style="background-color:white;z-index:-1;height:100%;width:100vw;display: table-cell;">
+    <section class="digitalSell" id="digitalSell">
+        <div class="sc-nav">
+            <div class="sc-btn sc-selected" onclick="viewBoxSelect(this)" ticket-btn="1">
+                <i class="fas fa-bus"></i>
+                <h5 class="sc-name">اتوبوس برقی</h5>
+            </div>
+            <div class="sc-btn" onclick="viewBoxSelect(this)" ticket-btn="2">
+                <i class="fas fa-tram"></i>
+                <h5 class="sc-name">تله‌سیژ</h5>
+            </div>
+            <div class="sc-btn" onclick="viewBoxSelect(this)" ticket-btn="3">
+                <i class="fas fa-sleigh"></i>
+                <h5 class="sc-name">سورتمه</h5>
+            </div>
+            <div class="sc-btn" onclick="viewBoxSelect(this)" ticket-btn="4">
+                <i class="fas fa-tram"></i>
+                <h5 class="sc-name">تله‌کابین</h5>
+            </div>
+            <div class="sc-btn" onclick="viewBoxSelect(this)" ticket-btn="5">
+                <i class="fas fa-home"></i>
+                <h5 class="sc-name">رزرو هتل</h5>
+            </div>
+        </div>
+        
+        @foreach (var item in Model.OrderBy(p=>p.Id))
+        {
+            <div class="leftside" ticket-id="@(count++)">
+                <div class="viewBox">
+                    <img src="@fileConfig.Value.WebAddress@item.MainImage" alt="">
+                </div>
+                <div class="titling">
+                    <div class="sc-title">
+                        <h2>خرید آنلاین</h2>
+                    </div>
+                    <div class="sc-pname">
+                        <h2>@item.Title</h2>
+                    </div>
+                    <div class="sc-p">
+                        <p>@item.ShortContent</p>
+                    </div>
+                    <div class="purchase" style="direction: rtl;">
+                       @Html.Raw(item.Content)
+                    </div>
+                </div>
+            </div>
+        }
+    </section>
+</div>
+

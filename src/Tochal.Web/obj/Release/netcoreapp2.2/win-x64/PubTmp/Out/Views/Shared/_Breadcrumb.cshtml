@@ -1,0 +1,44 @@
+﻿@*@using Research.City.Admin.Toolkit
+
+@{ BreadCrumb breadCrumb = ViewBag.BreadCrumb; }*@
+
+
+@*@if (breadCrumb != null)
+{
+    <div class="normalheader small-header">
+        <div class="hpanel">
+            <div class="panel-body">
+                @if (breadCrumb.Links != null)
+                {
+                    <div id="hbreadcrumb" class="pull-right">
+                        <ol class="hbreadcrumb breadcrumb">
+                            <li><a asp-controller="Home" asp-action="Index">داشبورد</a></li>
+
+                            @foreach (var item in breadCrumb.Links)
+                            {
+                                <li class="@(string.IsNullOrWhiteSpace(item.Link) ? "active" : "")">
+                                    @if (string.IsNullOrWhiteSpace(item.Link))
+                                    {
+                                        <span>@item.Title</span>
+                                    }
+                                    else
+                                    {
+                                        <a href="@item.Link">@item.Title</a>
+                                    }
+                                </li>
+                            }
+                        </ol>
+                    </div>
+                }
+
+            
+                <h2 class="font-light m-b-xs">
+                    @ViewBag.Title
+                </h2>
+                <small>
+                    @(ViewBag.Description ?? ViewBag.Title)
+                </small>
+            </div>
+        </div>
+    </div>
+}*@

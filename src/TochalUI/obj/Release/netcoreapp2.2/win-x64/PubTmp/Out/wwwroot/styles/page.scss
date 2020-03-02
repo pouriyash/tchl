@@ -1,0 +1,66 @@
+@import "~/fontface";
+@import "navbar";
+@import "digitalsell";
+@import 'bgwithmountains';
+
+$primary: #da251e;
+$secondary: #06084d;
+$greydark: #333333;
+$greylight: #4d4d4f;
+
+footer {
+  margin-top: 100px;
+}
+
+.article {
+  position: relative;
+  top: -50px;
+  text-align: right;
+  width: 80%;
+  margin: auto;
+  direction: rtl;
+  h2 {
+    font-family: "DYekan_bold";
+    font-size: 32px;
+    color: $primary;
+    font-weight: 900;
+    margin-bottom: 40px;
+  }
+  p {
+    font-family: "iranSans";
+    font-size: 14px;
+    font-weight: 100;
+    line-height: 30px;
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  .backgroundImage img {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 94%) !important;
+  }
+  .bgdown {
+    top: -80px !important;
+    clip-path: polygon(0 0, 100% 14%, 100% 100%, 0 86%) !important;
+    height: 200px !important;
+    .mountains {
+      bottom: -11px !important;
+      transform: rotate(1.4deg) !important;
+      left: 0%;
+    }
+    .articletitle {
+      left: 0% !important;
+      right: 0;
+      top: 0% !important;
+      float: right !important;
+      padding: 50px !important;
+      text-align: right;
+    }
+  }
+}
+
+@media only screen and (max-width: 485px) {
+  .mountains {
+    position: absolute;
+    left: -15vw !important;
+  }
+}

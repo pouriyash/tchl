@@ -1,0 +1,16 @@
+E:\NewGit\src\Tochal.Infrastructure\bin\Debug\netcoreapp2.2\Tochal.Infrastructure.deps.json
+E:\NewGit\src\Tochal.Infrastructure\bin\Debug\netcoreapp2.2\Tochal.Infrastructure.runtimeconfig.json
+E:\NewGit\src\Tochal.Infrastructure\bin\Debug\netcoreapp2.2\Tochal.Infrastructure.runtimeconfig.dev.json
+E:\NewGit\src\Tochal.Infrastructure\bin\Debug\netcoreapp2.2\Tochal.Infrastructure.dll
+E:\NewGit\src\Tochal.Infrastructure\bin\Debug\netcoreapp2.2\Tochal.Infrastructure.pdb
+E:\NewGit\src\Tochal.Infrastructure\bin\Debug\netcoreapp2.2\Alamut.Service.Messaging.dll
+E:\NewGit\src\Tochal.Infrastructure\bin\Debug\netcoreapp2.2\Tochal.Core.dll
+E:\NewGit\src\Tochal.Infrastructure\bin\Debug\netcoreapp2.2\Alamut.Service.Messaging.pdb
+E:\NewGit\src\Tochal.Infrastructure\bin\Debug\netcoreapp2.2\Tochal.Core.pdb
+E:\NewGit\src\Tochal.Infrastructure\obj\Debug\netcoreapp2.2\Tochal.Infrastructure.csprojAssemblyReference.cache
+E:\NewGit\src\Tochal.Infrastructure\obj\Debug\netcoreapp2.2\Tochal.Infrastructure.AssemblyInfoInputs.cache
+E:\NewGit\src\Tochal.Infrastructure\obj\Debug\netcoreapp2.2\Tochal.Infrastructure.AssemblyInfo.cs
+E:\NewGit\src\Tochal.Infrastructure\obj\Debug\netcoreapp2.2\Tochal.Infrastructure.csproj.CopyComplete
+E:\NewGit\src\Tochal.Infrastructure\obj\Debug\netcoreapp2.2\Tochal.Infrastructure.dll
+E:\NewGit\src\Tochal.Infrastructure\obj\Debug\netcoreapp2.2\Tochal.Infrastructure.pdb
+E:\NewGit\src\Tochal.Infrastructure\obj\Debug\netcoreapp2.2\Tochal.Infrastructure.csproj.CoreCompileInputs.cache

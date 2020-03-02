@@ -1,0 +1,12 @@
+﻿@using Tochal.AppService.Helpers
+@model Tochal.Core.DomainModels.ViewModel.Routine2.Routine2LogButton
+@using Tochal.Core.DomainModels.SSOT
+@{
+    var entityIdE = AESGCM.SimpleEncryptWithPassword(Model.EntityId.ToString(), AppConfiguration.EncryptionSalt);
+    var routineIdE = AESGCM.SimpleEncryptWithPassword(Model.RoutineId.ToString(), AppConfiguration.EncryptionSalt);
+}
+
+
+<a data-fancybox data-type="iframe" asp-controller="Routine2" asp-action="GetLogs" asp-route-routineIdE="@routineIdE" asp-route-entityIdE="@entityIdE">
+    <i class="pe-7s-timer largeicon" title="تاریخچه" data-toggle="tooltip"></i>
+</a>

@@ -1,0 +1,18 @@
+﻿@using Exir.Regate 
+
+
+
+@try
+{
+    if (Model.Entity.RoutineStep == Model.Step)
+    {
+        @Html.Partial($"_CustomActions/_Step{Model.Step}")
+    }
+}
+catch (Exception ex)
+{
+    <p>@ex.Message</p>
+}
+
+
+

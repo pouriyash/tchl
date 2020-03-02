@@ -1,0 +1,59 @@
+﻿@using Tochal.Core.DomainModels.Entity.Blog
+@using Tochal.Core.DomainModels.SSOT
+@model List<ContentEntity>
+@using Microsoft.Extensions.Options
+@inject IOptions<FileConfig>  fileConfig
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+<section class="famousPlaces">
+    <div class="fp-title">
+        <h2>
+            @Localizer["MostView"]
+        </h2>
+    </div>
+    <div class="famousPlacesBox ">
+        @if (Model.Count > 0)
+        {
+            foreach (var item in Model)
+            {
+                <div class="">
+                    @*<img src="@("http://localhost:59823/repository/FileUpload/"+item.MainImage)" alt="">*@
+                    <img src="@fileConfig.Value.WebAddress@item.MainImage" alt="">
+
+                    <h2>@item.Title</h2>
+                    <p>@item.ShortContent</p>
+                    <a href="/Home/Detail?id=@item.Id"><i class="fas fa-angle-left"></i>@Localizer["More"]</a>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="">
+                <img src="http://www.tochal.org/images/contents/14474/222.jpg" alt="">
+                <h2>لورم ایپسوم متن ساختگی</h2>
+                <p>لورم ایپسوم متن ساختگ آنچنان که لازم.</p>
+                <a href="#"><i class="fas fa-angle-left"></i>ادامه مطلب</a>
+            </div>
+            <div class="">
+                <img src="http://www.tochal.org/images/contents/14474/222.jpg" alt="">
+                <h2>لورم ایپسوم متن ساختگی</h2>
+                <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه مجله در ستون و سطر آنچنان که لازم.</p>
+                <a href="#"><i class="fas fa-angle-left"></i>ادامه مطلب</a>
+            </div>
+            <div class="">
+                <img src="https://cdn.blog.safarme.com/2018/01/tochal-iran-ski-traveling-center-visa-tehran.jpg" alt="">
+                <h2>لورم ایپسوم متن ساختگی</h2>
+                <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه مجله در ستون و سطر آنچنان که لازم.</p>
+                <a href="#"><i class="fas fa-angle-left"></i>ادامه مطلب</a>
+            </div>
+            <div class="">
+                <img src="https://cdn.blog.safarme.com/2018/01/tochal-iran-ski-traveling-center-visa-tehran.jpg" alt="">
+                <h2>لورم ایپسوم متن ساختگی</h2>
+                <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است چاپگرها و متون بلکه روزنامه مجله در ستون و سطر آنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای.</p>
+                <a href="#"><i class="fas fa-angle-left"></i>ادامه مطلب</a>
+            </div>
+        }
+
+    </div>
+</section>
+

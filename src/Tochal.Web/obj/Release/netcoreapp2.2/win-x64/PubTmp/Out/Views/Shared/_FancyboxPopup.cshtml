@@ -1,0 +1,10 @@
+﻿@using Tochal.Web.Toolkit
+
+@{
+    var mode = Context.Request.Query["__layout"].ToString().ToLower();
+
+    if (mode == "fancybox")
+    {
+        @Html.Raw(Styles.MakeLayoutBlank())
+    }
+}

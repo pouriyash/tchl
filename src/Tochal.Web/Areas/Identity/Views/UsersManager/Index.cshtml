@@ -1,0 +1,328 @@
+﻿@using Tochal.Core.DomainModels.SSOT
+@using Exir.Remark
+@using Exir.Regate
+@using Tochal.Web.Helpers
+@using Tochal.Core.DomainModels.ViewModel.TochalCompany
+
+@inject IOptions<FileConfig> FileConfig
+
+@model Tochal.Core.DomainModels.DTO.SearchCriteriaPageModel<Alamut.Data.Paging.IPaginated<User>, UserSearchViewModel,int>
+
+@{
+    ViewBag.Title = "کاربران";
+    int count = 1;
+}
+
+<style>
+    .no-aside #header {
+        position: fixed;
+    }
+
+    .content._page-scroll {
+        padding-top: 55px !important;
+    }
+
+    .phtl {
+        position: relative;
+    }
+
+        .phtl .placeholder-to-label {
+            position: absolute;
+            background: linear-gradient(#dedede 50%,#fff 60%);
+            transition: all .05s ease-out;
+            top: 10px;
+            right: 6px;
+            padding: 0 5px;
+            font-size: 11px !important;
+            font-weight: 100;
+            color: #000;
+            border-radius: 4px;
+            /*border-top: 1px solid #fff;*/
+        }
+
+    .itd {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+        .itd span {
+            margin: 0 5px;
+        }
+
+    label {
+        display: block
+    }
+
+    @@media (max-width:975px) {
+        select {
+            width: 95% !important;
+            margin: auto;
+        }
+    }
+</style>
+
+<div class="hpanel _hgreen hpanel--fullheight">
+
+    <div class="panel-body">
+
+        <div class="filterbox mt mb">
+            <form class="form-inline" asp-action="Index" method="get">
+                <div class="row padding-10">
+                    <div class="col-md-3">
+                        <label for="Term">جستجو</label>
+                        <input placeholder="نام / نام کاربری / شماره کاربری / ..." type="text" name="Term" value="@Model.SearchCriteria.Term" class="form-control" style="width:100%" />
+                    </div>
+                    <span class="col-md-2">
+                        <label for="Type" class="padding-right-15">کاربر</label>
+                        <select class="form-control" placeholder="کاربر" name="Type" style="width:100%">
+                            <!option @(string.IsNullOrEmpty(Model.SearchCriteria.Type) ? " selected " : "") value="">همه</!option>
+                            <!option @(Model.SearchCriteria.Type == "1" ? " selected " : "") value="1">حقیقی</!option>
+                            <!option @(Model.SearchCriteria.Type == "2" ? " selected " : "") value="2">حقوقی</!option>
+                        </select>
+                    </span>
+                    <span class="col-md-2">
+                        <label for="UserType" class="padding-right-15">نوع</label>
+                        <select class="form-control" placeholder="نوع" name="UserType" style="width:100%">
+                            <!option @(Model.SearchCriteria.UserType == null ? " selected " : "") value="">همه</!option>
+                            <!option @(Model.SearchCriteria.UserType == 1 ? " selected " : "") value="1">شرکت</!option>
+                            <!option @(Model.SearchCriteria.UserType == 2 ? " selected " : "") value="2">دانشگاه</!option>
+                        </select>
+                    </span>
+                    <span class="col-md-2">
+                        <label for="Gender" class="padding-right-15">جنسیت</label>
+                        <select class="form-control" placeholder="جنسیت" name="Gender" style="width:100%">
+                            <!option @(!Model.SearchCriteria.Gender.HasValue ? " selected " : "") value="">همه</!option>
+                            <!option @(Model.SearchCriteria.Gender.HasValue && (bool)!Model.SearchCriteria.Gender ? " selected " : "") value="false">زن</!option>
+                            <!option @(Model.SearchCriteria.Gender.HasValue && (bool)Model.SearchCriteria.Gender ? " selected " : "") value="true">مرد</!option>
+                        </select>
+                    </span>
+                    <span class="col-md-2">
+                        <label for="IsAccept" class="padding-right-15">وضعیت</label>
+                        <select class="form-control" placeholder="وضعیت" name="IsAccept" style="width:100%">
+                            <!option @(!Model.SearchCriteria.IsAccept.HasValue ? " selected " : "") value="">همه</!option>
+                            <!option @(Model.SearchCriteria.IsAccept.HasValue && (bool)!Model.SearchCriteria.IsAccept ? " selected " : "") value="false">تایید نشده</!option>
+                            <!option @(Model.SearchCriteria.IsAccept.HasValue && (bool)Model.SearchCriteria.IsAccept ? " selected " : "") value="true">تایید شده</!option>
+                        </select>
+                    </span>
+                    
+                    <div class="col-md-2 padding-top-20">
+                        <button style="width:100%" type="submit" class="btn btn-info col-md-2">جستجو</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-striped table-hover table-valigned">
+                <thead>
+                    <tr>
+                        <th width="4%">ردیف</th>
+                        <th width="8%">شماره کاربری</th>
+                        <th width="22%">نام </th>
+                        <th width="22%">نام کاربری</th>
+                        <th width="30">وضعیت</th>
+                        <th width="12%">نقش</th>
+                        <th width="30">اقدامات</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.PageModel.Data)
+                    {
+                        <tr>
+                            <td>@Html.Raw(RemarkPersianNumber.Build(count++))</td>
+
+                            <td>@item.Id.ToPersianNumbers()</td>
+
+                            <td>@item.DisplayName</td>
+
+                            <td>@item.UserName</td>
+
+                            <td>
+                                @if (item.IsActive)
+                                {
+                                    <i class="pe-7s-unlock largeicon text-success changeLock cursor-pointer" data-user-Id="@item.Id" data-role="1" title="فعال" data-toggle="tooltip"></i>
+                                }
+                                else
+                                {
+                                    <i class="pe-7s-lock largeicon text-danger changeLock cursor-pointer" data-user-Id="@item.Id" data-role="0" title="غیرفعال" data-toggle="tooltip"></i>
+                                }
+                            </td>
+
+                            <td><button class="btn btn-exir changeRole" onclick="ChangeRole(@item.Id)">اعمال دسترسی</button></td>
+
+                            <td class="itd">
+                                @*<ul class="actionsUl">
+                                        <li><span data-fancybox data-type="iframe"><a href="/Identity/UsersManager/Edit/@item.Id" asp-controller="UsersManager" asp-action="Edit" asp-route-id="@item.Id" class="text-info exir--transparent-btn"><i class="pe-7s-edit largeicon" title="ویرایش اطلاعات" data-toggle="tooltip"></i></a></span> </li>
+                                        @if (item.UserName == 'Admin')
+                                        {
+                                            <li><span data-fancybox data-type="iframe"><a asp-controller="user" href="/Identity/User/DetailUserInfo/' + element.Id + '" class="text-info exir--transparent-btn"><i class="pe-7s-id largeicon" title="مشخصات" data-toggle="tooltip"></i></a></span></li>
+                                        }
+                                        <li><form class="signinForm" style="display:inline" method="post" action="/Identity/UsersManager/SignIn"><input type="hidden" name="userId" value="@item.Id" /><button class="btn btn-xs btn-info" type="submit"><i class="pe-7s-plug largeicon" title="ورود " data-toggle="tooltip"></i></button></form> </li>
+                                        @if (item.UserType == UserTypeSSOT.Company)
+                                        {
+                                            <li><a target="_blank" href="@new URL(" @FileConfig.Value.WebAddress ") @item.CompanyConfirm"><i class="pe-7s-mail largeicon" title="تاییدیه صنعت" data-toggle="tooltip"></i></a></li>
+
+                                            if (item.IsAcceptCompany)
+                                            {
+                                                <li><span class="text-success accept-company" data-isaccept="true" data-id="@item.Id"><i style="font-size:25px; cursor: pointer; padding-right: 5px" class="fa fa-cogs" title="فعال" data-toggle="tooltip" title="تاییدیه دانشگاه" data-toggle="tooltip"></i></span></li>
+                                            }
+                                            else
+                                            {
+                                                <li><span class="text-danger accept-company" data-isaccept="false" data-id="${element.Id}"><i style="font-size:25px; cursor: pointer; padding-right: 5px" class="fa fa-cogs" title="غیرفعال" data-toggle="tooltip" title="تاییدیه دانشگاه" data-toggle="tooltip"></i></span></li>
+                                            }
+
+                                        }
+
+
+
+                                        accept +
+                                        accept2 +
+                                        resetPassword +
+                                        acceptUniversity
+                                        + '
+                                    </ul>*@
+
+                                <span @Html.Raw(FancyboxHelper.Button("700", "600"))>
+                                    <a asp-controller="UsersManager" asp-action="Edit" asp-route-id="@item.Id" class=" exir--transparent-btn">
+                                        <i style="color:#ceb52b" class="pe-7s-edit largeicon" title="ویرایش اطلاعات" data-toggle="tooltip"></i>
+                                    </a>
+                                </span>
+                                @if (item.UserName != "Admin")
+                                {
+                                    <span @Html.Raw(FancyboxHelper.Button("800", "600"))>
+                                        <a asp-controller="user" asp-action="DetailUserInfo" asp-route-id="@item.Id" class="text-info exir--transparent-btn">
+                                            <i class="pe-7s-id largeicon" title="مشخصات" data-toggle="tooltip"></i>
+                                        </a>
+                                    </span>
+                                }
+
+                                <form style="display:inline" method="post" asp-controller="UsersManager" asp-action="SignIn">
+                                    <input type="hidden" name="userId" value="@item.Id" />
+                                    <button class="exir--transparent-btn" type="submit">
+                                        <i style="color:#6e3e79" class="pe-7s-plug largeicon" title="ورود" data-toggle="tooltip"></i>
+                                    </button>
+                                </form>
+
+
+                                @*<span>
+                                        <a asp-controller="UsersManager" asp-action="SignIn" asp-route-userId="@item.Id"  class="exir--transparent-btn">
+                                            <i style="color:#6e3e79" class="pe-7s-plug largeicon" title="ورود" data-toggle="tooltip"></i>
+                                        </a>
+                                    </span>*@
+
+                                @if (item.UserType == UserTypeSSOT.Company)
+                                {
+
+                                    if (item.CompanyConfirm != null)
+                                    {
+                                        <a target="_blank" href="@FileConfig.Value.WebAddress@item.CompanyConfirm">
+                                            <i class="pe-7s-mail largeicon" title="تاییدیه صنعت" data-toggle="tooltip"></i>
+                                        </a>
+                                    }
+
+                                    @Html.Raw(RegateInteractiveBooleanState.Build(
+                                             id: item.Id,
+                                             value: item.IsAcceptCompany,
+                                             url: Url.Action("IsAcceptCompany", "UsersManager"),
+                                             titleTrue: "تایید",
+                                             titleFalse: "رد",
+                                             iconNull: "graduation-cap"
+                                         ))
+                                }
+
+                                else if (item.UserType == UserTypeSSOT.university)
+                                {
+                                    @Html.Raw(RegateInteractiveBooleanState.Build(
+                                             id: item.Id,
+                                             value: item.IsAcceptUniversity,
+                                             url: Url.Action("IsAcceptUniversity", "UsersManager"),
+                                             titleTrue: "تایید",
+                                             titleFalse: "رد",
+                                             iconFalse: "graduation-cap",
+                                             iconTrue: "graduation-cap",
+                                             iconNull: "graduation-cap"
+                                         ))
+                                }
+
+                                <span @Html.Raw(FancyboxHelper.Button("400", "250"))>
+                                    <a href="/Identity/ChangePassword/ChangePassword?userId=@item.Id" class="exir--transparent-btn">
+                                        <i style="color:#a90505" class="pe-7s-key largeicon" title="تغییر کلمه عبور" data-toggle="tooltip"></i>
+                                    </a>
+                                </span>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="hpanel">
+    <div class="panel-body">
+        @Html.Partial("_Pagination2", Model.PageModel)
+    </div>
+</div>
+
+<div id="myModal" class="modal fade " role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h6 class="modal-title">
+                    نقش‌ها
+                </h6>
+            </div>
+            <div class="modal-body">
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<script>
+    function ChangeRole(userId) {
+        ajaxCall("/Identity/UsersManager/roleManage?TextToFind=" + userId, null, "GET", showChangeRoleModal);
+    }
+
+    function showChangeRoleModal(response) {
+        $('#myModal').modal();
+
+        $('.modal-body').html(response);
+    }
+</script>
+
+<script>
+    let type = $('[name="Type"]');
+    let userType = $('[name="UserType"]');
+    let gender = $('[name="Gender"]');
+    let isAccept = $('[name="IsAccept"]');
+    function hideAll() {
+        userType.parent().hide();
+        gender.parent().hide();
+        isAccept.parent().hide();
+    }
+    function hideS() {
+        gender.parent().hide();
+        userType.parent().show();
+        isAccept.parent().show();
+    }
+    function hideCU() {
+        gender.parent().show();
+        userType.parent().hide();
+        isAccept.parent().hide();
+    }
+    function hideandseek() {
+        type.val() == "" ? hideAll() : '';
+        type.val() == "1" ? hideCU() : '';
+        type.val() == "2" ? hideS() : '';
+    }
+    hideandseek();  // Hide unselected on load
+    type.on('change', () => {
+        hideandseek();  // Hide unselected on change
+    })
+</script>

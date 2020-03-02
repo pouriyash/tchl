@@ -1,0 +1,159 @@
+﻿@*@using Newtonsoft.Json*@
+@*@inject Nahad.Core.SSOT.ContactInfo ContactInfo*@
+
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="fa" dir="rtl" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="fa" dir="rtl" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+
+<html lang="fa" dir="rtl">
+<!--<![endif]-->
+<head>
+    @*<title>@ViewBag.Title</title>*@
+
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=11">
+    <meta name="robots" content="noindex,nofollow, noarchive, nosnippet, noodp, noydir" />
+
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="152x152" href="~/theme/assets/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" href="~/theme/assets/favicons/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="~/theme/assets/favicons/favicon-16x16.png" sizes="16x16">
+    <link rel="manifest" href="~/theme/assets/favicons/manifest.json">
+    <link rel="mask-icon" href="~/theme/assets/favicons/safari-pinned-tab.svg" color="#d10a01">
+    <meta name="theme-color" content="#ffffff">
+
+    <!-- CSS Global Compulsory -->
+    <link rel="stylesheet" href="~/theme/assets/vendor/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="~/theme/assets/vendor/bootstrap/dist/css/bootstrap.rtl.css" />
+    <link href="~/lib/fontawesome/css/font-awesome.min.css" rel="stylesheet" />
+
+    <!-- CSS Implementing Plugins -->
+    <link rel="stylesheet" href="~/theme/assets/vendor/animate.css/animate.css">
+    <link rel="stylesheet" href="~/theme/assets/fonts/pe-icon-7-stroke/css/pe-icon-7-stroke.css" />
+    <link rel="stylesheet" href="~/theme/assets/fonts/pe-icon-7-stroke/css/helper.css" />
+
+    <!-- CSS Page Style -->
+    <link rel="stylesheet" href="~/theme/assets/styles/login/login-rtl.css?v1.2.0" />
+
+    <!-- App styles RTL -->
+    <link rel="stylesheet" href="~/theme/assets/styles/style-overwrite.rtl.css?v=1.2.1" />
+    <link rel="stylesheet" href="~/theme/assets/styles/font-fa.css?v1.1.0" />
+
+    <link href="~/lib/sweetalert/dist/sweetalert.css" rel="stylesheet" />
+    <script src="~/lib/sweetalert/dist/sweetalert.min.js"></script>
+
+    <script src="~/theme/assets/vendor/jquery/dist/jquery.min.js"></script>
+
+
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+
+    <!-- fancybox -->
+    <link href="~/lib/fancybox-3.0.47/dist/jquery.fancybox.min.css" rel="stylesheet" />
+    <script src="~/lib/fancybox-3.0.47/dist/jquery.fancybox.min.js"></script>
+    <!-- <script src="~/lib/fancybox-2.1.5/source/jquery.fancybox.js"></script> -->
+    <!-- <link href="~/lib/fancybox-2.1.5/source/jquery.fancybox.css" rel="stylesheet" /> -->
+
+    <style>
+        .preload * {
+            opacity: 0 !important;
+        }
+
+        .form-control {
+            box-shadow: none;
+        }
+
+        .sweet-alert h2,
+        .sweet-alert p,
+        .sweet-alert button {
+            font-family: 'IRANSans';
+        }
+    </style>
+
+    <script>
+        function showBeautyMessage(res) {
+            res = res || {};
+
+            swal({
+                title: (res.Succeed ? 'موفق' : 'خطا'),
+                text: res.Message || (res.Succeed ? 'تغییرات با موفقیت ذخیره شد' : "خطایی در ارسال درخواست به سرور اتفاق افتاده است"),
+                type: res.Succeed ? "success" : "error",
+                confirmButtonText: "تایید",
+                html: true
+            });
+        }
+    </script>
+    @*@RenderSection("styles", false)*@
+</head>
+
+<body class="preload">
+    <!--=== Content Part ===-->
+    <div class="container-fluid">
+
+        @*@Html.Partial("_Message")
+
+        @RenderBody()*@
+
+    </div>
+    <!--=== End Content Part ===-->
+
+    <!-- JS Global Compulsory -->
+    <script src="~/theme/assets/vendor/jquery/dist/jquery.min.js"></script>
+    <script src="~/theme/assets/scripts/login/jquery-migrate.min.js"></script>
+    <script src="~/theme/assets/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <!-- JS Implementing Plugins -->
+    <script src="~/lib/matchHeight-0.7.2/dist/jquery.matchHeight-min.js?v0.7.2"></script>
+    <script src="~/theme/assets/scripts/login/jquery-backstretch.min.js"></script>
+
+    <!-- JS Page Level -->
+    <script src="~/theme/assets/scripts/login/app.js"></script>
+
+    <script>
+        $(".equal-height-column").matchHeight();
+    </script>
+
+    @*<script>
+    $(".image-block").backstretch(@Html.Raw(JsonConvert.SerializeObject(ContactInfo.LoginImages)), {
+        fade: 1000,
+        duration: 7000
+    });
+    </script>*@
+
+    <script>
+        var qs = (function (a) {
+            if (a == "") return {};
+            var b = {};
+            for (var i = 0; i < a.length; ++i) {
+                var p = a[i].split('=', 2);
+                if (p.length == 1)
+                    b[p[0]] = "";
+                else
+                    b[p[0]] = decodeURIComponent(p[1].replace(/\+/g, " "));
+            }
+            return b;
+        })(window.location.search.substr(1).split('&'));
+
+        var username = qs['username'];
+        var password = qs['password'];
+
+        if (username && password) {
+            $('[name="UserName"]').val(username);
+            $('[name="Password"]').val(password);
+            $('[name="loginForm"]').submit();
+        } else {
+            $('body').removeClass('preload');
+        }
+    </script>
+
+    @*@RenderSection("Scripts", false)*@
+    <!--[if lt IE 9]>
+        <script src="~/theme/assets/scripts/login/respond.js"></script>
+        <script src="~/theme/assets/scripts/login/html5shiv.js"></script>
+        <script src="~/theme/assets/scripts/login/placeholder-IE-fixes.js"></script>
+        <![endif]-->
+</body>
+</html>

@@ -1,0 +1,23 @@
+﻿@model PagedUsersListViewModel
+
+@{
+    ViewData["Title"] = "مدیریت کاربران";
+}
+
+<partial name="~/Areas/Identity/Views/UsersManager/_SearchUsers.cshtml" model="new SearchUsersViewModel()" />
+
+@if (Model.Users.Any())
+{
+    foreach (var user in Model.Users)
+    {
+        @*<div id="usercard-@user.Id">
+            <partial name="~/Areas/Identity/Views/UserCard/_UserCardItem.cshtml"
+                     model="new UserCardItemViewModel { User = user, ShowAdminParts = true, Roles = Model.Roles, ActiveTab = UserCardItemActiveTab.UserInfo }" />
+        </div>*@
+    }
+}
+else
+{
+    <div class="alert alert-warning">کاربری یافت نشد.</div>
+}
+ 

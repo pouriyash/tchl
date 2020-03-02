@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Alamut.Utilities" Version="3.0.3" />
+    <PackageReference Include="BouncyCastle.NetCore" Version="1.8.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Tochal.Core\Tochal.Core.csproj" />
+    <ProjectReference Include="..\Tochal.Infrastructure\Tochal.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>

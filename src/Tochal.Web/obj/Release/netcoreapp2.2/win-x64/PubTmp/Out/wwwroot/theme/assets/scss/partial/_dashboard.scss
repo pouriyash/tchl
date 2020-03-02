@@ -1,0 +1,331 @@
+﻿.dashboard {
+    &_list {
+        &_item {
+            display: block;
+            &:hover {
+                color: #ce1a15;
+            }
+        }
+    }
+}
+
+.exirdashboard {
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-color: white;
+
+    &_titlenav {
+        font-weight: 500;
+        font-size: 15px;
+    }
+
+    &_titlebrand {
+        padding-top: 10px;
+        font-weight: 500;
+        line-height: 1.5em;
+    }
+
+    &_user {
+        width: 80px;
+        height: 80px;
+        text-align: center;
+        float: none;
+        display: block;
+        margin: auto;
+        background: 0 0;
+        font-size: 80px;
+        line-height: 80px;
+    }
+
+    &_info {
+        display: block;
+        width: auto;
+        margin: 0 10px 10px;
+        text-align: center;
+        font-size: 14px;
+        font-weight: 400;
+    }
+
+    &_title {
+        color: #111;
+        background-color: #fff;
+        background-position: top right;
+        background-size: cover;
+        background-repeat: no-repeat;
+        width: 100%;
+        height: 15%;
+        padding: 120px 0 20px;
+    }
+
+    @media (min-width: 992px) {
+        &_title {
+            padding-right: 20px;
+        }
+    }
+
+    &_contact {
+        padding-right: 15px;
+        padding-left: 15px;
+        margin-top: 20px;
+
+        &_support {
+            &_img {
+                margin: auto;
+                margin-top: 15px;
+            }
+
+            &_title {
+                font: {
+                    size: 14px;
+                    weight: 500;
+                }
+
+                margin-bottom: 0;
+                text-align: center;
+            }
+
+            &_phone {
+                color: #0c4d78;
+
+                font: {
+                    size: 14px;
+                    weight: 500;
+                }
+
+                text-align: center;
+            }
+
+            &_link {
+                &:hover {
+                    .exirdashboard_contact_support_phone {
+                        color: #fc0303;
+                    }
+                }
+            }
+        }
+    }
+
+    &_linkList {
+        background: #fff;
+        list-style: none;
+        line-height: 2em;
+        text-align: center;
+        padding-right: 0 !important;
+
+        &_Item {
+            background-color: #9ec3df;
+            border-radius: 5px;
+            // font-size: 16px;
+            & + & {
+                margin-top: 7px;
+            }
+
+            &.disable {
+                opacity: .5;
+                pointer-events: none;
+            }
+
+            &_red {
+                border-right: 10px solid #e14521;
+
+                &:hover {
+                    border-color: #b73e25;
+                }
+            }
+
+            &_orange {
+                border-right: 10px solid #ff6f40;
+
+                &:hover {
+                    border-color: #ac451e;
+                }
+            }
+
+            &_green {
+                border-right: 10px solid #bce08a;
+
+                &:hover {
+                    border-color: #62a70f;
+                }
+            }
+
+            &_purple {
+                border-right: 10px solid #625bc4;
+
+                &:hover {
+                    border-color: #270089;
+                }
+            }
+
+            &_blue {
+                border-right: 10px solid #5eb0e5;
+
+                &:hover {
+                    border-color: #003da7;
+                }
+            }
+
+            &:hover {
+                background-color: #7baed4;
+            }
+
+            &_Anchor {
+                display: block;
+                color: #111;
+                padding: 20px 0;
+
+                &:hover {
+                    color: #eee;
+                }
+            }
+        }
+    }
+
+    &_Info {
+        background-color: #d7e2ea;
+        border-radius: 5px;
+        padding: 5px 0 20px;
+        margin-bottom: 10px;
+
+        &_inner {
+            flex-grow: 1;
+        }
+
+        &_header {
+            border-bottom: 1px solid #146da7;
+            padding: 5px 10px;
+            display: flex;
+            align-items: center;
+
+            &_border {
+                border-top: 10px solid #fff;
+                padding-top: 10px;
+            }
+
+            &_Title {
+                color: #146da7;
+
+                font: {
+                    size: 18px;
+                    weight: 500;
+                }
+            }
+        }
+
+        &_List {
+            list-style: none;
+            padding-right: 0;
+            margin: 15px 10px;
+
+            &_Item {
+                padding: 9px 0;
+
+                &:before {
+                    content: "\f111";
+                    font-family: FontAwesome;
+                    display: inline-block;
+                    width: 1em;
+                    color: #fff;
+                }
+
+                &_Anchor {
+                    color: #111;
+
+                    font: {
+                        size: 13px;
+                    }
+
+                    &:hover {
+                        color: #625bc4;
+                    }
+                }
+            }
+        }
+
+        & + & {
+            margin-top: 15px;
+        }
+    }
+
+    &_inbox {
+        background-color: #fff;
+        border: 1px solid #ababab;
+        border-radius: 5px;
+
+        &_list {
+            list-style: none;
+            padding-right: 0;
+
+            &_item {
+                // font-size: 14px;
+                font-weight: 500;
+                line-height: 2em;
+                padding: 10px;
+                position: relative;
+                /*min-height: 120px;*/
+                &_title {
+                    background-repeat: no-repeat;
+                    color: #050500;
+                    // font-size: 16px;
+                    font-weight: 500;
+                    padding-top: 20px;
+
+                    &_img {
+                        position: absolute;
+                        left: 0;
+                        top: -23px;
+                        z-index: 1;
+                    }
+                }
+
+                &_subtitle {
+                    // font-size: 16px;
+                    font-weight: 500;
+                    color: #737273;
+                    text-align: center;
+
+                    &_no {
+                        color: #fc0303
+                    }
+                }
+
+                &_new {
+                    color: #fc0303;
+
+                    &_img {
+                        position: absolute;
+                        left: 0;
+                        top: 0;
+                        width: 50px;
+                    }
+                }
+
+                &_date {
+                    color: #1277c3;
+                }
+
+                &_text {
+                    color: #050500;
+                    line-height: 1.3em;
+                    margin-top: 5px;
+                }
+
+                & + & {
+                    border-top: 1px solid #3994d0;
+                }
+
+                &.read {
+                    .exirdashboard_inbox_list_item_date {
+                        color: #737273;
+                    }
+
+                    .exirdashboard_inbox_list_item_text {
+                        color: #737273;
+                    }
+                }
+            }
+        }
+    }
+}

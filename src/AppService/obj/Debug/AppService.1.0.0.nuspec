@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>AppService</id>
+    <version>1.0.0</version>
+    <authors>AppService</authors>
+    <owners>AppService</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Package Description</description>
+    <dependencies>
+      <group targetFramework=".NETCoreApp2.2">
+        <dependency id="Tochal.Core" version="1.0.0" exclude="Build,Analyzers" />
+        <dependency id="Tochal.Infrastructure" version="1.0.0" exclude="Build,Analyzers" />
+        <dependency id="Alamut.Utilities" version="3.0.3" exclude="Build,Analyzers" />
+        <dependency id="BouncyCastle.NetCore" version="1.8.5" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="E:\NewGit\src\AppService\bin\Debug\netcoreapp2.2\AppService.dll" target="lib\netcoreapp2.2\AppService.dll" />
+  </files>
+</package>

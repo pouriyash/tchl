@@ -1,0 +1,34 @@
+﻿@using Tochal.Core.DomainModels.DTO
+@model List<NotificationUserSummaryDTO>
+
+<li class="dropdown" id="messageItem">
+    <div class="navbar-action-item " style="position: relative" data-toggle="tooltip" data-placement="bottom" title="پیام‌ها">
+        <i class="fa fa-envelope"></i>
+    </div>
+    <span class="countNotify">@Model.Count()</span>
+
+    <div class="dropdown-wrapper">
+
+        <div class="header"><h4>پیام‌های دریافتی</h4></div>
+
+        <div class="notifyContent">
+            <ul id="notifyMessageBox">
+                @foreach (var item in Model)
+                {
+                    <li  data-message-id="@item.Id" class="unread">
+                        <div>
+                            <h5 style="font-size: 13px;">@item.Notification.Text</h5>
+                            <span class="description">
+                                @item.Notification.Text
+                            </span>
+                        </div>
+                    </li>
+
+                }
+            </ul>
+
+            @*<span class="show-all-message">مشاهده تمام پیام‌ها</span>*@
+        </div>
+
+    </div>
+</li>

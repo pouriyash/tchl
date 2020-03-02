@@ -1,0 +1,147 @@
+﻿@using Tochal.Core.DomainModels.Entity.Blog
+@using Tochal.Core.DomainModels.SSOT
+@using Tochal.Core.DomainModels.Entity.Menu
+@model List<ContentEntity>
+@using Microsoft.Extensions.Options
+@inject IOptions<FileConfig>  fileConfig
+@using System.Globalization
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
+@{
+    DetailTypeSSOT? DetailType = (DetailTypeSSOT)TempData["DetailType"];
+}
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="~/styles/style.css" />
+    <link rel="stylesheet" href="~/styles/page2.css" />
+    <link rel="stylesheet"
+          href="./node_modules/@@fortawesome/fontawesome-free/css/all.css" />
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+          crossorigin="anonymous" />
+    <link rel="stylesheet"
+          href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css" />
+    <title>@Localizer["Tochal"]</title>
+</head>
+
+<div class="filterdiv"
+     style="display:none;width: 100vw;height: 100vh;background-color: rgba(255, 255, 255, 0.7);z-index: 5000;position: fixed;top: 0;"></div>
+
+<section class="background">
+    <div class="bg-gradient" style="background-color: rgba(0, 0, 0, 0.05);height: 65px;position: absolute;width: 100%;"></div>
+    <div class="backgroundImage">
+
+        <img src="~/images/background2.jpg" />
+        <img src="https://cdn.cnn.com/cnnnext/dam/assets/150826163012-photo-adrian-nordenborg-skiier-filip-nilsson-iran-tochal-3900m-teheran-www-pathfindertravels-eu-super-169.jpg"
+             alt="background"
+             style="display: none" />
+        <img src="http://www.intercaspian.com/photobank/iran/tehran/images/tochal-01735a.jpg"
+             alt="background"
+             style="display: none" />
+        <img src="~/images/background2.jpg"
+             alt="background"
+             style="display: none" />
+    </div>
+    <div class="bgdown">
+        <div class="articletitle">
+            <h1>این یک متن پیشفرض است</h1>
+            <h6>این یک متن پیشفرض است</h6>
+        </div>
+        <div class="mountains">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 xmlns:xlink="http://www.w3.org/1999/xlink"
+                 width="4.7in"
+                 height="0.639in">
+                <path fill-rule="evenodd"
+                      fill="rgb(204, 204, 204)"
+                      d="M215.000,30.000 L258.000,18.000 L295.000,32.000 L267.000,46.000 L255.000,46.000 L244.000,46.000 L215.000,30.000 Z" />
+                <path fill-rule="evenodd"
+                      fill="rgb(255, 255, 255)"
+                      d="M0.000,46.000 L161.000,-0.000 L245.000,46.000 L0.000,46.000 Z" />
+                <path fill-rule="evenodd"
+                      fill="rgb(255, 255, 255)"
+                      d="M266.000,46.000 L349.000,5.000 L435.000,46.000 L266.000,46.000 Z" />
+            </svg>
+        </div>
+    </div>
+</section>
+<section class="page-events">
+
+    @if (Model.Count > 0)
+    {
+        foreach (var item in Model)
+        {
+
+            <div class="event">
+                <span><i class="fas fa-calendar-alt"></i> @Localizer["Today"] </span>
+                <div>
+                    <div class="eventtext">
+                        <h3>
+                            @item.Title
+                        </h3>
+                        <p>
+                            @item.ShortContent
+                        </p>
+                        <a asp-action="Detail" asp-route-DetailType="@DetailType" asp-route-Id="@item.Id"><i class="fas fa-angle-left"></i>@Localizer["More"]</a>
+                    </div>
+                    <img src="@fileConfig.Value.WebAddress@item.MainImage" alt="eventpic" />
+                    @*<img src="@("http://localhost:59823/repository/FileUpload/"+item.MainImage)" alt="eventpic" />*@
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <div class="event">
+            <span><i class="fas fa-calendar-alt"></i> امروز </span>
+            <div>
+                <div class="eventtext">
+                    <h3>
+                        این یک عنوان پیشفرض است
+                    </h3>
+                    <p>
+                        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با
+                        استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله
+                        در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد
+                        نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.
+                        کتابهای زیادی در شصت و سه درصد گذشته،
+                    </p>
+                    <a href="/"><i class="fas fa-angle-left"></i>بیشتر</a>
+                </div>
+                <img src="~/images/randompic.jpg" alt="eventpic" />
+            </div>
+        </div>
+        <div class="event">
+            <span><i class="fas fa-calendar-alt"></i> 26 آذر 1392 </span>
+            <div>
+                <div class="eventtext">
+                    <h3>
+                        این یک عنوان پیشفرض است
+                    </h3>
+                    <p>
+                        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با
+                        استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله
+                        در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد
+                        نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.
+                        کتابهای زیادی در شصت و سه درصد گذشته،لورم ایپسوم متن ساختگی با
+                        تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.
+                        چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است
+                        و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف
+                        بهبود ابزارهای کاربردی می باشد. کتابهای زیادی در شصت و سه درصد
+                        گذشته،
+                    </p>
+                    <a href="/"><i class="fas fa-angle-left"></i>بیشتر</a>
+                </div>
+                <img src="~/images/randompic2.jpg" alt="eventpic" />
+            </div>
+        </div>
+
+    }
+</section>
+
+<div style="background-color:white;z-index:-1;height:100%;width:100vw;display: table-cell;"></div>
+

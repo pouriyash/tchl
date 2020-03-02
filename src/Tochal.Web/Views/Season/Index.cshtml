@@ -1,0 +1,136 @@
+﻿@using System.Collections.Generic
+@using Alamut.Data.Paging
+@using Tochal.Core.DomainModels.SSOT
+@using Tochal.Core.DomainModels.DTO.ContentEntity
+@using Tochal.AppService.Helpers
+@using Tochal.Core.DomainModels.Entity.Content
+@using Tochal.Core.DomainModels.DTO
+@inject IOptions<FileConfig> FileConfig
+@{
+    ViewBag.Title = " فصل ها";
+}
+
+<style>
+    table, tr {
+        border: 1px solid #ddd;
+    }
+
+    table {
+        border-radius: 25px;
+    }
+
+    td, th {
+        padding: 10px;
+        text-align: center;
+    }
+
+    tfoot td {
+        padding: 0px 10px;
+    }
+
+    thead {
+        background-color: #ddd;
+        color: #464646;
+    }
+
+    th.active {
+        background-color: #d5d5d5;
+    }
+
+    th {
+        padding: 0;
+    }
+
+        th a {
+            width: 100%;
+            height: 37px;
+            display: inline-block;
+            line-height: 37px;
+            position: relative;
+        }
+
+    .fa-sort {
+        line-height: 37px;
+        position: absolute;
+        left: 12px;
+        color: #aaa
+    }
+
+    h3 {
+        font-weight: 900;
+        background-color: #e3e3e3;
+        border: 1px solid #ccc;
+        width: max-content;
+        padding: 10px 20px;
+        border-radius: 10px 0 0 10px;
+        transform: translateX(36px);
+    }
+
+    .Create form, .Edit form {
+        padding: 20px;
+        padding-bottom: 40px;
+        border: 1px solid #ccc;
+        border-radius: 0px 30px
+    }
+</style>
+<style>
+    #seasons {
+        display: flex;
+        justify-content: space-between;
+    }
+
+        #seasons a {
+            width: 23%;
+            margin: 1%;
+            display: grid;
+            place-items: center;
+            border: 1px solid black;
+            border-radius: 15px;
+            opacity:.5;
+            transition:0.3s ease;
+            color:white;
+            text-shadow:0 0 5px black;
+            font-size:24px;
+        }
+
+            #seasons a:nth-of-type(1) {
+                background: url('http://uupload.ir/files/hil0_210-2105005_spring-desktop-wallpaper-hd-spring-mountain-wallpaper-hd.jpg');
+                background-size: cover;
+            }
+
+            #seasons a:nth-of-type(2) {
+                background: url('http://uupload.ir/files/2joq_146013.jpg');
+                background-size: cover;
+            }
+
+            #seasons a:nth-of-type(3) {
+                background: url('http://uupload.ir/files/ci7b_fall.jpg');
+                background-size: cover;
+            }
+
+            #seasons a:nth-of-type(4) {
+                background: url('http://uupload.ir/files/zodi_1163751.jpg');
+                background-size: cover;
+            }
+
+            #seasons a:hover {
+                opacity:1;
+            }
+</style>
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">داشبور</a></li>
+        <li class="breadcrumb-item active" aria-current="page">فصل ها</li>
+    </ol>
+</nav>
+<div class="row " style="margin:40px;padding:40px;border:1px solid grey;border-radius: 25px;position: relative;z-index: 0;">
+
+    <div class="col-md-12" id="seasons" style="height: 50vh;overflow-y: auto;">
+
+        <a href="/Season/Spring">فصل بهار</a>
+        <a href="/Season/Summer">فصل تابستان</a>
+        <a href="/Season/Autumn">فصل پاییز</a>
+        <a href="/Season/Winter">فصل زمستان</a>
+    </div>
+</div>

@@ -1,0 +1,88 @@
+﻿@model Alamut.Data.Paging.IPaginated
+
+@{
+    var count = 3;
+}
+<style>
+    .pageNumber {
+    }
+</style>
+
+@if (Model.TotalRowsCount != 0)
+{
+    <nav class="text-center" style="width:100% !important">
+        <ul class="pagination margin-top-2 margin-bottom-0" style="margin:auto">
+            <li><a class="pageNumber" data-page="1">««</a></li>
+            <li><a class="pageNumber" data-page="@Model.PreviousPage">«</a></li>
+            @for (var i = Model.CurrentPage - count; i <= Model.CurrentPage - 1; i++)
+            {
+                if (i >= 1)
+                {
+                    <li><a class="pageNumber" data-page="@i">@i</a></li>
+                }
+            }
+
+            <li class="active"><a>صفحه @Model.CurrentPage از @Model.PageCount</a></li>
+            @for (var i = Model.CurrentPage + 1; i <= Model.CurrentPage + count; i++)
+            {
+                if (i <= Model.PageCount)
+                {
+                    <li><a class="pageNumber" data-page="@i">@i</a></li>
+                }
+            }
+            <li><a class="pageNumber" data-page="@Model.NextPage">»</a></li>
+            <li><a class="pageNumber" data-page="@Model.PageCount">»»</a></li>
+        </ul>
+    </nav>
+
+    <div class="row margin-top-10">
+        <div class="col-md-3 margin-left-30"></div>
+        <div class="col-md-3">
+            <div class="col-md-8 padding-left-0">
+                <label class="form-control">تعداد آیتم های نمایشی</label>
+            </div>
+            <div class="col-md-4 padding-right-0">
+                <select class="form-control" asp-for="@Model.PageSize" name="PageSize" data-role="paging">
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="30">30</option>
+                    <option value="40">40</option>
+                    <option value="50">50</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-2">
+            @*<form>*@
+            <div class="col-md-5 padding-left-0">
+                <input type="text" id="txtPageNumber" style="text-align: center" class="form-control" name="Page" value="@Model.CurrentPage">
+            </div>
+            <div class="col-md-7 padding-right-0">
+                <button type="button" id="btnSetPageNumber" class="btn-info btn-xs btn-block form-control" style="background-color: #3498db !important">برو به صفحه</button>
+            </div>
+            @*</form>*@
+        </div>
+    </div>
+    <div class="margin-top-10 text-center">
+        تعداد کل آیتم ها : <span class="badge badge-info">@Model.TotalRowsCount</span>
+    </div>
+}
+<script type="text/javascript">
+    $(function () {
+        $('[data-role="paging"]').on('change',
+            function () {
+                $('[name="PageSize"]').val($(this).val());
+                $("#btnSearch").trigger("click");
+            });
+    });
+    $("#btnSetPageNumber").on("click",
+        function () {
+            $('[name="Page"]').val($("#txtPageNumber").val());
+            $("#btnSearch").trigger("click");
+        });
+
+    $(".pageNumber").on("click",
+        function () {
+            $('[name="Page"]').val($(this).attr("data-page"));
+            $("#btnSearch").trigger("click");
+        });
+</script>

@@ -1,0 +1,234 @@
+﻿@using Tochal.Core.DomainModels.SSOT
+@*@inject ContactInfo ContactInfo*@
+@*@inject AppSettingCore AppSettingCore*@
+@inject IOptions<ContactInfo> ContactInfo
+@model Tochal.Core.DomainModels.ViewModel.Identity.LoginViewModel
+
+@{
+    ViewBag.Title = "ورود به سامانه";
+    Layout = "Layout/LoginPage";
+}
+<style>
+    
+
+
+</style>
+
+<style>
+    .fadeSlider {
+        -webkit-animation-name: fade;
+        -webkit-animation-duration: 1.5s;
+        animation-name: fadeSlider;
+        animation-duration: 1.5s;
+    }
+
+    @@-webkit-keyframes fadeSlider {
+        from {
+            opacity: .4
+        }
+
+        to {
+            opacity: 1
+        }
+    }
+
+
+    @@keyframes fadeSlider {
+        from {
+            opacity: .4
+        }
+
+        to {
+            opacity: 1
+        }
+    }
+
+    .loginSlider {
+        display: none;
+    }
+    .loginSlider img{
+        object-fit:cover;
+    }
+    body {
+        overflow: hidden;
+    }
+</style>
+
+<div class="row">
+    <div class="col-md-6 col-sm-6 hidden-xs image-block ">
+
+        <ul style="height: 100vh; margin: 0px; padding: 0px">
+            <li class="loginSlider fadeSlider">
+                <img style="height: 100vh; width: 50vw" src="~/theme/assets/images/login/4.jpg" />
+            </li>
+
+            <li class="loginSlider fadeSlider">
+                <img style="height: 100vh; width: 50vw" src="~/theme/assets/images/login/3.jpg" />
+            </li>
+
+            <li class="loginSlider fadeSlider">
+                <img style="height: 100vh; width: 50vw" src="~/theme/assets/images/login/2.jpg" />
+            </li>
+
+            <li class="loginSlider fadeSlider">
+                <img style="height: 100vh; width: 50vw" src="~/theme/assets/images/login/1.jpg" />
+            </li>
+        </ul>
+
+    </div>
+
+
+    <style>
+        .image-block {
+            min-height: 100vh !important;
+            height: 100%;
+        }
+
+        .register a{
+            font-size: 11px !important;
+        }
+
+        .form-block {
+            padding-top: 10px !important;
+            padding-bottom: 10px !important;
+        }
+    </style>
+
+    <div class="col-md-6 col-sm-6 form-block ">
+        <div class="text-center">
+            @if (string.IsNullOrWhiteSpace(ContactInfo.Value.LoginLogo))
+            {
+                <div class="img-siteLogo" style="background-image: url('@ContactInfo.Value.Logo')"></div>
+            }
+            else
+            {
+                <img class="img-responsive margin-bottom-10" src="@ContactInfo.Value.LoginLogo" alt="@ContactInfo.Value.SiteTitle" />
+            }
+
+
+
+          
+        <h2 class="site-title">تله کابین توچال</h2>
+           
+
+            @*<img class="margin-bottom-10" width="50" height="50" src="" alt="" />*@
+        </div>
+        <div class="box-form text-right">
+            <h3 class="box-form-loginTitle">ورود به قسمت مدیریت</h3>
+            <h4 class="box-form-title">@ContactInfo.Value.SiteSlogan</h4>
+            @*<h4 class="box-form-subtitle" style="margin-top: 20px">@ContactInfo.Value.SiteDescription</h4>*@
+
+            <form asp-controller="Login"
+                  asp-action="Index"
+                  asp-route-returnurl="@ViewData["ReturnUrl"]"
+                  name="loginForm"
+                  id="loginForm"
+                  autocomplete="off">
+                <div class="login-block">
+                    <div class="input-group box-form-input">
+                        <span class="input-group-addon rounded-right"><i class="pe-7s-user size-30" style="color:#11c7c5"></i></span>
+                        <input type="text" class="form-control rounded-left" name="UserName" autocomplete="off" required placeholder="نام کاربری">
+                    </div>
+
+                    <div class="input-group box-form-input">
+                        <span class="input-group-addon rounded-right"><i class="pe-7s-lock size-30" style="color:#11c7c5"></i></span>
+                        <input type="password" class="form-control rounded-left" name="Password" autocomplete="off" required placeholder="رمز عبور">
+                    </div>
+
+                    <div class="checkbox">
+                        <ul class="list-inline">
+                            <li>
+                                <label asp-for="RememberMe">
+                                    <input asp-for="RememberMe" />
+                                    @Html.DisplayNameFor(m => m.RememberMe)
+                                </label>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="row">
+                        <div class=" col-md-12 login-link " style="padding: 0px 15px; margin-top: 0px; margin-bottom: 15px">
+                            <span>آیا کلمه عبور خود را فراموش کرده اید؟ <a class="form-block-register" asp-action="Index" asp-controller="ForgotPassword">بازیابی کلمه عبور</a></span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12 margin-top-10">
+                            <button type="submit" class="btn btn-exir btn-block">ورود</button>
+                        </div>
+                    </div>
+
+
+                    @*<div class="row text-center margin-top-20 register" style="padding: 0px 15px">
+                        <div class="row login-link">
+                            <p class="donthaveacc">
+                                آیا حساب کاربری ندارید؟
+                                <br />
+
+                                <div class="col-md-12">
+                                    <a class="btn btn-exir btn-block" style="margin-bottom:5px; border-color:#a3c6d4; background-color: #a3c6d4"
+                                       asp-controller="register"
+                                       asp-route-returnurl="@ViewData["ReturnUrl"]"
+                                       asp-route-UserType="@UserTypeSSOT.Person">ثبت‌نام دانشجو و اشخاص حقيقی</a>
+
+                                </div>
+
+                                <div class="col-md-12">
+                                    <a class="btn btn-exir btn-block" style="margin-bottom:5px; border-color:#6dace5; background-color: #6dace5" asp-controller="register"
+                                       asp-route-returnurl="@ViewData["ReturnUrl"]"
+                                       asp-route-UserType="@UserTypeSSOT.Company">ثبت‌نام صنايع و شرکتهای پذيرنده کارآموز</a>
+                                </div>
+
+
+                                <div class="col-md-12">
+                                    <a class="btn btn-exir btn-block" style=" border-color:#1c355e; background-color: #1c355e"
+                                       asp-controller="register"
+                                       asp-route-returnurl="@ViewData["ReturnUrl"]"
+                                       asp-route-UserType="@UserTypeSSOT.university">ثبت‌نام دانشگاه‌ها</a>
+
+                                </div>
+
+                            </p>
+                        </div>
+                        
+                    </div>*@
+             
+                
+                </div>
+            </form>
+        </div>
+
+        <!--=== Sticky Footer ===-->
+        <div class="sticky-footer" style="position: relative; height: auto">
+            
+            <div class="copyright-space">
+                <div class="copyright-text">کلیه حقوق این سامانه متعلق به<strong> <a href="" target="_blank">توچال</a> </strong> است.</div>
+
+                <p class="copyright-link">طراحی و توسعه: <a href="http://www.exirresearch.ir/" target="_blank">فناوری دانش و پژوهش اکسیر</a></p>
+                @*<p class="copyright-version">V1.2.0 2017.06.07</p>*@
+            </div>
+        </div>
+        <!--=== End Sticky Footer ===-->
+    </div>
+</div>
+
+<script>
+
+    var sliderIndex = 0;
+    showSliders();
+
+    function showSliders() {
+        var i;
+        var sliders = document.getElementsByClassName("loginSlider");
+        for (i = 0; i < sliders.length; i++) {
+            sliders[i].style.display = "none"
+        }
+
+        sliderIndex++;
+        if (sliderIndex > sliders.length) { sliderIndex = 1 }
+        sliders[sliderIndex - 1].style.display = "block";
+         setTimeout(showSliders, 10000);
+    }
+
+</script>
+

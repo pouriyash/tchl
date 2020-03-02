@@ -1,0 +1,343 @@
+{
+  "format": 1,
+  "restore": {
+    "E:\\NewGit\\src\\Tochal.Infrastructure\\Tochal.Infrastructure.csproj": {}
+  },
+  "projects": {
+    "E:\\NewGit\\src\\Alamut.Service.Messaging\\Alamut.Service.Messaging.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "E:\\NewGit\\src\\Alamut.Service.Messaging\\Alamut.Service.Messaging.csproj",
+        "projectName": "Alamut.Service.Messaging",
+        "projectPath": "E:\\NewGit\\src\\Alamut.Service.Messaging\\Alamut.Service.Messaging.csproj",
+        "packagesPath": "C:\\Users\\Pouriya\\.nuget\\packages\\",
+        "outputPath": "E:\\NewGit\\src\\Alamut.Service.Messaging\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Pouriya\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard1.4"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard1.4": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard1.4": {
+          "dependencies": {
+            "MailKit": {
+              "target": "Package",
+              "version": "[1.16.1, )"
+            },
+            "Microsoft.Extensions.Logging.Abstractions": {
+              "target": "Package",
+              "version": "[1.1.2, )"
+            },
+            "NETStandard.Library": {
+              "target": "Package",
+              "version": "[2.0.0, )",
+              "autoReferenced": true
+            },
+            "System.ServiceModel.Duplex": {
+              "target": "Package",
+              "version": "[4.0.*, )"
+            },
+            "System.ServiceModel.Http": {
+              "target": "Package",
+              "version": "[4.1.*, )"
+            },
+            "System.ServiceModel.NetTcp": {
+              "target": "Package",
+              "version": "[4.1.*, )"
+            },
+            "System.ServiceModel.Security": {
+              "target": "Package",
+              "version": "[4.0.*, )"
+            },
+            "System.Xml.XmlSerializer": {
+              "target": "Package",
+              "version": "[4.0.*, )"
+            }
+          }
+        }
+      }
+    },
+    "E:\\NewGit\\src\\Tochal.Core\\Tochal.Core.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "E:\\NewGit\\src\\Tochal.Core\\Tochal.Core.csproj",
+        "projectName": "Tochal.Core",
+        "projectPath": "E:\\NewGit\\src\\Tochal.Core\\Tochal.Core.csproj",
+        "packagesPath": "C:\\Users\\Pouriya\\.nuget\\packages\\",
+        "outputPath": "E:\\NewGit\\src\\Tochal.Core\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Pouriya\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp2.2"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp2.2": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp2.2": {
+          "dependencies": {
+            "Alamut.Data": {
+              "target": "Package",
+              "version": "[3.0.4, )"
+            },
+            "Alamut.Utilities": {
+              "target": "Package",
+              "version": "[3.0.3, )"
+            },
+            "BenchmarkDotNet": {
+              "target": "Package",
+              "version": "[0.11.5, )"
+            },
+            "DNT.Commands": {
+              "target": "Package",
+              "version": "[1.2.5, )"
+            },
+            "DNTCommon.Web.Core": {
+              "target": "Package",
+              "version": "[1.6.0, )"
+            },
+            "Microsoft.AspNet.Mvc": {
+              "target": "Package",
+              "version": "[5.2.7, )"
+            },
+            "Microsoft.AspNetCore.Http.Abstractions": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[2.2.4, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[2.2.4, )"
+            },
+            "Microsoft.Extensions.Identity.Stores": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.NETCore.App": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.2.0, )",
+              "autoReferenced": true
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[12.0.2, )"
+            },
+            "RazorLight": {
+              "target": "Package",
+              "version": "[1.1.0, )"
+            },
+            "System.ComponentModel.Annotations": {
+              "target": "Package",
+              "version": "[4.5.0, )"
+            },
+            "cloudscribe.Web.Pagination": {
+              "target": "Package",
+              "version": "[2.1.11, )"
+            }
+          },
+          "imports": [
+            "net461"
+          ],
+          "assetTargetFallback": true,
+          "warn": true
+        }
+      }
+    },
+    "E:\\NewGit\\src\\Tochal.Infrastructure\\Tochal.Infrastructure.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "E:\\NewGit\\src\\Tochal.Infrastructure\\Tochal.Infrastructure.csproj",
+        "projectName": "Tochal.Infrastructure",
+        "projectPath": "E:\\NewGit\\src\\Tochal.Infrastructure\\Tochal.Infrastructure.csproj",
+        "packagesPath": "C:\\Users\\Pouriya\\.nuget\\packages\\",
+        "outputPath": "E:\\NewGit\\src\\Tochal.Infrastructure\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\Pouriya\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp2.2"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp2.2": {
+            "projectReferences": {
+              "E:\\NewGit\\src\\Alamut.Service.Messaging\\Alamut.Service.Messaging.csproj": {
+                "projectPath": "E:\\NewGit\\src\\Alamut.Service.Messaging\\Alamut.Service.Messaging.csproj"
+              },
+              "E:\\NewGit\\src\\Tochal.Core\\Tochal.Core.csproj": {
+                "projectPath": "E:\\NewGit\\src\\Tochal.Core\\Tochal.Core.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp2.2": {
+          "dependencies": {
+            "Alamut.Data": {
+              "target": "Package",
+              "version": "[3.0.4, )"
+            },
+            "Alamut.Utilities": {
+              "target": "Package",
+              "version": "[3.0.3, )"
+            },
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[7.0.1, )"
+            },
+            "DNTCommon.Web.Core": {
+              "target": "Package",
+              "version": "[1.6.0, )"
+            },
+            "DNTPersianUtils.Core": {
+              "target": "Package",
+              "version": "[3.5.0, )"
+            },
+            "Dapper": {
+              "target": "Package",
+              "version": "[2.0.4, )"
+            },
+            "MailKit": {
+              "target": "Package",
+              "version": "[2.3.1.6, )"
+            },
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.AspNetCore.Mvc.Razor": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[2.2.4, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.2.4, )"
+            },
+            "Microsoft.EntityFrameworkCore.InMemory": {
+              "target": "Package",
+              "version": "[2.2.4, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[2.2.4, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.2.4, )"
+            },
+            "Microsoft.Extensions.Configuration": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.Extensions.Configuration.Abstractions": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.Extensions.Configuration.Binder": {
+              "target": "Package",
+              "version": "[2.2.4, )"
+            },
+            "Microsoft.Extensions.Configuration.Json": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.NETCore.App": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.2.0, )",
+              "autoReferenced": true
+            },
+            "SmsIrRestful": {
+              "target": "Package",
+              "version": "[1.1.0, )"
+            },
+            "System.Drawing.Common": {
+              "target": "Package",
+              "version": "[4.5.1, )"
+            },
+            "System.Linq.Dynamic.Core": {
+              "target": "Package",
+              "version": "[1.0.19, )"
+            },
+            "System.ServiceModel.Duplex": {
+              "target": "Package",
+              "version": "[4.6.0, )"
+            },
+            "System.ServiceModel.Http": {
+              "target": "Package",
+              "version": "[4.6.0, )"
+            }
+          },
+          "imports": [
+            "net461"
+          ],
+          "assetTargetFallback": true,
+          "warn": true
+        }
+      }
+    }
+  }
+}

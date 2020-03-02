@@ -1,0 +1,9 @@
+E:\NewGit\src\Tochal.Core\bin\Release\netcoreapp2.2\Tochal.Core.deps.json
+E:\NewGit\src\Tochal.Core\bin\Release\netcoreapp2.2\Tochal.Core.dll
+E:\NewGit\src\Tochal.Core\bin\Release\netcoreapp2.2\Tochal.Core.pdb
+E:\NewGit\src\Tochal.Core\obj\Release\netcoreapp2.2\Tochal.Core.csprojAssemblyReference.cache
+E:\NewGit\src\Tochal.Core\obj\Release\netcoreapp2.2\Tochal.Core.csproj.CoreCompileInputs.cache
+E:\NewGit\src\Tochal.Core\obj\Release\netcoreapp2.2\Tochal.Core.AssemblyInfoInputs.cache
+E:\NewGit\src\Tochal.Core\obj\Release\netcoreapp2.2\Tochal.Core.AssemblyInfo.cs
+E:\NewGit\src\Tochal.Core\obj\Release\netcoreapp2.2\Tochal.Core.dll
+E:\NewGit\src\Tochal.Core\obj\Release\netcoreapp2.2\Tochal.Core.pdb

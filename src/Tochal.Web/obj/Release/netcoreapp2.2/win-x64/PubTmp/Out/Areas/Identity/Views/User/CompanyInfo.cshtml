@@ -1,0 +1,237 @@
+﻿@using Exir.Regate
+@using Tochal.Toolkit
+@using Tochal.Core.DomainModels.SSOT
+@using DNTPersianUtils.Core.IranCities
+@using Tochal.AppService.Helpers;
+@model Tochal.Core.DomainModels.Entity.Identity.User
+
+@{ ViewBag.Title = "مشخصات";
+}
+
+@Html.Raw(Styles.MakeLayoutBlank())
+
+    <style>
+        .irow {
+            display: flex;
+            /*justify-content: space-between;*/
+            padding: 10px;
+            margin: 5px auto;
+            background-color: rgb(237, 237, 237);
+            transition: .2s ease;
+            border-radius: 5px;
+        }
+
+            .irow:nth-of-type(odd) {
+                background-color: rgb(228, 228, 228);
+            }
+
+            .irow:hover {
+                background-color: rgba(17, 199, 197, 0.175);
+            }
+
+                .irow:hover .ilabel {
+                    color: #11c7c5;
+                }
+
+                .irow:hover .ivalue {
+                    font-weight: 900;
+                }
+
+        .ilabel {
+            color: #404040;
+            font-weight: 900 !important;
+            flex: 1;
+        }
+
+        .ivalue {
+            text-align: right;
+            flex: 1;
+        }
+    </style>
+
+<div class="row">
+
+    <div class="col-lg-12 col-md-12">
+        <form class="form-horizontal">
+            <div class="hpanel">
+                <div class="size-15 panel-heading"> مشخصات شرکت</div>
+                <div class="panel-body" style="border-top: 2px solid #11c7c5">
+                    <div class="irow">
+                        <label class="ilabel">
+                            نوع مرکز
+                        </label>
+                        <div class="ivalue">
+                            @if (Model.CenterType.Value)
+                            {
+                                <div>
+                                    مستقل
+                                </div>
+                            }
+                            else
+                            {
+                                <div>
+                                    غیر مستقل
+                                </div>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="irow">
+                        <label class="ilabel">
+                            شناسه ملی
+                        </label>
+                        <div class="ivalue">
+                            @Model.CompanyNationalId
+                        </div>
+                    </div>
+
+                    <div class="irow">
+                        <label class="ilabel">
+                            نوع واحد صنعتی
+                        </label>
+                        <div class="ivalue">
+                            @Model.industrialType.GetDisplayName()
+                        </div>
+                    </div>
+
+                    <div class="irow">
+                        <label class="ilabel">
+                            نام شرکت
+                        </label>
+                        <div class="ivalue">
+                            @Model.CompanyName
+                        </div>
+                    </div>
+
+                    @*<div class="irow">
+            <label class="ilabel">
+                نام فارسی واحد صنعتی
+            </label>
+            <div class="ivalue">
+                @Model.CompanyName
+            </div>
+        </div>*@
+
+                    <div class="irow">
+                        <label class="ilabel">
+                            زمينه فعاليت واحد صنعتی
+                        </label>
+                        <div class="ivalue">
+                            @Model.ActivityField
+                        </div>
+                    </div>
+
+                    <div class="irow">
+                        <label class="ilabel">
+                            شماره ثبت
+                        </label>
+                        <div class="ivalue">
+                            @Model.registrationNumber
+                        </div>
+                    </div>
+
+                    <div class="irow">
+                        <label class="ilabel">
+                            سال تاسیس
+                        </label>
+                        <div class="ivalue">
+                            @Model.StartDate
+                        </div>
+                    </div>
+
+                    <div class="irow">
+                        <label class="ilabel">
+                            نام رئیس واحد صنعتی
+                        </label>
+                        <div class="ivalue">
+                            @Model.ManagerName
+                        </div>
+                    </div>
+
+                    <div class="irow">
+                        <label class="ilabel">
+                            نام مسئول کارآموزی
+                        </label>
+                        <div class="ivalue">
+                            @Model.ExpertTochal
+                        </div>
+                    </div>
+
+                    <div class="irow">
+                        <label class="ilabel">
+                            استان
+                        </label>
+                        <div class="ivalue">
+                            @if (Model.BankProvinces != null)
+                            {
+                                @Model.BankProvinces.ProvinceName
+                            }
+                        </div>
+                    </div>
+
+                    <div class="irow">
+                        <label class="ilabel">
+                            شهر
+                        </label>
+                        <div class="ivalue">
+                            @if (Model.BankCities != null)
+                            {
+                                @Model.BankCities.CityName
+
+                            }
+                        </div>
+                    </div>
+
+                    <div class="irow">
+                        <label class="ilabel">
+                            نشانی
+                        </label>
+                        <div class="ivalue">
+                            @Model.Address
+                        </div>
+                    </div>
+
+                    <div class="irow">
+                        <label class="ilabel">
+                            تلفن ثابت
+                        </label>
+                        <div class="ivalue">
+                            @Model.CallNumber
+                        </div>
+                    </div>
+
+                    <div class="irow">
+                        <label class="ilabel">
+                            نمابر
+                        </label>
+                        <div class="ivalue">
+                            @Model.Fax
+                        </div>
+                    </div>
+
+                    <div class="irow">
+                        <label class="ilabel">
+                            تلفن همراه
+                        </label>
+                        <div class="ivalue">
+                            @Model.PhoneNumber
+                        </div>
+                    </div>
+
+                    <div class="irow">
+                        <label class="ilabel">
+                            نام کاربری (ایمیل)
+                        </label>
+                        <div class="ivalue">
+                            @Model.UserName
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </form>
+    </div>
+</div>
+
+

@@ -1,0 +1,285 @@
+﻿@using System.Collections.Generic
+@using Alamut.Data.Paging
+@using Tochal.Core.DomainModels.SSOT
+@using Tochal.Core.DomainModels.DTO.ContentEntity
+@using Tochal.AppService.Helpers
+@using Tochal.Core.DomainModels.Entity.Content
+@using Tochal.Core.DomainModels.DTO
+@inject IOptions<FileConfig> FileConfig
+@model Tochal.Core.DomainModels.Entity.Season
+@{
+    ViewBag.Title = " فصل پاییز";
+    int count = 1;
+}
+
+<style>
+    table, tr {
+        border: 1px solid #ddd;
+    }
+
+    table {
+        border-radius: 25px;
+    }
+
+    td, th {
+        padding: 10px;
+        text-align: center;
+    }
+
+    tfoot td {
+        padding: 0px 10px;
+    }
+
+    thead {
+        background-color: #ddd;
+        color: #464646;
+    }
+
+    th.active {
+        background-color: #d5d5d5;
+    }
+
+    th {
+        padding: 0;
+    }
+
+        th a {
+            width: 100%;
+            height: 37px;
+            display: inline-block;
+            line-height: 37px;
+            position: relative;
+        }
+
+    .fa-sort {
+        line-height: 37px;
+        position: absolute;
+        left: 12px;
+        color: #aaa
+    }
+
+    h3 {
+        font-weight: 900;
+        background-color: #e3e3e3;
+        border: 1px solid #ccc;
+        width: max-content;
+        padding: 10px 20px;
+        border-radius: 10px 0 0 10px;
+        transform: translateX(36px);
+    }
+
+    .Create form, .Edit form {
+        padding: 20px;
+        padding-bottom: 40px;
+        border: 1px solid #ccc;
+        border-radius: 0px 30px
+    }
+</style>
+<style>
+    #picture1,
+    #mainVideo {
+        width: 100%;
+        border-radius: 10px;
+        box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
+        object-fit: cover;
+        max-height: 300px;
+    }
+
+    .popup-bg {
+        background-color: rgba(0, 0, 0, 0.35);
+        width: 100vw;
+        height: 100vh;
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        display: grid;
+        place-items: center;
+    }
+
+    .popup-body {
+        position: relative;
+    }
+
+        .popup-body img,
+        .popup-body video {
+            max-width: 90vw;
+            max-height: 75vh;
+        }
+
+    .popup-close {
+        display: grid;
+        place-items: center;
+        background-color: red;
+        color: white;
+        font-size: 24px;
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        position: absolute;
+        top: -20px;
+        left: -20px;
+        box-shadow: 0px 0px 7px #0000004a;
+    }
+
+    .hide {
+        display: none;
+    }
+</style>
+<style>
+
+    #galley-input-list {
+        list-style-type: none;
+        display: flex;
+        flex-direction: column;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        text-align: right;
+        padding-right: 0;
+        background: #fafbfc
+    }
+
+        #galley-input-list li {
+            background: #f1f3f6;
+            padding: 10px;
+            margin: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: 0.2s ease;
+            user-select: none;
+            cursor: pointer;
+        }
+
+        #galley-input-list .active {
+            background-color: #d3f1ff;
+        }
+</style>
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">داشبور</a></li>
+        <li class="breadcrumb-item"><a href="/Season/Index">لیست فصل ها</a></li>
+        <li class="breadcrumb-item active" aria-current="page">پاییز</li>
+    </ol>
+</nav>
+<div class="row " style="margin:40px;padding:40px;border:1px solid grey;border-radius: 25px;position: relative;z-index: 0;">
+
+    <!-- Image Section -->
+
+    <div class="col-md-4 pull-right" id="imageSection" style="position: relative;">
+        @if (Model.WinterHeaderImage != null)
+        {
+            <img src="@FileConfig.Value.WebAddress@Model.WinterHeaderImage" alt="" id="picture1">
+
+        }
+        else
+        {
+
+            <img src="~/images/Default.png" alt="" id="picture1">
+        }
+
+    </div>
+
+    <!-- Form Section -->
+
+    <div class="col-md-8 pull-left" id="formSection" style="height: 72vh;overflow-y: auto;">
+
+        <form asp-action="UpdateWinter" asp-controller="Season" class="form-horizontal" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="Id" value="@Model?.Id" />
+
+            <div class="form-group row" dir="rtl">
+                <label dir="rtl" class="control-label col-sm-3">عنوان:</label>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control" name="WinterTitle" value="@Model?.WinterTitle" placeholder="عنوان">
+                </div>
+            </div>
+
+            <div class="form-group row" dir="rtl">
+                <label dir="rtl" class="control-label col-sm-3">خلاصه محتوا:</label>
+                <div class="col-sm-9">
+                    <textarea name="WinterShortDescription" placeholder="خلاصه محتوا" class="form-control">@Model?.WinterShortDescription</textarea>
+                </div>
+            </div>
+            <div class="form-group row" dir="rtl">
+                <label dir="rtl" class="control-label col-sm-3">محتوا:</label>
+                <div class="col-sm-9" id="wysiwyg">
+                    <textarea required name="WinterContent" id="WinterContent" placeholder="محتوا" class="form-control">@Model?.WinterContent</textarea>
+                </div>
+            </div>
+
+            <div class="inputs">
+
+                @if (Model.WinterHeaderImage != null)
+                {
+                    <div class="form-group row fileDiv" dir="rtl">
+                        <label dir="rtl" class="btn btn-primary control-label col-sm-3 text-center" onclick="editFileHandler(this)">تغییر تصویر هدر؟</label>
+                        <input type="hidden" name="WinterHeaderImageName" value="@Model.WinterHeaderImage" />
+                    </div>
+                }
+                else
+                {
+                    <div class="form-group row fileDiv" dir="rtl">
+                        <label dir="rtl" class="control-label col-sm-3"> تصویر هدر:</label>
+                        <div class="col-sm-9">
+                            <input type="file" input-id="1" name="WinterHeaderImage" class="form-control" onchange="checkFile(this)">
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <div class="inputs" dir="rtl">
+                @if (Model.WinterHeaderMobileImage != null)
+                {
+                    <div class="form-group row fileDiv" dir="rtl">
+                        <label dir="rtl" class="btn btn-primary control-label col-sm-3 text-center" onclick="editFileHandler(this)">تغییر تصویر موبایل؟</label>
+                        <input type="hidden" name="WinterHeaderMobileImageName" value="@Model.WinterHeaderMobileImage" />
+                    </div>
+                }
+                else
+                {
+                    <div class="form-group row fileDiv" dir="rtl">
+                        <label dir="rtl" class="control-label col-sm-3">عکس موبایل :</label>
+                        <div class="col-sm-9">
+                            <input type="file" name="WinterHeaderMobileImage" class="form-control" />
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="ارسال مطلب" class="btn btn-block btn-info">
+            </div>
+        </form>
+
+    </div>
+</div>
+
+<script src="~/js/create-form.js"></script>
+
+<script>
+    new FroalaEditor('#WinterContent', {
+        // Set the image upload URL.
+        imageUploadURL: '/UploadFiles',
+
+        imageUploadParams: {
+            id: 'my_editor'
+        }
+    })
+</script>
+<script>
+    let editFileHandler = (e) => {
+        let confirmD = confirm('آیا مطمئن هستید؟ ( تصویر قبلی شما حذف خواهد شد)');
+        let name = $(e).parent().find('[type="hidden"]').attr('name');
+        if (confirmD) {
+            if (name == "WinterHeaderImageName") {
+                fileinput = `<div class="col-sm-9"><input type="file" input-id="1" name="WinterHeaderImage" class="form-control" onchange="checkFile(this)"/></div>`;
+            }
+            else {
+                fileinput = `<div class="col-sm-9"><input type="file" input-id="1" name="WinterHeaderMobileImage" class="form-control"/></div>`;
+            }
+            $(e).after(fileinput);
+            $(e).parent().find('[type="hidden"]').remove();
+            $(e).removeAttr('onclick');
+        }
+    }
+</script>

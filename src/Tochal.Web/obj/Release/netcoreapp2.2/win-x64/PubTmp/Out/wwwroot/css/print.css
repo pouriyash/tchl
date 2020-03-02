@@ -1,0 +1,7 @@
+body section div{
+    display:none;
+}
+
+body section p input::placeholder {
+    color:white;
+}

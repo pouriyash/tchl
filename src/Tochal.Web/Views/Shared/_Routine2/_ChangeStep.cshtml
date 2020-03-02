@@ -1,0 +1,33 @@
+﻿@using Tochal.Core.DomainModels.Entity.Routine2
+@model Tochal.Core.DomainModels.ViewModel.Routine2.Routine2ChangeStep
+
+
+<span title="@Model.Action"
+      style="display: none;"
+      id="routine_record_action_tooltip_@(Model.Action)_@Model.EntityId">
+    <button type="button"
+            id="routine_record_action_@(Model.Action)_@Model.EntityId"
+            data-popover="Routine_Action_@(Model.Action)_@Model.EntityId"
+            class="exir--transparent-btn">
+        <i data-role="icon" class="pe-7s-play largeicon"></i>
+    </button>
+</span>
+
+<div data-role="popover-content" id="Routine_Action_@(Model.Action)_@Model.EntityId">
+    <form data-role="routine-ajax-form">
+        <input type="hidden" name="Id" value="@Model.EntityId" />
+        <input type="hidden" name="Action" value="@Model.Action" />
+
+        <textarea class="form-control" name="Description"
+                  oninvalid="this.setCustomValidity('لطفا پیش از ارسال، توضیحات را کامل نمایید')"
+                  oninput="this.setCustomValidity('')"
+                  style="resize: none; height: 180px; overflow: hidden;"></textarea>
+
+        <input type="text" class="form-control" name="Description"
+               oninvalid="this.setCustomValidity('لطفا پیش از ارسال، توضیحات را کامل نمایید')"
+               oninput="this.setCustomValidity('')" />
+
+        <button data-role="button" type="submit" class="btn btn-block m-t-xs">@Model.Action</button>
+    </form>
+</div>
+

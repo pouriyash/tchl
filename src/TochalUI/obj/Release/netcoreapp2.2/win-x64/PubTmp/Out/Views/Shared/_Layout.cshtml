@@ -1,0 +1,147 @@
+﻿<!DOCTYPE html>
+@using System.Globalization
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>@Localizer["Tochal"]</title>
+    <link rel="stylesheet" href="~/lib/fontawesome-free/css/all.css">
+    <link href="~/dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/styles/comments.css" rel="stylesheet" />
+
+    @if (CultureInfo.CurrentCulture.Name == "fa-IR")
+    {
+        <link rel="stylesheet" href="~/styles/style.css">
+    }
+    else
+    {
+        <link rel="stylesheet" href="~/styles/style-ltr.css">
+    }
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
+    <link rel="stylesheet" href="~/styles/StyleSheet.css">
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/script/script.js"></script>
+
+    @RenderSection("styles", required: false)
+</head>
+<body>
+
+    <div class="preloader">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span><p>@Localizer["Loading"]</p></span>
+    </div>
+
+    <div class="filterdiv" style="display:none;width: 100vw;height: 100vh;background-color: rgba(255, 255, 255, 0.7);z-index: 5000;position: fixed;top: 0;"></div>
+
+    <header>
+        @await Component.InvokeAsync("Menu")
+
+    </header>
+
+    <div class="ipopup">
+        <div class="close-popup">
+            <i class="fas fa-times"></i>
+        </div>
+        <div class="btn-popup">
+            <div class="next-popup"><i class="fas fa-arrow-left"></i></div>
+            <div class="prev-popup"><i class="fas fa-arrow-right"></i></div>
+        </div>
+        <div style="position: absolute;bottom: 10px;background: #ffffffc7;padding: 10px;border-radius: 40px;">
+            <h6 style="margin:0;">این یک عنوان آزمایشی است</h6>
+        </div>
+    </div>
+        @await Component.InvokeAsync("MobileMenu")
+
+    @RenderBody()
+    <footer id="footer">
+        @await Component.InvokeAsync("Footer")
+
+    </footer>
+
+    @if (CultureInfo.CurrentCulture.Name == "fa-IR")
+    {
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+                crossorigin="anonymous"></script>
+    }
+    else
+    {
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+                crossorigin="anonymous"></script>
+    }
+    @*<script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>*@
+    @*<script src="~/script/page.js"></script>*@
+    <script>
+        $(function () {
+            $('.ipopup').hide();
+            $('[data-f-id="pbf"]').remove()
+            $('.close-popup , .ipopup').on('click', () => {
+                $('.ipopup img').remove();
+                $('.ipopup').fadeOut();
+            })
+            $('.next-popup').on('click', () => {
+                let id = $('.ipopup img').attr('img-id');
+                setTimeout(() => {
+                    $(`[popup-id="${id}"]`).parent().next().find('img').click();
+                }, 500)
+            })
+            $('.prev-popup').on('click', () => {
+                let id = $('.ipopup img').attr('img-id');
+                setTimeout(() => {
+                    $(`[popup-id="${id}"]`).parent().prev().find('img').click();
+                }, 500)
+            })
+        })
+        let showipopup = (el) => {
+            let img = $(el).attr('src');
+            let id = $(el).attr('popup-id');
+            let text = $(el).next().text();
+            let tag = document.createElement('img');
+            tag.setAttribute('src', img);
+            tag.setAttribute('img-id', id);
+            $('.ipopup').append(tag)
+            $('.ipopup').fadeIn();
+            $('.ipopup h6').text(text)
+            $('.prev-popup, .next-popup').show();
+
+            // if first one , hide the prev button
+            if ($('.s-item')[0] == $(el).parent()[0]) {
+                $('.ipopup .prev-popup').hide()
+                $('.btn-popup').css('direction', 'ltr')
+            }
+
+            // if last one , hide the next button
+            let itemsLength = $('.s-item').length;
+            if ($('.s-item')[itemsLength - 1] == $(el).parent()[0]) {
+                $('.ipopup .next-popup').hide()
+                $('.btn-popup').css('direction', 'rtl')
+            }
+
+            $('body').on('keydown', (e) => {
+                if (e.keyCode == 37) {
+                    $('.next-popup').click();
+                }
+                if (e.keyCode == 39) {
+                    $('.prev-popup').click();
+                }
+            })
+        }
+
+        $(function () {
+            if (window.matchMedia('(max-width:800px)').matches) {
+                document.querySelectorAll('[data-item]').forEach((item, index) => {
+                    let src = $(`[data-m-item="${index}"]`).attr('src');
+                    $(item).attr('src', src)
+                })
+            }
+        })
+    </script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

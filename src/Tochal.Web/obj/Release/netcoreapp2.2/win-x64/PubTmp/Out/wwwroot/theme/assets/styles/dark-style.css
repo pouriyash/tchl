@@ -1,0 +1,233 @@
+/* Dark dashboard  */
+
+body {
+    background: #24262d;
+}
+
+a {
+    color: #33cd56 !important;
+    transition: all ease-in-out .2s;
+}
+
+hr {
+    border-top: 1px solid #2a2d35;
+}
+
+.grid-container-dashboard .hpanel>.panel-footer,
+.hpanel>.panel-section {
+    background: rgba(68, 70, 79, 0.5);
+}
+
+.grid-container-dashboard .hpanel .panel-body {
+    background: #24262d;
+}
+
+.navbar-form-custom .form-control {
+    background-color: #2a2d35 !important;
+}
+
+.hpanel>.panel-footer,
+.hpanel>.panel-section {
+    border: 1px solid #24262d;
+}
+
+.list-group-item {
+    border: 1px solid #24262d;
+    border-right: none;
+    border-left: 0;
+    border-bottom: 0;
+}
+
+.dashboard_list_item:hover {
+    background-color: #33cd56;
+    color: #fff !important;
+    font-weight: 500;
+}
+
+#header {
+    background-color: #2a2d35;
+    border-bottom: 1px solid #33cd56;
+}
+
+.navbar-nav>li>a:hover,
+.navbar-nav>li>a:focus,
+.navbar-nav .open>a,
+.navbar-nav .open>a:hover,
+.navbar-nav .open>a:focus {
+    background: #33cd56;
+    border-bottom: 1px solid #33cd56;
+    color: #fff !important;
+}
+
+#logo.light-version {
+    background-color: #24262d;
+    border-bottom: 1px solid #62cb31;
+}
+
+#logo.light-version a {
+    color: #fff;
+}
+
+.header-link {
+    background: #33cd56;
+    border-left: 1px solid #2a2d35;
+    border-right: 1px solid #62cb31;
+    color: #fff;
+}
+
+.sidebar-scroll #menu {
+    position: fixed;
+    background: #24262d;
+    color: #1fb341;
+}
+
+#menu {
+    color: #fff;
+}
+
+.profile-picture .img-siteLogo {
+    display: none;
+}
+
+.geekLogo {
+    display: block;
+    direction: ltr;
+    background: transparent;
+    border: none;
+    width: 157px;
+    font-size: 10px;
+    overflow: hidden;
+    color: #33cd56;
+}
+
+.stats-label a {
+    color: #419d56;
+}
+
+.text-muted {
+    color: #419d56;
+}
+
+.small-header .panel-body h2 {
+    font-weight: 500;
+}
+
+.small-header .panel-body small {
+    color: #33cd56;
+}
+
+.hpanel .panel-body {
+    background: #24262d;
+    border: 1px solid #24262d;
+    color: #fff;
+}
+
+.filterbox {
+    background-color: #2a2d35;
+}
+
+label {
+    font-weight: 500 !important;
+    color: #33cd56;
+}
+
+#wrapper {
+    background: #2a2d35;
+    border-right: 1px solid #24262d;
+}
+
+.hbreadcrumb {
+    background-color: #24262d;
+}
+
+.hbreadcrumb li a {
+    color: #fff !important;
+}
+
+.hbreadcrumb>li+li:before {
+    color: #33cd56;
+}
+
+.hbreadcrumb>.active {
+    color: #33cd56 !important;
+}
+
+.form-control {
+    font-size: inherit;
+    background-color: #2a2d35 !important;
+    border-color: #33cd56 !important;
+    box-shadow: inset 0 1px 2px rgba(51, 205, 86, 0.075) !important;
+    color: #33cd56 !important;
+}
+
+    .form-control:focus {
+        border-color: rgb(51, 205, 86) !important;
+        background-color: #2a2d35 !important;
+        box-shadow: inset 0 1px 2px rgba(51, 205, 86, 0.075), 0 0 0 0.2em rgba(51, 205, 86, 0.3) !important;
+        outline: none;
+    }
+
+@media (max-width: 767px) {
+    .table-responsive {
+        border: 1px solid #24262d;
+    }
+}
+
+.table thead th {
+    background: #33cd56;
+    color: #000;
+    font-weight: 500;
+}
+
+.table tbody td {
+    color: #62cb31;
+}
+
+.table-striped>tbody>tr:nth-of-type(odd) {
+    background-color: #2a2d35;
+}
+
+.table.table-hover tbody tr:hover td {
+    background: #191d25;
+}
+
+.table-hover>tbody>tr:hover {
+    background-color: #24262d;
+}
+
+.text-info {
+    color: #62cb31;
+}
+
+.btn-info {
+    color: #fff;
+    background-color: #28a745;
+    background-image: -webkit-linear-gradient(270deg, #34d058 0%, #28a745 90%);
+    background-image: linear-gradient(-180deg, #34d058 0%, #28a745 90%);
+}
+
+.pagination>li>a,
+.pagination>li>span {
+    color: #33cd56;
+    background-color: #2a2d35;
+    border: 1px solid #555;
+}
+
+.pagination>.active>a,
+.pagination>.active>span,
+.pagination>.active>a:hover,
+.pagination>.active>span:hover,
+.pagination>.active>a:focus,
+.pagination>.active>span:focus {
+    background-color: #24262d;
+    border-color: #555;
+}
+
+.footer {
+    background: #24262d;
+    border-top: 1px solid #24262d;
+}
+
+.btn {
+    color: #fff !important;
+}

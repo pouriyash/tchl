@@ -1,0 +1,8 @@
+﻿@using Tochal.Core.DomainModels.Entity
+@model List<Language>
+
+@foreach (var item in Model)
+{
+    <li><a asp-action="ChangeLanguage" asp-controller="Home" asp-route-culture="@item.LanguageTitle">@item.LanguageTitle</a></li>
+
+}

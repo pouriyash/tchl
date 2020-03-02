@@ -1,0 +1,12 @@
+E:\NewGit\src\Exir.Regate\bin\Release\netcoreapp1.1\Exir.Regate.deps.json
+E:\NewGit\src\Exir.Regate\bin\Release\netcoreapp1.1\Exir.Regate.dll
+E:\NewGit\src\Exir.Regate\bin\Release\netcoreapp1.1\Exir.Regate.pdb
+E:\NewGit\src\Exir.Regate\bin\Release\netcoreapp1.1\Exir.Remark.dll
+E:\NewGit\src\Exir.Regate\bin\Release\netcoreapp1.1\Exir.Remark.pdb
+E:\NewGit\src\Exir.Regate\obj\Release\netcoreapp1.1\Exir.Regate.csprojAssemblyReference.cache
+E:\NewGit\src\Exir.Regate\obj\Release\netcoreapp1.1\Exir.Regate.csproj.CoreCompileInputs.cache
+E:\NewGit\src\Exir.Regate\obj\Release\netcoreapp1.1\Exir.Regate.AssemblyInfoInputs.cache
+E:\NewGit\src\Exir.Regate\obj\Release\netcoreapp1.1\Exir.Regate.AssemblyInfo.cs
+E:\NewGit\src\Exir.Regate\obj\Release\netcoreapp1.1\Exir.Regate.csproj.CopyComplete
+E:\NewGit\src\Exir.Regate\obj\Release\netcoreapp1.1\Exir.Regate.dll
+E:\NewGit\src\Exir.Regate\obj\Release\netcoreapp1.1\Exir.Regate.pdb

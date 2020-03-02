@@ -1,0 +1,254 @@
+﻿@using Tochal.Web.Helpers
+@using Tochal.Core.DomainModels.SSOT
+@using Exir.Regate
+@inject IOptions<ContactInfo> ContactInfo
+
+@model ForgotPasswordViewModel
+@using Tochal.Toolkit;
+@{
+    ViewBag.Title = "ارسال لینک بازیابی کلمه عبور";
+    Layout = "Layout/LoginPage";
+};
+@Html.Raw(Styles.MakeLayoutBlank());
+
+
+<style>
+
+    .form-control {
+        font-weight: 200 !important;
+        line-height: 1.5 !important;
+        color: black;
+        background-color: white !important;
+        background-clip: padding-box !important;
+        border: 1px solid #ced4da !important;
+        border-radius: .25rem !important;
+        transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out !important;
+    }
+
+        .form-control:placeholder {
+            color: #808080;
+        }
+
+    .form-group {
+        margin-top: 14px;
+        margin-bottom: 14px !important;
+    }
+
+    form label, .form-radio-legend.col.col-md-4.state--required {
+        text-align: left;
+    }
+
+    .text-danger{
+        top:3px !important;
+    }
+
+</style>
+<style>
+
+    .preload * {
+        opacity: 0 !important;
+    }
+
+    .form-control {
+        box-shadow: none;
+    }
+
+    .sweet-alert h2,
+    .sweet-alert p,
+    .sweet-alert button {
+        font-family: 'IRANSans';
+    }
+</style>
+<style>
+
+    .preload * {
+        opacity: 0 !important;
+    }
+
+    .form-control {
+        box-shadow: none;
+    }
+
+    .register-block .form-control {
+        border-radius: 5px !important;
+    }
+    .register-block{
+        margin-bottom: 58px;
+    }
+
+    .sweet-alert h2,
+    .sweet-alert p,
+    .sweet-alert button {
+        font-family: 'IRANSans';
+    }
+
+    .form-control {
+        margin-bottom: 13px;
+        height: 35px !important;
+    }
+
+    form div label {
+        font-weight: 400;
+    }
+
+    .radiocon {
+        display: inline;
+        position: relative;
+        padding-left: 35px;
+        margin-bottom: 12px;
+        cursor: pointer;
+        background-color: #eaeaea;
+        padding: 8px 0;
+        text-align: center;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        cursor: pointer !important;
+    }
+
+        /* Hide the browser's default radio button */
+        .radiocon input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .radiocon:hover {
+            background-color: #bdeeee;
+        }
+
+    .checked {
+        color: white;
+        background-color: #11c7c5;
+        box-shadow: inset 0px 0px 5px 1px rgba(128, 128, 128, 0.3);
+    }
+
+    .headtitle {
+        margin-top: 50px;
+        font-size: 1.5em;
+        color: #11c7c5;
+    }
+
+        .headtitle::after {
+            color: black;
+            content: ' » '
+        }
+
+        .headtitle::before {
+            content: ' « ';
+            color: black;
+        }
+
+
+    .fullscrn-bg {
+        background-position: 50% 0;
+        background-repeat: no-repeat;
+        position: fixed;
+        top: 0px;
+        left: 0px;
+        right: 0px;
+        bottom: 0px;
+        background-size: cover;
+    }
+
+    .content {
+        padding: 0px;
+    }
+
+    .invalidi {
+        border-color: #e74c3c !important
+    }
+
+        .invalidi::placeholder {
+            color: red;
+        }
+
+    .text-danger {
+        position: relative;
+        top: 0px !important;
+    }
+</style>
+<link rel="stylesheet" href="~/theme/assets/styles/login/login-rtl.css?v1.2.0" />
+
+<div class="row ">
+    <div class="fullscrn-bg" style="background-image: url(/theme/assets/images/reg/bg.jpg)"></div>
+    <div class="dark-translucent-bg padding-top-50 padding-bottom-20" style="margin-top: -18px;">
+        <div class="container">
+            <div class="row">
+                <div class="object-visible">
+                    <div class="form-block center-block register-block" style="background-color:#f8f8f8">
+                        <div class="text-center">
+                        </div>
+                        <div class="box-form text-right">
+                            <div style="text-align:center">
+                                <h3 class="box-form-loginTitle" style="font-size: 1.4rem; margin-top: 1.5rem">به سامانه</h3>
+                                <h4 class="box-form-title" style="color:#11c7c5">@ContactInfo.Value.SiteTitle</h4>
+                                <h3 class="box-form-loginTitle" style="font-size: 1.4rem;">خوش آمدید</h3>
+                                <h4 class="box-form-subTitle">@ContactInfo.Value.SiteSlogan </h4>
+                                <h2 class="headtitle margin-bottom-20">بازیابی رمز عبور</h2>
+                            </div>
+                            <form asp-controller="ForgotPassword" asp-action="Index" method="post">
+                                <partial name="_CustomValidationSummary" />
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        @*<label required asp-for="NationalCode" class="col-md-2 col-form-label text-md-left"></label>*@
+                                        <div class="col-md-12  ">
+                                            <input required placeholder="کد ملی" asp-for="NationalCode" class="form-control" />
+                                            <span asp-validation-for="NationalCode" class="text-danger" style="top: -9px !important;"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        @*<label asp-for="PhoneNumber" class="col-md-2 col-form-label text-md-left"></label>*@
+                                        <div class="col-md-12  ">
+                                            <input required placeholder="شماره همراه" asp-for="PhoneNumber" class="form-control" />
+                                            <span asp-validation-for="PhoneNumber" class="text-danger" style="top: -9px !important;"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="col col-md-12">
+                                            <dnt-captcha asp-captcha-generator-max="9000"
+                                                         asp-captcha-generator-min="1"
+                                                         asp-captcha-generator-language="Persian"
+                                                         asp-font-name="Tahoma"
+                                                         asp-font-size="20"
+                                                         asp-refresh-button-class="fas fa-redo btn-sm"
+                                                         asp-fore-color="#333333"
+                                                         asp-back-color="#ccc"
+                                                         asp-text-box-class="text-box form-control"
+                                                         asp-text-box-template="<div class='input-group col-md-12  '><span class='input-group-prepend'><span class='input-group-text'></span></span>{0}</div>"
+                                                         asp-validation-message-class="text-danger" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" style="margin-top:30px;margin-bottom:50px">
+                                    <div class="col-md-12">
+                                        <span class="col-md-12" style="float:left">
+                                            <button type="submit" class="btn btn-exir btn-block">بازیابی</button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="register__footer">
+        <div class="sticky-footer">
+            <a href="http://www.exirresearch.ir/" target="_blank"><img class="footer-logo" src="~/theme/assets/images/exir-logo.png" /></a>
+            <div class="copyright-space">
+                <div class="copyright-text">کلیه حقوق این سامانه متعلق به<strong> @ContactInfo.Value.SiteTitle </strong> است.</div>
+                <p class="copyright-link">طراحی و توسعه: <a href="http://www.exirresearch.ir/" target="_blank">فناوری دانش و پژوهش اکسیر</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+

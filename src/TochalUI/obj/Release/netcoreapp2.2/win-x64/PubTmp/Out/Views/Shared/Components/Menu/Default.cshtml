@@ -1,0 +1,238 @@
+﻿@using Tochal.Core.DomainModels.DTO.MenuEntity
+@model List<MenuEntityDTO>
+@using System.Globalization
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
+<nav>
+    <div class="utilities">
+        <ul style="height: 100%;">
+            <li dir="ltr" class="weatherli">
+                <a style="cursor: pointer;" onclick="listhandlerutil(this)" ontouchstart="listhandlerutil(this)" class="" role="button">
+                    <i class="fas fa-thermometer-half"></i>
+                    <span id="weather-main" class="">-2</span>
+                    <span class="">°C</span>
+                </a>
+                <div class="innerlist weatherlist">
+                    <i class="fas fa-times" id="menuCloseIcon" style="cursor: pointer;color:red;position: absolute; right: -10px;top: -10px;width:25px;height:25px;background-color: #fff;clip-path: circle();display: grid;place-items: center;" onclick="hideout(this)" ontouchstart="hideout(this)"></i>
+                    <ul class="innerul">
+                        <h5>دمای ایستگاه 2</h5>
+                        <a class="">
+                            <span>
+                                <div>
+                                    <i class="fas fa-angle-up"></i>
+                                    <span id="w-bot-u" class="">-5</span>
+                                    <span class="">°C</span>
+                                </div>
+                                <div>
+                                    <i class="fas fa-angle-down"></i>
+                                    <span id="w-bot-d" class="">-11</span>
+                                    <span class="">°C</span>
+                                </div>
+                            </span>
+                            <i id="w-bot-i" class="fas"></i>
+                        </a>
+                    </ul>
+                    <ul class="innerul">
+                        <h5>دمای ایستگاه 5</h5>
+                        <a class="">
+                            <span>
+                                <div>
+                                    <i class="fas fa-angle-up"></i>
+                                    <span id="w-mid-u" class="">-5</span>
+                                    <span class="">°C</span>
+                                </div>
+                                <div>
+                                    <i class="fas fa-angle-down"></i>
+                                    <span id="w-mid-d" class="">-11</span>
+                                    <span class="">°C</span>
+                                </div>
+                            </span>
+                            <i id="w-mid-i" class="fas"></i>
+                        </a>
+                    </ul>
+                    <ul class="innerul">
+                        <h5>دمای ایستگاه 7</h5>
+                        <a class="">
+                            <span>
+                                <div>
+                                    <i class="fas fa-angle-up"></i>
+                                    <span id="w-top-u" class="">-5</span>
+                                    <span class="">°C</span>
+                                </div>
+                                <div>
+                                    <i class="fas fa-angle-down"></i>
+                                    <span id="w-top-d" class="">-11</span>
+                                    <span class="">°C</span>
+                                </div>
+                            </span>
+                            <i id="w-top-i" class="fas"></i>
+                        </a>
+                    </ul>
+                </div>
+            </li>
+            <hr style="width:1px;height:50%;border:0.5px solid white;background-color: #fff;">
+            <li dir="ltr" class="usericon">
+                <a href="http://185.10.74.119:1200/" style="cursor: pointer;" @*onclick="listhandlerutil(this)" ontouchstart="listhandlerutil(this)"*@>
+                    <i class="fas fa-user"></i>
+                    <span id="" class="">ورود</span>
+                </a>
+                <div class="innerlist profilelist">
+                    <i class="fas fa-times" style="cursor: pointer;color:red;position: absolute; right: -10px;top: -10px;width:25px;height:25px;background-color: #fff;clip-path: circle();display: grid;place-items: center;" onclick="hideout(this)" ontouchstart="hideout(this)"></i>
+                    <ul class="innerul logprev" style="display: none;">
+                        <h5 style="font-size: 18px !important;">حساب دارید؟</h5>
+                        <form style="display: grid;place-items: center;">
+                            <input class="  form-control btn-primary" type="button" value="ورود" onclick="userformhandler('.regprev','.logprev')">
+                        </form>
+                    </ul>
+                    <ul class="innerul logprev" style="display: none;">
+                        <h5>ثبت نام</h5>
+                        <form action="submit">
+                            <input class="form-control" style="font-size: 13px;" type="email" id="ایمیل" placeholder="ایمیل" required>
+                            <input class="form-control" style="font-size: 13px;" type="password" id="password" placeholder="رمزعبور" required>
+                            <input class="form-control" style="font-size: 13px;" type="password" id="passwordverified" placeholder="تکرار رمز عبور" required>
+                            <input class="form-control btn-primary" type="submit" value="ثبت نام">
+                        </form>
+                    </ul>
+                    <ul class="innerul regprev">
+                        <h5>ورود</h5>
+                        <form action="submit">
+                            <input class="form-control" style="font-size: 13px;" type="text" id="username" placeholder="نام‌ کاربری" required>
+                            <input class="form-control" style="font-size: 13px;" type="password" id="password" placeholder="رمزعبور" required>
+                            <input class="form-control btn-primary" type="submit" value="ورود">
+                        </form>
+                    </ul>
+                    <ul class="innerul regprev">
+                        <h5 style="font-size: 18px !important;">حساب ندارید؟</h5>
+                        <form style="display: grid;place-items: center;">
+                            <input class="  form-control btn-primary" type="button" value="ثبت نام" onclick="userformhandler('.logprev','.regprev')">
+                        </form>
+                    </ul>
+                </div>
+            </li>
+            <hr style="width:1px;height:50%;border:0.5px solid white;background-color: #fff;">
+            <li dir="ltr" class="purchaseicon">
+                <a href="#" class="" role="button">
+                    <i class="fas fa-shopping-cart"></i>
+                </a>
+            </li>
+            <li class="mobilenavicon" style="display: none;">
+                <a href="#"><i onclick="slidein('.mobilenav')" ontouchstart="slidein('.mobilenav')" class="fas fa-bars"></i></a>
+            </li>
+        </ul>
+    </div>
+    <div class="listnav">
+        <ul id="menuBar">
+            @foreach (var item in Model.Where(p => p.ParentId == null).ToList())
+            {
+                if (item.PageType == Tochal.Core.DomainModels.Entity.Menu.PageTypeSSOT.List)
+                {
+                    <li onmouseover="listhandler(this)">
+                        <a>@item.Title</a>
+                        <div class="innerlist">
+                            @foreach (var item2 in Model.Where(p => p.ParentId == item.Id && p.Row == Tochal.Core.DomainModels.Entity.Menu.RowSSOT.Title).ToList())
+                            {
+                                <ul class="innerul">
+                                    <a style="color:black;float:right">@item2.Title</a>
+                                    <hr />
+                                    @foreach (var item3 in Model.Where(p => p.ParentId == item2.Id && p.Row == Tochal.Core.DomainModels.Entity.Menu.RowSSOT.Second).ToList())
+                                    {
+                                        if (item3.PageType == Tochal.Core.DomainModels.Entity.Menu.PageTypeSSOT.ExternalLink)
+                                        {
+                                            <li><a href="@item3.Link">@item3.Title</a></li>
+
+                                        }
+                                        else if (item3.PageType == Tochal.Core.DomainModels.Entity.Menu.PageTypeSSOT.Single)
+                                        {
+                                            <li><a asp-action="SinglePage" asp-route-menuId="@item3.Id">@item3.Title</a></li>
+                                        }
+                                        else
+                                        {
+                                            if (item3.DetailType == Tochal.Core.DomainModels.Entity.Menu.DetailTypeSSOT.Pro)
+                                            {
+                                                <li><a asp-action="Post" asp-route-menuId="@item3.Id">@item3.Title]</a></li>
+                                            }
+                                            else if (item3.DetailType == Tochal.Core.DomainModels.Entity.Menu.DetailTypeSSOT.Blog)
+                                            {
+                                                <li><a asp-action="Blog" asp-route-menuId="@item3.Id">@item3.Title</a></li>
+                                            }
+                                            else
+                                            {
+                                                <li><a asp-action="Post" asp-route-menuId="@item3.Id">@item3.Title</a></li>
+                                            }
+                                        }
+                                    }
+                                </ul>
+                            }
+
+                        </div>
+                    </li>
+                }
+                else
+                {
+                    if (item.PageType == Tochal.Core.DomainModels.Entity.Menu.PageTypeSSOT.ExternalLink)
+                    {
+                        <li><a href="@item.Link">@Localizer[item.Title.ToString()]</a></li>
+                    }
+                    else if (item.PageType == Tochal.Core.DomainModels.Entity.Menu.PageTypeSSOT.Single)
+                    {
+                        <li><a asp-action="SinglePage" asp-route-menuId="@item.Id">@item.Title</a></li>
+                    }
+                }
+
+            }
+
+            @*<li><a href="#">باشگاه مشتریان</a></li>*@
+
+        </ul>
+    </div>
+    <hr style="width:1px;height:50%;background-color:white;border:0.5px solid white">
+    <div class="logo">
+        <a href="/"><img src="/images/logo3.png" alt="لوگو"></a>
+    </div>
+</nav>
+
+<script>
+    $.get("/Home/Languages", function (res) {
+        $("#menuBar").append(res);
+    });
+
+    $(function () {
+        weatherAjax('bot')
+        weatherAjax('mid')
+        weatherAjax('top')
+    })
+
+    let weatherAjax = (range) => {
+        $.ajax({
+            type: "GET",
+            url: `https://tochalweather.herokuapp.com/${range}`,
+            dataType: "json",
+            success: function (res) {
+                if (range == 'bot') {
+                    $('#weather-main').text(parseInt((res.max + res.min) / 2))
+                }
+                $(`#w-${range}-u`).text(res.max)
+                $(`#w-${range}-d`).text(res.min)
+                switch (res.outlook) {
+                    case 'clear':
+                        $(`#w-${range}-i`).addClass('fa-sun')
+                        break;
+                    case 'snow showers':
+                    case 'heavy snow':
+                    case 'moderate snow':
+                    case 'light snow':
+                        $(`#w-${range}-i`).addClass('fa-snowflake')
+                        break;
+                    case 'partially cloudy':
+                        $(`#w-${range}-i`).addClass('fa-cloud-sun')
+                        break;
+                    case 'rain showers':
+                    default:
+                        $(`#w-${range}-i`).addClass('fa-cloud-showers-heavy')
+                        break;
+                }
+            }
+        })
+    }
+</script>

@@ -1,0 +1,63 @@
+﻿@using Tochal.Core.DomainModels.Entity.Blog
+@using Tochal.Core.DomainModels.SSOT
+@model List<ContentEntity>
+@using Microsoft.Extensions.Options
+@inject IOptions<FileConfig>  fileConfig
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
+<section class="announcements">
+
+    @if (Model.Count > 0)
+    {
+        foreach (var item in Model)
+        {
+            <div class="announcement" id="more">
+                <img src="@fileConfig.Value.WebAddress@item.MainImage" alt="" style="object-fit:cover" />
+                <div>
+                    <hr>
+                    <h3>رویداد ویژه</h3>
+                    <h4>@item.Title</h4>
+                    <hr>
+                    <a href="/Home/Detail?id=@item.Id">بیشتر</a>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <div class="announcement" id="more">
+            <img src="" alt="">
+            <div>
+                <hr>
+                <h3>رویداد ویژه</h3>
+                <h4>عضویت در WNWFO</h4>
+                <hr>
+                <a href="#more">بیشتر</a>
+            </div>
+        </div>
+        <div class="announcement" id="more">
+            <img src="" alt="">
+            <div>
+                <hr>
+                <h3>رویداد ویژه</h3>
+                <h4>testttttttttt</h4>
+                <hr>
+                <a href="#more">بیشتر</a>
+            </div>
+        </div>
+        <div class="announcement" id="more">
+            <img src="" alt="">
+            <div>
+                <hr>
+                <h3>رویداد ویژه</h3>
+                <h4>double test</h4>
+                <hr>
+                <a href="#more">بیشتر</a>
+            </div>
+        </div>
+    }
+
+
+
+</section>

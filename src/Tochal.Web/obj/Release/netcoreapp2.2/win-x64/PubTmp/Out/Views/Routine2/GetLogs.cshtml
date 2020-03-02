@@ -1,0 +1,130 @@
+﻿@using Tochal.Toolkit
+@using Tochal.Core.DomainModels.Entity.Routine2
+@using Exir.Remark 
+@model List<Routine2Log>
+
+@{ 
+    ViewBag.Title = "تاریخچه";
+    List<Routine2Step> steps = ViewBag.Steps;
+}
+
+@Html.Raw(Styles.MakeLayoutBlank())
+
+@if (Model != null && Model.Count > 0)
+{
+    <div class="hpanel">
+        <div class="panel-body">
+            <div class="table-responsive">
+                <table class="table table-striped table-hover table-valigned">
+                    <thead>
+                        <tr class="weight-500">
+                            <th width="1">#</th>
+                            <th width="180">تاریخ</th>
+                            @*<th width="150">کاربر</th>*@
+                            <th width="150">سمت</th>
+                            <th width="250">عملیات</th>
+                            <th>توضیحات</th>
+
+                            <environment names="Development">
+                                <th width="1">مرحله</th>
+                            </environment>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{ var count = Model.Count; }
+
+                        @foreach (var item in Model)
+                        {
+
+                            <tr>
+                                <td>@Html.Raw(RemarkPersianNumber.Build(count--))</td>
+                                <td>
+                                    @Html.Raw(RemarkPersianDate.Build(item.ActionDate))
+                                </td>
+                                @*<td>
+                                    @Html.Raw(RemarkUserId.Build(item.UserId))
+                                </td>*@
+                                <td>
+                                    <span>@item.RoutineRoleTitle</span>
+                                </td>
+
+                                <td>
+                                    <span >@(steps.Where(p=>p.Step==item.ToStep).FirstOrDefault()?.Title)</span>
+                                </td>
+
+                                <td>@Html.Raw(item.Description?.Replace(System.Environment.NewLine, "<br />"))</td>
+                                <environment names="Development">
+                                    <td>@item.Step</td>
+                                </environment>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            var data = { routineId: '@ViewBag.RoutineId' };
+            var request = $.get('@Url.Action("GetRoutine", "Routine2")', data);
+            request.then(function (response) {
+                var roles = response.Roles;
+                roles.push({
+                     DashboardEnum: 'Moderator',
+                     Title: 'مدیر ارشد سیستم',
+                     Color: 'default'
+                });
+                roles.forEach(function(role) {
+                    $('[data-role="' + role.DashboardEnum + '"]').text(role.Title).removeAttr('data-role');
+                });
+
+                $('[data-role]').each(function(undefinedRole) {
+                    var title = $(this).attr('data-role');
+                    $(this).text(title);
+                });
+
+                // actions
+                var steps = {};
+                var actions = {};
+                response.Steps.forEach(function (step) {
+                    steps[step.Step] = step;
+                });
+                response.Actions.forEach(function (action) {
+                    actions[action.Step + '_' + action.Action] = action;
+                });
+
+                console.log(steps);
+                console.log(actions);
+
+                $('[data-action]').each(function(item) {
+                    try {
+                        var $elem = $(this);
+                        var action = $elem.attr('data-action');
+                        var step = $elem.attr('data-step');
+                        var routineAction = actions[step + '_' + action];
+
+                        if (routineAction) {
+                            $elem.text('');
+                            $('<span></span>')
+                                // .addClass('text-' + routineAction.Color)
+                                .text(routineAction.Title)
+                                .appendTo($elem);
+                        } else {
+                            if (action === 'ChangeStep') {
+                                $elem.text('تغییر کارتابل');
+                            }
+                        }
+                    } catch (ex) {
+
+                    }
+
+                });
+            });
+        }());
+    </script>
+}
+else
+{
+    <div class="text-center" style="font-size: 40px;">تاریخچه‌ای موجود نیست</div>
+}

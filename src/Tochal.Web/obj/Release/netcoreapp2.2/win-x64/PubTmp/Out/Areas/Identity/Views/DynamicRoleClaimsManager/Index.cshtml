@@ -1,0 +1,243 @@
+﻿@model DynamicRoleClaimsManagerViewModel
+@using Tochal.Infrastructure.Services.Identity
+
+<div style="position:fixed; z-index:10; background-color:#EEE; width:86%; margin-top:-26px">
+    <br />
+    <h2>تنظیم سطوح دسترسی پویای نقش «@Model.RoleIncludeRoleClaims.Name»</h2>
+
+
+</div>
+
+
+<style>
+
+    .card-img {
+        width: 175px;
+        height: 100px;
+    }
+
+    .list-group-item-success {
+        color: #3c763d;
+    }
+
+    .ddd {
+    }
+
+        .ddd:hover {
+            transform: scale(1.02);
+        }
+</style>
+
+
+<style>
+    .navbar-form-custom {
+        display: block !important;
+    }
+</style>
+<script src="~/theme/assets/scripts/isotope.pkgd.min.js"></script>
+
+
+<script>
+    $(function () {
+
+        grid = $('.grid-container-dashboard').isotope({
+            itemSelector: '.grid-item-container-dashboard',
+            layoutMode: 'masonry',
+            isOriginLeft: false
+        });
+
+        setTimeout(function () {
+            grid.isotope('layout');
+        }, 0);
+
+        $('body').on('click', '.homer-side-toggler', function () {
+            setTimeout(function () {
+                grid.isotope('layout');
+            }, 300);
+        });
+    })
+
+    $(function () {
+        $('body').on('keyup', '[data-search-input]', function () {
+            var name = $(this).data('search-input');
+            var value = $.trim($(this).val());
+            //console.log(value)
+            var container = $('[data-search-container=' + name + ']');
+            var selector = $(this).data('search-item');
+            var items = $(selector);
+            console.log(items);
+            items.removeClass("isVis");
+            grid.isotope({
+                filter: '*'
+            });
+            items.each(function () {
+                $(this).html($(this).text());
+                //console.log(items);
+            });
+            if (!value.length) {
+                return;
+            }
+            items.each(function () {
+                if ($(this).text().indexOf(value) != -1) {
+                    $(this).addClass('isVis');
+                    var nText = $(this).html().replace(value, '<span class="isVis-match weight-600">' + value + '</span>');
+                    $(this).html(nText);
+                    //console.log(nText)
+                }
+            });
+            grid.isotope({
+                filter: $('.isVis').closest('.grid-item-container-dashboard')
+            });
+        });
+    });
+</script>
+
+
+
+
+<div id="dynamicPermissions" class="col-md-12 col-lg-12 col-xl-12 " style="margin-top:150px">
+    <form 
+          name="RolePermission"
+          asp-controller="DynamicRoleClaimsManager"
+          asp-action="Index"
+          data-ajax="true"
+          data-ajax-method="post"
+          data-ajax-begin="dataAjaxBegin"
+          data-ajax-success="dataAjaxSuccess"
+          data-ajax-failure="dataAjaxFailure"
+          >
+        <input name="RoleId" value="@Model.RoleIncludeRoleClaims.Id" type="hidden" />
+
+        <div class="grid-container-dashboard" data-search-container="dashboard">
+            <div class="col-lg-12 col-md-12 col-xl-12 col-sm-12 text-center ">
+
+
+                @foreach (var controller in Model.SecuredControllerActions.OrderBy(x => x.ControllerDisplayName))
+                {
+
+                    var displayName = controller.ControllerDisplayName;
+                    if (string.IsNullOrWhiteSpace(displayName))
+                    {
+                        displayName = controller.ToString();
+                    }
+
+
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 grid-item-container-dashboard">
+                        <div class="hpanel horange contact-panel">
+                            <div class="panel-body p-xs">
+                                <div class="media social-profile clearfix">
+                                    <span class="pull-left">
+                                        @*<img src="~/static/dashboard-icons/20000.png" />*@
+                                    </span>
+                                    <div class="media-body">
+                                        <h4 class="weight-500 size-15 text-wrap ">@displayName</h4>
+                                        @*<small class="font-bold text-muted text-justify weight-400">برای مدیریت نشریه، از این ماژول استفاده نمایید.</small>*@
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-footer contact-footer no-padding">
+                                <ul class="list-group text-center weight-500">
+
+                                    @foreach (var action in controller.MvcActions.OrderBy(x => x.ActionDisplayName))
+                                    {
+                                        var isSelected = Model.RoleIncludeRoleClaims.Claims
+                                            .Any(roleClaim => roleClaim.ClaimType == ConstantPolicies.DynamicPermissionClaimType &&
+                                                              roleClaim.ClaimValue == action.ActionId);
+                                        var selected = isSelected ? "checked" : "";
+                                        var selectedClass = isSelected ? "list-group-item-success" : "";
+                                        var actionDisplayName = action.ActionDisplayName;
+                                        if (!string.IsNullOrWhiteSpace(actionDisplayName))
+                                        {
+
+                                            <li class="list-group-item text-right ">
+                                                <a href="#" class="dashboard_list_item @selectedClass" name="actionIdss">
+                                                    <input type="checkbox" class="fff" name="actionIds" value="@action.ActionId" @selected />
+                                                    <span style="word-break: break-all;">
+                                                        @actionDisplayName
+                                                    </span>
+
+                                                </a>
+                                            </li>
+                                        }
+                                    }
+
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+
+                }
+
+
+            </div>
+
+        </div>
+        <button type="button" class="btn btn-block btn-info margin-top-30 padding-top-10 padding-bottom-10 size-14 changeRolePermission">
+            اعمال تغییرات
+        </button>
+    </form>
+</div>
+
+@section Scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+
+            $('.changeRolePermission').click(function () {
+
+                var this_ = $('form[name="RolePermission"]');
+                var data = this_.serialize() + '&isAjax=true';
+                var action = this_.attr('action');
+                                  
+
+                ajaxCall(action, data, "POST", showChangeRoleModal);
+                                
+ 
+            });
+            function showChangeRoleModal(response) {
+                 $.bootstrapModalAlert({
+        caption: 'تائید انجام عملیات',
+        body: '<div class="alert alert-success"> <span class="fas fa-thumbs-up" aria-hidden="true"></span> عملیات درخواستی با موفقیت انجام شد.</div>'
+    });
+            }
+
+            //$('input[name="actionIds"]').click(function () {
+            //    if ($(this).is(':checked')) {
+            //        $(this).parent().addClass('list-group-item-success');
+            //    } else {
+            //        $(this).parent().removeClass('list-group-item-success');
+            //    }
+            //});
+
+            $('[name="actionIdss"]').click(function () {
+
+
+                if ($(this).attr('name') == "actionIdss") {
+
+
+
+                    if ($(this).children(".fff").is(':checked')) {
+
+                        $(this).addClass('list-group-item-success');
+
+                    } else {
+
+                        $(this).removeClass('list-group-item-success');
+
+
+                    }
+                }
+                //else {
+                //    if ($(this).is(':checked')) {
+                //        $(this).parent().addClass('list-group-item-success');
+                //    } else {
+                //        $(this).parent().removeClass('list-group-item-success');
+                //    }
+                //}
+            });
+        });
+    </script>
+}

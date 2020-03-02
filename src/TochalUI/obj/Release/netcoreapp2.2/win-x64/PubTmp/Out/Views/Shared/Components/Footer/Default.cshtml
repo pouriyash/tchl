@@ -1,0 +1,63 @@
+﻿@using Tochal.Core.DomainModels.DTO
+@using Tochal.Core.DomainModels.SSOT
+@model FooterFullDTO
+@using Microsoft.Extensions.Options
+@inject IOptions<FileConfig>  fileConfig
+<div class="f-links">
+    <div class="f-related">
+        <a href="">
+            بنیاد مستضعفان
+            <img src="~/images/links/bonyad-mostazafin.png">
+        </a>
+        <a href="">
+            هلدینگ پارسیان
+            <img src="~/images/links/holding-parsian.png">
+        </a>
+        <a href="">
+            فدراسیون اسکی
+            <img src="~/images/links/fedrasion-eski.png">
+        </a>
+        <a href="">
+            فدراسیون کوهنوردی
+            <img src="~/images/links/fedrasion-kuhnavardi.png">
+        </a>
+        <a href="">
+            وزارت میراث
+            <img src="~/images/links/miras-farhangi.png">
+        </a>
+        <a href="">
+            وزارت ورزش
+            <img src="~/images/links/vezarat-varzesh.png">
+        </a>
+    </div>
+    <hr style="border-top:1px solid #474747 !important">
+    <div class="f-social">
+        @if (Model.FooterInfo.InstagramLink != null)
+        {<a href="@Model.FooterInfo.InstagramLink" target="_blank"><i class="fab fa-instagram"></i></a>}
+
+        @if (Model.FooterInfo.PintrestLink != null)
+        {<a href="@Model.FooterInfo.PintrestLink" target="_blank"><i class="fab fa-pinterest"></i></a>}
+
+        @if (Model.FooterInfo.TelegramLink != null)
+        {<a href="@Model.FooterInfo.TelegramLink" target="_blank"><i class="fab fa-telegram"></i></a>}
+
+        @if (Model.FooterInfo.WhatsAppLink != null)
+        {<a href="@Model.FooterInfo.WhatsAppLink" target="_blank"><i class="fab fa-whatsapp"></i></a>}
+
+
+
+    </div>
+</div>
+<div class="f-contact">
+    <h4>ارتباط با ما</h4>
+    <h5>آدرس: <a href="#footer">@Model?.FooterInfo?.Address</a></h5>
+    <h5>ایمیل: <a target="_top" href="mailto:@Model?.FooterInfo?.Email" style="pointer-events:unset">@Model?.FooterInfo?.Email</a></h5>
+    <h5>تلفن: <a style="float: left;">@Model?.FooterInfo?.PhoneNumber</a></h5>
+</div>
+<div class="f-logo">
+    @*<a href="/"><img src="@("http://localhost:59823/repository/FileUpload/"+Model.FooterInfo.Logo)" alt="logo"></a>*@
+    <a href="/">
+        @*<img src="~/images/logo3.png">*@
+        <img src="@fileConfig.Value.WebAddress@Model.FooterInfo.Logo" alt="logo">
+    </a>
+</div>

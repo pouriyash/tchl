@@ -1,0 +1,72 @@
+﻿@using Tochal.Core.DomainModels.Entity.Blog
+@using Tochal.Core.DomainModels.SSOT
+@using Tochal.Core.DomainModels.Entity.Menu
+@model ContentEntity
+@inject FileConfig fileConfig
+
+<div class="filterdiv"
+     style="display:none;width: 100vw;height: 100vh;background-color: rgba(255, 255, 255, 0.7);z-index: 5000;position: fixed;top: 0;"></div>
+
+@*<section class="background">
+        <div class="backgroundImage">
+            <img src="./src/images/background.jpg" alt="background" />
+            <img src="https://cdn.cnn.com/cnnnext/dam/assets/150826163012-photo-adrian-nordenborg-skiier-filip-nilsson-iran-tochal-3900m-teheran-www-pathfindertravels-eu-super-169.jpg"
+                 alt="background"
+                 style="display: none" />
+            <img src="http://www.intercaspian.com/photobank/iran/tehran/images/tochal-01735a.jpg"
+                 alt="background"
+                 style="display: none" />
+            <img src="./src/images/background2.jpg"
+                 alt="background"
+                 style="display: none" />
+        </div>
+        <div class="bgdown">
+            <div class="articletitle">
+                <h1>این یک متن پیشفرض است</h1>
+                <h6>این یک متن پیشفرض است</h6>
+            </div>
+            <div class="mountains">
+                <svg xmlns="http://www.w3.org/2000/svg"
+                     xmlns:xlink="http://www.w3.org/1999/xlink"
+                     width="4.7in"
+                     height="0.639in">
+                    <path fill-rule="evenodd"
+                          fill="rgb(204, 204, 204)"
+                          d="M215.000,30.000 L258.000,18.000 L295.000,32.000 L267.000,46.000 L255.000,46.000 L244.000,46.000 L215.000,30.000 Z" />
+                    <path fill-rule="evenodd"
+                          fill="rgb(255, 255, 255)"
+                          d="M0.000,46.000 L161.000,-0.000 L245.000,46.000 L0.000,46.000 Z" />
+                    <path fill-rule="evenodd"
+                          fill="rgb(255, 255, 255)"
+                          d="M266.000,46.000 L349.000,5.000 L435.000,46.000 L266.000,46.000 Z" />
+                </svg>
+            </div>
+        </div>
+    </section>*@
+
+<section class="page-content">
+    <div class="content">
+        <div class="content-text">
+            <h2>@Model.Title</h2>
+            <hr />
+            <p>
+                @Html.Raw(Model.Content)
+            </p>
+        </div>
+        <div class="slideshow">
+            <div class="slideshow-img">
+                <img src="https://picsum.photos/500/505" />
+                <img class="selectedimg" src="https://picsum.photos/500/601" />
+                <img src="https://picsum.photos/500/700" />
+                <img src="https://picsum.photos/500/600" />
+            </div>
+            <div class="imgnavigator">
+                <i class="fas fa-angle-left" onclick="previmage()"></i>
+                <div class="indexnumber"><span>1</span> / <span>2</span></div>
+                <i class="fas fa-angle-right" onclick="nextimage()"></i>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div style="background-color:white;z-index:-1;height:100%;width:100vw;display: table-cell;"></div>

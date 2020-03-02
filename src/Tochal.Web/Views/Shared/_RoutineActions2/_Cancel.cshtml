@@ -1,0 +1,18 @@
+﻿@using Tochal.Core.DomainModels.Entity.Routine2
+@model Tuple<int, int>
+
+<button type="button" id="routine_record_action_Cancel_@Model.Item1" data-popover="Routine_Action_Cancel_@Model.Item1" class="text-danger exir--transparent-btn" style="display: none;">
+    <i class="pe-7s-close-circle largeicon" title="رد" data-toggle="tooltip"></i>
+</button>
+
+<div data-role="popover-content" id="Routine_Action_Cancel_@Model.Item1">
+    <form data-role="routine-ajax-form">
+        <input type="hidden" name="Id" value="@Model.Item1" />
+        <input type="hidden" name="Action" value="@RoutineActions.Cancel" />
+        <input type="hidden" name="CurrentStep" value="@Model.Item2" />
+
+        <input type="text" class="form-control" name="Description" required />
+        <button type="submit" class="btn btn-danger btn-block m-t-xs">رد</button>
+    </form>
+</div>
+

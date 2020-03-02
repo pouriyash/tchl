@@ -1,0 +1,9 @@
+E:\NewGit\src\Internship.Core\bin\Debug\netcoreapp2.2\Internship.Core.deps.json
+E:\NewGit\src\Internship.Core\bin\Debug\netcoreapp2.2\Internship.Core.dll
+E:\NewGit\src\Internship.Core\bin\Debug\netcoreapp2.2\Internship.Core.pdb
+E:\NewGit\src\Internship.Core\obj\Debug\netcoreapp2.2\Internship.Core.csproj.CoreCompileInputs.cache
+E:\NewGit\src\Internship.Core\obj\Debug\netcoreapp2.2\Internship.Core.AssemblyInfoInputs.cache
+E:\NewGit\src\Internship.Core\obj\Debug\netcoreapp2.2\Internship.Core.AssemblyInfo.cs
+E:\NewGit\src\Internship.Core\obj\Debug\netcoreapp2.2\Internship.Core.dll
+E:\NewGit\src\Internship.Core\obj\Debug\netcoreapp2.2\Internship.Core.pdb
+E:\NewGit\src\Internship.Core\obj\Debug\netcoreapp2.2\Internship.Core.csprojAssemblyReference.cache

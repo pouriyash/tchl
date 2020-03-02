@@ -1,0 +1,149 @@
+﻿body {
+    background-color: #eee;
+    font-family: "IRANSans";
+}
+
+p {
+    font-weight: 500;
+    line-height: 1.8em;
+}
+
+.img__margin {
+    margin: auto;
+}
+
+.installWizard {
+    background-color: #fff;
+    min-height: calc(100vh - 50px);
+    padding: 40px 20px;
+    margin: 15px 0;
+    overflow-y: auto;
+}
+
+.installWizard__logo {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 100%;
+    padding-top: 100%;
+    height: 0;
+}
+
+.installWizard__pageTitle {
+    font-size: 22px;
+    font-weight: 500;
+    text-align: center;
+}
+
+.installWizard__pageSubTitle {
+    font-size: 16px;
+    font-weight: 500;
+    text-align: center;
+}
+
+.installWizard__title {
+    color: #11c7c5;
+    font-size: 30px;
+    font-weight: 500;
+    text-align: center;
+    margin-top: 15px;
+    margin-bottom: 20px;
+    line-height: 1.5em;
+}
+
+.installWizard__step__body {
+    padding: 0 30px;
+    margin-bottom: 20px;
+    text-align: justify;
+    min-height: calc(100vh - 610px);
+}
+
+#wizard-progress {
+    width: 100%;
+    margin: 20px auto 0;
+}
+
+    #wizard-progress .step-indicator {
+        border-collapse: separate;
+        display: table;
+        margin-right: 0px;
+        position: relative;
+        table-layout: fixed;
+        text-align: center;
+        vertical-align: middle;
+        padding-right: 0;
+    }
+
+        #wizard-progress .step-indicator li {
+            display: table-cell;
+            position: relative;
+            float: none;
+            padding: 0;
+            width: 1%;
+        }
+
+            #wizard-progress .step-indicator li:after {
+                background-color: #ccc;
+                content: "";
+                display: block;
+                height: 1px;
+                position: absolute;
+                width: 100%;
+                top: 32px;
+            }
+
+            #wizard-progress .step-indicator li:after {
+                right: 50%;
+            }
+
+            #wizard-progress .step-indicator li:last-child:after {
+                display: none;
+            }
+
+            #wizard-progress .step-indicator li.active .step {
+                border-color: #05ae0e;
+                color: #05ae0e;
+            }
+
+            #wizard-progress .step-indicator li.active .caption {
+                color: #05ae0e;
+                font-weight: 500;
+            }
+
+            #wizard-progress .step-indicator li.complete:after {
+                background-color: #11c7c5;
+            }
+
+            #wizard-progress .step-indicator li.complete .step {
+                border-color: #11c7c5;
+                color: #11c7c5;
+            }
+
+            #wizard-progress .step-indicator li.complete .caption {
+                color: #009595;
+                font-weight: 500;
+            }
+
+        #wizard-progress .step-indicator .step {
+            background-color: #fff;
+            border-radius: 50%;
+            border: 1px solid #ccc;
+            color: #ccc;
+            font-size: 30px;
+            font-weight: bolder;
+            height: 64px;
+            line-height: 70px;
+            margin: 0 auto;
+            position: relative;
+            width: 64px;
+            z-index: 1;
+        }
+
+            #wizard-progress .step-indicator .step:hover {
+                cursor: pointer;
+            }
+
+        #wizard-progress .step-indicator .caption {
+            color: #ccc;
+            padding: 11px 16px;
+        }

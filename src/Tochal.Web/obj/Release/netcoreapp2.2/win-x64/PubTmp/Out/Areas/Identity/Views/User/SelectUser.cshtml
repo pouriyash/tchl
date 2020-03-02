@@ -1,0 +1,110 @@
+﻿@using Exir.Regate
+@using Tochal.Toolkit
+
+@{
+    ViewBag.Title = "انتخاب شخص";
+    ViewBag.Description = "";
+    Layout = "Layout/User";
+}
+
+ 
+
+@Html.Raw(Styles.MakeLayoutBlank())
+
+<style>
+    .content {
+        padding-bottom: 25px;
+    }
+
+    .hpanel {
+        margin-bottom: 0;
+    }
+
+    .menu-toggle {
+        display: none;
+    }
+</style>
+
+@*<span @Html.Raw(FancyboxHelper.Button())>
+        <a asp-controller="User" asp-action="Create" class="btn btn-block btn-info">
+            ثبت جدید
+        </a>
+    </span>*@
+
+<div class="hpanel _hgreen hpanel--fullheight" id="user" v-cloak>
+    <div class="panel-body">
+        <div class="input-group">
+            <input type="text" v-model="searchTerm" v-on:keyup.enter="search" class="form-control" placeholder="جستجو بر اساس کد ملی یا نام" />
+            <div class="input-group-btn">
+                <button v-on:click="search" class="btn btn-info" type="submit"> جستجو </button>
+            </div>
+        </div>
+
+        &nbsp;&nbsp;
+
+        <div v-if="noResult">
+            <h3 class="text-center">
+                هیچ موردی یافت نشد!
+            </h3>
+        </div>
+
+        &nbsp;&nbsp;
+
+        <div class="table-responsive" v-if="list.length">
+            <table class="table table-striped table-hover table-valigned">
+                <thead>
+                    <tr>
+                        <th>نام</th>
+                        <th>کد ملی</th>
+                        <th>انتخاب</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="user in list">
+                        <td>{{ user.displayName }}</td>
+                        <td>{{ user.nationalCode }}</td>
+                        <td><input type="button" class="btn btn-success" value="انتخاب" v-on:click="selectUser(user)" /></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+    var app = new Vue({
+        el: '#user',
+
+        data: {
+            searchTerm: '',
+            list: [],
+            noResult: false
+        },
+
+        methods: {
+            search: function (event) {
+                var _this = this;
+
+                $.post('/Identity/User/SelectUserPost', { searchTerm: _this.searchTerm }).then(function (response) {
+                     _this.list = response;
+
+                    if (_this.list.length == 0 && _this.searchTerm != '') {
+                        _this.noResult = true;
+                    }
+                    else {
+                        _this.noResult = false;
+                    }
+                });
+            },
+
+            selectUser: function (user) {
+                var p = '@(ViewBag.Field)';
+                console.log("ViewBag.Field", p);
+                window.opener['__setUser_@(ViewBag.Field)'](user);
+                window.close();
+            }
+        }
+    });
+</script>

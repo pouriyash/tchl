@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+<html lang="fa">
+@using  Tochal.Toolkit
+
+@Html.Raw(Styles.MakeLayoutBlank())
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="~/css/style.css" rel="stylesheet" />
+    <link href="~/css/print.css" rel="stylesheet" type="text/css" media="print" />
+    <title>سازمان پژوهش های علمی و صنعتی ایران</title>
+    <style>
+        #namemanager {
+          margin: 0 10px;
+          border: none;
+          border-bottom: rgba(255, 0, 0, 0.534) 2px solid;
+          background-color: unset;
+          font-family: 'mitra';
+          font-size: 1.3em;
+          text-align: center;
+        }
+
+        #namemanager:focus {
+          outline: none;
+        }
+
+        @@media print{
+            #namemanager::placeholder{
+                color:white;
+            }
+        }
+    </style>
+</head>
+<body onload="window.print()" onprintfinished="window.close()">
+    <section>
+        <div style="position:relative;width:5%; border:none;font-size:1.5em;font-weight:bold;right:95%;text-align:center;outline:none;" onclick="window.print();">
+            <img src="~/theme/assets/icons/print.png" style="width:50px"/>
+        </div>
+        <span>
+            مدیریت کل محترم دفتر مرکزی ارتباط با دانشگاه‌ها و صنعت
+        </span>
+        <span>با سلام و احترام</span>
+        <p>
+            پیرو ثبت نام شرکت
+            <input type="text" value="@ViewBag.name" placeholder="شما این فیلد را خالی گذاشته اید">
+            در سامانه ملی کارآموزی، خواهشمند است نسبت به فعال سازی این شرکت در سامانه اقدام فرمایید.
+        </p>
+        <span>
+            <span>
+                <input type="text" id="namemanager" value="@ViewBag.compnayName" placeholder="شما این فیلد را خالی گذاشته اید">
+            </span>
+            <span>امضا</span>
+            <span>مهر</span>
+        </span>
+    </section>
+</body>
+</html>

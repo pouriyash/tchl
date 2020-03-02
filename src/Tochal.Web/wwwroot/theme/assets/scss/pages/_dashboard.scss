@@ -1,0 +1,246 @@
+$d-white-color: #fff;
+$d-green-color: #8cd635;
+$d-gray-color: #888;
+
+%d-table-template {
+  border-radius: 1rem;
+
+  thead, tbody {
+    & > tr > td {
+      text-align: center;
+      vertical-align: middle;
+    }
+  }
+
+  .fa {
+    text-shadow: 0 0 .8rem #fff;
+    font-size: 2rem;
+
+    &.fa-times {
+      color: #f00;
+    }
+    &.fa-check {
+      color: #7be400;
+    }
+  }
+}
+
+%d-vertical-title {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  text-align: center;
+  font-weight: 900;
+}
+
+%d-vertical-separator {
+  border: 1px solid #FFB74D;
+  margin: 2rem 1rem 2rem 0;
+}
+
+@media (min-width: 768px) {
+  .new-dashboard {
+    &.panel__content .panel-body.panel-scroll {
+      height: calc(100vh - 15.2rem);
+    }
+  }
+}
+
+.new-dashboard {
+  font-size: 1.4rem;
+  
+  [class*="col-sm-6"] {
+    border: 1px solid #eee;
+    border-top: 0;
+    border-bottom: 0;
+  }
+}
+
+.table {
+  &.registration {
+    tr {
+      background-color: $d-gray-color;
+      color: $d-white-color;
+      border-radius: 10rem;
+      display: flex;
+      margin-bottom: 4px;
+      justify-content: center;
+      padding: .8rem 0;
+
+      &.passed {
+        background-color: $d-green-color;
+      }
+    }
+  }
+
+  &.further-info {
+    @extend %d-table-template;
+    background-color: #ff9800;
+
+    tr {
+      display: flex;
+      justify-content: center;
+      color: $d-white-color;
+
+      td {
+        margin-right: 2rem;
+      }
+
+      td:last-child {
+        flex: 1;
+        margin-right: 3rem;
+      }
+
+      &:not(:last-of-type) {
+        border-bottom: 2px solid $d-white-color;
+      }
+    }
+  }
+}
+
+.interview, .third-column {
+  &__selected-field, &__status {
+    //background-color: #f00;
+    border-radius: 1rem;
+  }
+
+  &__selected-field {
+    background-color: #000;
+    padding: 2rem;
+    text-align: center;
+    color: $d-white-color;
+  }
+
+  &__status.table {
+    @extend %d-table-template;
+    background-color: #fff176;
+    margin-top: 2rem;
+    border-collapse: collapse;
+
+    tbody tr {
+      border-top: 2px solid $d-white-color;
+    }
+
+    thead, tbody {
+      td:not(:last-of-type) {
+        border-left: 2px solid $d-white-color;
+        border-left-width: 2px !important;
+      }
+    }
+  }
+}
+
+.acceptance {
+  margin-bottom: 2rem;
+  
+  &__title-box {
+    display: flex;
+    height: 36.7rem;
+  }
+  
+  &__title {
+    @extend %d-vertical-title;
+  }
+  
+  &__separator {
+    @extend %d-vertical-separator;
+  }
+  
+  &__table {
+    @extend %d-table-template;
+    margin: 0;
+
+    tr {
+      display: flex;
+      justify-content: center;
+      clip-path: polygon(0% 0%, 100% 0%, 50% 100%);
+      padding: 0 3rem 2rem 3rem;
+      background-color: $d-gray-color;
+      color: $d-white-color;
+
+      &.passed {
+        background-color: #FFEB3B;
+        color: #444;
+      }
+    }
+  }
+}
+
+.transfer-status {
+  &__title-box {
+    display: flex;
+    height: 15.8rem;
+  }
+
+  &__title {
+    @extend %d-vertical-title;
+  }
+
+  &__separator {
+    @extend %d-vertical-separator;
+  }
+
+  &__table.table {
+    @extend %d-table-template;
+    margin: 0;
+    
+    clip-path: polygon(0% 0%, 80% 0%, 100% 50%, 80% 100%, 0% 100%);
+
+    tr {
+      display: flex;
+      justify-content: center;
+      padding-right: 20%;
+
+      &:not(:last-of-type) {
+        border-bottom: 2px solid $d-white-color;
+      }
+      
+      background-color: $d-gray-color;
+      color: $d-white-color;
+
+      &:first-child {
+        border-top-left-radius: 1rem;
+      }
+      &:last-child {
+        border-bottom-left-radius: 1rem;
+      }
+
+      &.passed {
+        background-color: $d-green-color;
+        color: $d-white-color;
+      }
+    }
+  }
+}
+
+.dashboard-title {
+  display: flex;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+  justify-content: center;
+  align-items: center;
+  
+  &__step {
+    border-radius: 100px;
+    background-color: #f00;
+    color: $d-white-color;
+    padding: 1rem;
+    width: 4rem;
+    height: 4rem;
+    text-align: center;
+    font-weight: 900;
+    margin-left: 1rem;
+  }
+  &__label {
+    
+  }
+}
+.third-column {
+  &__selected-field {
+    margin-bottom: 2rem;
+  }
+
+  &__status.table {
+    margin-top: 0;
+  } 
+}

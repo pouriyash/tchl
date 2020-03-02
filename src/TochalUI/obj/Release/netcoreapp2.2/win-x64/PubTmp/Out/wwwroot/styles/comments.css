@@ -1,0 +1,100 @@
+﻿#commentForm input {
+    margin: 10px 0;
+    padding: 15px;
+}
+
+#commentForm [type="submit"] {
+    padding: 10px 25px;
+}
+
+#commentForm label, #comments label {
+    font-size: 20px;
+    text-align: right;
+    display: block;
+}
+
+.comment-item {
+    text-align: right;
+    display: flex;
+    min-height: 75px;
+    width: 100%;
+    align-items: flex-start;
+    margin-bottom: 25px;
+}
+
+    .comment-item .comment-avatar {
+        width: 75px;
+        height: 75px;
+        margin-left: 25px;
+    }
+
+        .comment-item .comment-avatar img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+    .comment-item .comment-box {
+        height: 100%;
+        width: calc(100% - 75px);
+        border: 1px solid #eee;
+        border-radius: 4px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        position: relative;
+    }
+
+        .comment-item .comment-box::after {
+            content: '';
+            width: 20px;
+            height: 20px;
+            background-color: #eee;
+            position: absolute;
+            right: -10px;
+            top: 3px;
+            border-radius: 2px;
+            z-index: -1;
+            transform: rotate(-45deg)
+        }
+
+        .comment-item .comment-box .comment-name {
+            background: #eee;
+            flex: 1;
+            display: flex;
+            align-items: center;
+            padding: 5px;
+            padding-right: 10px;
+            font-weight: 900;
+            color: #555;
+        }
+
+            .comment-item .comment-box .comment-name span {
+                font-size: 8px;
+                color: #bbb;
+                font-weight: 100;
+                margin-right: auto;
+            }
+
+        .comment-item .comment-box .comment-message {
+            flex: 2;
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            white-space: pre-line;
+            background: white;
+        }
+
+        .comment-item .comment-box .comment-replay {
+            width: 50px;
+            position: absolute;
+            top: 35px;
+            left: 10px;
+            color:white;
+            background-color: #da251e !important;
+        }
+
+            .comment-item .comment-box .comment-replay:hover {
+                background-color: #b81a14 !important;
+            }

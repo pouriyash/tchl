@@ -1,0 +1,665 @@
+﻿@using Tochal.Web.Helpers
+@using Exir.Regate
+@using Tochal.Core.DomainModels.SSOT
+
+@inject IOptions<FileConfig> FileConfig
+
+@model PagedUsersListViewModel
+
+@{
+    ViewData["Title"] = " کاربران";
+    var r = FileConfig.Value.WebAddress.ToString();
+}
+
+<style>
+    .tableloading {
+        width: 97%;
+        height: 70%;
+        background-color: white;
+        z-index: 1;
+        position: absolute;
+        display: grid;
+        color: #000;
+        font-weight: 900;
+        font-size: 18px;
+        place-items: center;
+        opacity:0;
+        animation: loadingAnimation 0.5s ease-in infinite alternate;
+        transition:all .5s ease;
+    }
+
+    @@keyframes loadingAnimation {
+        0% {
+            word-spacing: 0px;
+        }
+
+        100% {
+            word-spacing: 5px;
+        }
+    }
+</style>
+
+<div class="hpanel _hgreen hpanel--fullheight">
+    <div class="panel-body">
+        <div class="filterbox mt mb">
+            <div class="row" style="margin-right:10px">
+                لیست کاربران
+            </div>
+
+        </div>
+
+        <a class="btn btn-exir" asp-action="Index" asp-controller="Register" asp-area="Identity" asp-route-CreateByAdmin="true">ایجاد کاربر جدید</a>
+
+        <style>
+            .filter {
+                margin: 25px 2px 10px 0px;
+            }
+
+                .filter ul {
+                    display: inline;
+                    padding: 0px;
+                }
+
+            .filterItems {
+                display: inline;
+                font-size: 12px;
+                border-radius: 5px;
+                padding: 2px 10px;
+                cursor: pointer;
+            }
+
+                .filterItems.active {
+                    border: 1px solid #2f90d0;
+                    background: #3498db;
+                    color: #fff;
+                }
+
+                .filterItems.hover {
+                    background-color: #ece9e9;
+                }
+        </style>
+
+
+
+        <div class="filter">
+            <div class="row">
+                <span class="col-md-3 margin-bottom-10" style="font-weight: 500; font-size: 13px">جستجو:</span>
+                <span class="col-md-3 margin-right-10 margin-bottom-10" style="font-weight: 500; font-size: 13px">فیلترها:</span>
+            </div>
+            <div class="container-fluid " style="margin: 0px; padding: 0px">
+                <div class="col-md-3 padding-right-0">
+                    <div class="input-group" id="search_form">
+                        <input id="search" class="form-control size-10" value="" placeholder="جستجو از میان نام و شناسه کاربری" />
+                        <span class="input-group-addon" style="background: #3498db;"><a id="btnSearch" class="filterItems active" style="border:none">جستجو</a></span>
+                    </div>
+                </div>
+                <div id="PersonFilter" class="col-sm-4 col-md-3 margin-top-10">
+                    <ul>
+                        <li onclick="getData( 'personFilter' ,'', 'all')" class="filterItems active">همه</li>
+                        <li onclick="getData('personFilter' ,'1', 'rightful')" class="filterItems">حقیقی</li>
+                        <li onclick="getData('personFilter' ,'2', 'legal')" class="filterItems">حقوقی</li>
+                    </ul>
+                </div>
+
+                <div id="GenderFilter" class="col-sm-4 col-md-3 margin-top-10">
+                    <ul style="">
+                        <li onclick="getData( 'genderFilter' ,'','rightful')" class="filterItems active">همه</li>
+                        <li onclick="getData( 'genderFilter' ,'1','rightful')" class="filterItems">مرد</li>
+                        <li onclick="getData( 'genderFilter' ,'2','rightful')" class="filterItems">زن</li>
+                    </ul>
+                </div>
+
+                <div id="CompanyFilter" class="col-sm-3 col-md-3 margin-top-10">
+                    <ul>
+                        <li onclick="getData( 'companyFilter' ,'', 'legal')" class="filterItems active">همه</li>
+                        <li onclick="getData( 'companyFilter' ,'1', 'legal')" class="filterItems">صنعت</li>
+                        <li onclick="getData( 'companyFilter' ,'2', 'legal')" class="filterItems">دانشگاه</li>
+                    </ul>
+                </div>
+
+                <div id="StatusFilter" class="col-sm-5 col-md-3  margin-top-10">
+                    <ul>
+                        <li onclick="getData( 'statusFilter' ,'', 'legal')" class="filterItems active">همه</li>
+                        @*<li onclick="getData( 'statusFilter' ,'1', 'legal')" class="filterItems">در انتظار</li>*@
+                        <li onclick="getData( 'statusFilter' ,'1', 'legal')" class="filterItems">تایید نشده</li>
+                        <li onclick="getData( 'statusFilter' ,'2', 'legal')" class="filterItems">تایید شده</li>
+                    </ul>
+                </div>
+
+            </div>
+
+        </div>
+        <div class="table-responsive">
+            <div class="tableloading">محتوا در حال بارگذاری می‌باشد...</div>
+            <table id="tableTest" class="table table-striped table-hover table-valigned">
+                <thead>
+                    <tr>
+                        <th width="4%">ردیف</th>
+                        <th width="8%">شماره کاربری</th>
+                        <th width="22%">نام </th>
+                        <th width="22%">نام کاربری</th>
+                        <th width="30">وضعیت</th>
+                        <th width="12%">نقش</th>
+                        <th width="30">اقدامات</th>
+                    </tr>
+                </thead>
+                <tbody id="myTable">
+                    @*@{var index = 0;}
+                        @if (Model.Users.Any())
+                        {
+                            foreach (var item in Model.Users)
+                            {
+                                <tr>
+                                    <td>@(++index)</td>
+                                    <td>@item.Id.ToPersianNumbers()</td>
+                                    <td>@item.DisplayName</td>
+                                    <td>@item.UserName</td>
+                                    <td>
+
+                                        @if (item.IsActive)
+                                        {
+                                            <i class="pe-7s-unlock largeicon text-success changeLock cursor-pointer" data-user-Id="@item.Id" data-role="1" title="فعال" data-toggle="tooltip"></i>
+                                        }
+                                        else
+                                        {
+                                            <i class="pe-7s-lock largeicon text-danger changeLock cursor-pointer" data-user-Id="@item.Id" data-role="0" title="غیرفعال" data-toggle="tooltip"></i>
+                                        }
+
+                                    </td>
+                                    <td>
+                                        <button data-role="@item.Id" class="btn btn-success changeRole">
+                                            اعمال دسترسی
+                                        </button>
+                                    </td>
+
+                                    <td>
+                                        <span @Html.Raw(FancyboxHelper.Button())>
+                                            <a asp-controller="UsersManager" asp-action="Edit" asp-route-id="@item.Id" class="text-info exir--transparent-btn">
+                                                <i class="pe-7s-edit largeicon" title="ویرایش اطلاعات" data-toggle="tooltip"></i>
+                                            </a>
+                                        </span>
+                                        @if (item.UserName != "Admin")
+                                        {
+                                            <span @Html.Raw(FancyboxHelper.Button())>
+                                                <a asp-controller="user" asp-action="DetailUserInfo" asp-route-id="@item.Id" class="text-info exir--transparent-btn">
+                                                    <i class="pe-7s-id largeicon" title="مشخصات" data-toggle="tooltip"></i>
+                                                </a>
+                                            </span>
+                                        }
+                                        <form style="display:inline" method="post" asp-controller="UsersManager" asp-action="SignIn">
+                                            <input type="hidden" name="userId" value="@item.Id" />
+                                            <button class="btn btn-xs btn-info" type="submit">
+                                                <i class="pe-7s-plug largeicon" title="ورود " data-toggle="tooltip"></i>
+                                            </button>
+                                        </form>
+
+                                        @if (item.UserType == Tochal.Core.DomainModels.SSOT.UserTypeSSOT.Company)
+                                        {
+
+                                            if (item.CompanyConfirm != null)
+                                            {
+                                                <a target="_blank" href="@FileConfig.Value.WebAddress@item.CompanyConfirm">
+                                                    <i class="pe-7s-mail largeicon" title="تاییدیه صنعت" data-toggle="tooltip"></i>
+                                                </a>
+                                            }
+
+                                            @Html.Raw(RegateInteractiveBooleanState.Build(
+                                                     id: item.Id,
+                                                     value: item.IsAcceptCompany,
+                                                     url: Url.Action("IsAcceptCompany", "UsersManager"),
+                                                     titleTrue: "تایید",
+                                                     titleFalse: "رد",
+                                                     iconNull: "graduation-cap"
+
+
+                                                 ))
+                                        }
+
+                                        @if (item.UserType == Tochal.Core.DomainModels.SSOT.UserTypeSSOT.university)
+                                        {
+                                            @Html.Raw(RegateInteractiveBooleanState.Build(
+                                                     id: item.Id,
+                                                     value: item.IsAcceptUniversity,
+                                                     url: Url.Action("IsAcceptUniversity", "UsersManager"),
+                                                     titleTrue: "تایید",
+                                                     titleFalse: "رد",
+                                                     iconFalse: "graduation-cap",
+                                                     iconTrue: "graduation-cap",
+                                                     iconNull: "graduation-cap"
+
+                                                 ))
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        }*@
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+<div class="hpanel">
+    <div class="panel-body" style="min-height: 0">
+        @Html.Partial("_Pagination", Model)
+    </div>
+</div>
+
+<div id="myModal" class="modal fade " role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h6 class="modal-title">
+                    نقش‌ها
+                </h6>
+            </div>
+            <div class="modal-body">
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<style>
+    .actionsUl {
+        list-style-type: none;
+        margin: 0px;
+        text-align: right;
+    }
+
+        .actionsUl li {
+            display: inline-block;
+            margin: 0px 5px;
+        }
+
+            .actionsUl li i {
+                font-size: 30px;
+            }
+
+    .signinForm button {
+        height: 24px;
+        width: 47px;
+        position: relative;
+        top: -9px;
+        text-align: center;
+    }
+
+    .signinForm i {
+        font-size: 19px !important;
+        display: inline-block;
+    }
+</style>
+
+@section Scripts
+    {
+
+
+    <script type="text/javascript">
+
+        var users = [];
+        var params = null;
+
+        var saveparam = null;
+        var savefileter = null;
+        var savecategory = null;
+        var term = null;
+                            // For Search term
+        $("#btnSearch").on("click", function () {
+            term = $('#search').val();
+            $('#btnSearch').html('<i class="fa fa-spinner fa-pulse"></i>')
+            getData(savefileter, saveparam, savecategory, term)
+         });
+
+
+        var filterItems = '';
+        var AJAX_URL = '/Identity/UsersManager/getjson?';
+        var arrayParams = { personFilter: '', genderFilter: '', statusFilter: '', companyFilter: '', term: ''};
+        $(function () {
+            getData();
+        });
+
+        function getData(filterType = 'personFilter', param = "", filterCategory="", term="") {
+
+            arrayParams[filterType] = param;
+
+            saveparam = param;
+            savefileter = filterType;
+            savecategory = filterCategory;
+
+            console.log(filterCategory);
+            if (filterCategory == "rightful") {
+                $("#GenderFilter").css('display', 'block');
+                $("#CompanyFilter").css('display', 'none');
+                $("#StatusFilter").css('display', 'none');
+
+                params = `personFilter=${arrayParams["personFilter"]}&genderFilter=${arrayParams["genderFilter"]}&CurrentPage=@ViewBag.CurrentPage`;
+
+            } else if (filterCategory == "legal") {
+                $("#GenderFilter").css('display', 'none');
+                $("#CompanyFilter").css('display', 'block');
+                $("#StatusFilter").css('display', 'block')
+
+                 params = `personFilter=${arrayParams["personFilter"]}&statusFilter=${arrayParams["statusFilter"]}&companyFilter=${arrayParams["companyFilter"]}&CurrentPage=@ViewBag.CurrentPage`;
+            } else {
+                $("#GenderFilter").css('display', 'none');
+                $("#CompanyFilter").css('display', 'none');
+                $("#StatusFilter").css('display', 'none');
+                 params = `personFilter=${arrayParams["personFilter"]}&CurrentPage=@ViewBag.CurrentPage`
+            }
+
+
+        var tableData = '';
+            var row = 1;
+             $('.tableloading').css('display','grid');
+            $('.tableloading').css('opacity', '1');
+            
+        $.ajax({
+            type: 'GET',
+            url: `${AJAX_URL}${params}&term=${term}`,
+            dataType: 'json',
+            async: true,
+            success: function (result) {
+                $('.tableloading').css('opacity', '0');
+                $('.tableloading').css('display','none');
+                $("#tableTest > tbody").empty(); // Clear table before data binding
+                 users = result.Users;
+                $.each(users, function (index, element) {
+                    var status = '';
+                    var auth = '';
+
+                    var verifyIndostry = '';
+                    var accept = '';
+                    var accept2 = '';
+                    var acceptUniversity = '';
+
+                    var resetPassword = '<li><span data-fancybox data-type="iframe"><a asp-controller="user" href="/Identity/ChangePassword/ChangePassword?userId=' + element.Id + '" class="text-info exir--transparent-btn"><i class="pe-7s-key largeicon" title="تغییر کلمه عبور" data-toggle="tooltip"></i></a></span></li>';
+
+
+
+                    if (element.IsActive) {
+                        status = '<i class="pe-7s-unlock largeicon text-success changeLock cursor-pointer" data-user-Id="' + element.Id + '" data-role="1" title="فعال" data-toggle="tooltip"></i>'
+                    } else {
+                        status = '<i class="pe-7s-lock largeicon text-danger changeLock cursor-pointer" data-user-Id="' + element.Id + '" data-role="0" title="غیرفعال" data-toggle="tooltip"></i>'
+                    }
+
+
+                    if (element.UserName != "Admin") {
+                        auth = '<li><span data-fancybox data-type="iframe"><a asp-controller="user" href="/Identity/User/DetailUserInfo/' + element.Id + '" class="text-info exir--transparent-btn"><i class="pe-7s-id largeicon" title="مشخصات" data-toggle="tooltip"></i></a></span></li>'
+                    }
+
+                    if (element.UserType == 1) {
+                        if (element.CompanyConfirm != null) {
+
+                            verifyIndostry = '<li><a target="_blank" href="' + new URL("@FileConfig.Value.WebAddress") + element.CompanyConfirm + '"><i class="pe-7s-mail largeicon" title="تاییدیه صنعت" data-toggle="tooltip"></i></a></li>'
+                        }
+
+                        if (element.IsAcceptCompany)
+                        {
+                            accept = `<li><span class="text-success accept-company" data-isaccept="true" data-id="${element.Id}"><i style="font-size:25px; cursor: pointer; padding-right: 5px" class="fa fa-cogs"  title="فعال" data-toggle="tooltip" title="تاییدیه دانشگاه" data-toggle="tooltip"></i></span>`;
+                        }
+                        else
+                        {
+                            accept = `<li><span class="text-danger accept-company" data-isaccept="false" data-id="${element.Id}"><i style="font-size:25px; cursor: pointer; padding-right: 5px" class="fa fa-cogs"  title="غیرفعال" data-toggle="tooltip" title="تاییدیه دانشگاه" data-toggle="tooltip"></i></span></li>`;
+                        }
+
+                    }
+
+                    if (element.UserType == 2) {
+                         if (element.IsAcceptUniversity) {
+                            acceptUniversity = `<li><span class="text-success accept-university" data-isaccept="true" data-id="${element.Id}"><i style="font-size:25px; cursor: pointer; padding-right: 5px" class="fa fa-graduation-cap  title="ورود " data-toggle="tooltip"></i></span></li>`;
+                         } else {
+
+                            acceptUniversity = `<li><span class="text-danger accept-university" data-isaccept="false" data-id="${element.Id}"><i style="font-size:25px; cursor: pointer; padding-right: 5px" class="fa fa-graduation-cap"></i></span></li>`;
+                        }
+                    }
+
+
+                    tableData = '<tr>' +
+                        '<td >' + row + '</td>' +
+                        `<td>${element.Id}</td>` +
+                        '<td>' + element.DisplayName + '</td>' +
+                        '<td>' + element.UserName + '</td>' +
+                        '<td>' + status + '</td>' +
+                        '<td><button data-role="' + element.Id + '" class="btn btn-exir changeRole">اعمال دسترسی</button></td>' +
+                        '<td><ul class="actionsUl"><li><span data-fancybox data-type="iframe"><a href="/Identity/UsersManager/Edit/'+ element.Id +'" asp-controller="UsersManager" asp-action="Edit" asp-route-id="' + element.Id + '" class="text-info exir--transparent-btn"><i class="pe-7s-edit largeicon" title="ویرایش اطلاعات" data-toggle="tooltip"></i></a></span> </li>' +
+                        auth + '<li><form class="signinForm" style="display:inline" method="post" action="/Identity/UsersManager/SignIn"><input type="hidden" name="userId" value="'+ element.Id +'" /><button class="btn btn-xs btn-info" type="submit"><i class="pe-7s-plug largeicon" title="ورود " data-toggle="tooltip"></i></button></form> </li>' +
+                        verifyIndostry +
+                        accept +
+                        accept2 +
+                        resetPassword +
+                        acceptUniversity
+                         + '</ul></td>' + '</tr>';
+
+                    $("#tableTest > tbody").append(tableData)
+
+
+                    row++;
+                })
+
+
+            }
+
+        }).done(function () {
+            $('.tableloading').css('opacity','0');
+            //$("#tableTest > tbody > tr:last").after(tableData)
+            $('[data-toggle="tooltip"]').tooltip(); // Show tooltip
+            $('#btnSearch').html('جستجو')
+            // IsAcceptCompany custom ajax
+            $('.accept-company').click(function (e) {
+                var element = $(this);
+                var url = "/Identity/UsersManager/IsAcceptCompany"
+
+                callActionAjax(element, url);
+            });
+
+            $('.accept-university').click(function (e) {
+                var element = $(this);
+                var url = "/Identity/UsersManager/IsAcceptUniversity"
+
+                callActionAjax(element, url);
+            })
+
+             // End IsAcceptCompany
+
+            $('.changeRole').click(function (e) {
+
+                var userId = $(this).attr("data-role");
+
+                ajaxCall("/Identity/UsersManager/roleManage?TextToFind=" + userId, null, "GET", showChangeRoleModal);
+
+            });
+
+                function showChangeRoleModal(response) {
+                    $('#myModal').modal();
+
+                    $('.modal-body').html(response);
+                }
+                var userStateChanging = null;
+                $('.changeLock').click(function () {
+                    var userId = $(this).attr('data-user-Id');
+                    var oldState = $(this).attr('data-role');
+
+                    var newState = (oldState == 0 ? true : false);
+
+                    userStateChanging = $(this);
+
+                    ajaxCall("/Identity/UsersManager/ChangeUserStat?userId=" + userId + "&activate=" + newState, null, "GET", showChangeUserStat);
+                });
+
+
+
+                function showChangeUserStat(response) {
+
+                    var oldState = $(userStateChanging).attr('data-role');
+
+                    if (response == true) {
+
+                        if (oldState == 0) {
+                            $(userStateChanging).attr('data-role', 1);
+                            $(userStateChanging).attr('title', 'فعال');
+                            $(userStateChanging).attr('data-original-title', 'فعال');
+                            $(userStateChanging).addClass("text-success").addClass("pe-7s-unlock");
+                            $(userStateChanging).removeClass("text-danger").removeClass('pe-7s-lock');
+                        }
+                        else {
+                            $(userStateChanging).attr('data-role', 0);
+                            $(userStateChanging).attr('title', 'غیرفعال');
+                            $(userStateChanging).attr('data-original-title', 'غیرفعال');
+                            $(userStateChanging).removeClass("text-success").addClass('pe-7s-lock');
+                            $(userStateChanging).addClass("text-danger").removeClass("pe-7s-unlock");
+                        }
+
+                    }
+                }
+
+
+        $('a[data-fancybox][data-type="iframe"], [data-fancybox][data-type="iframe"]>a').each(function () {
+            var $elem = $(this);
+            var $container = $elem.closest('[data-fancybox]');
+            var width = $container.attr('data-width');
+            var height = $container.attr('data-height');
+
+            var options = {
+                type: 'iframe',
+
+                width: '50%',
+                height: '90%',
+
+                autoSize: false,
+                fitToView: false,
+
+                iframe: {
+                    scrolling: true
+                },
+
+                helpers: {
+                    overlay: {
+                        locked: false
+                    }
+                }
+            };
+
+            if (width) options.maxWidth = width;
+            if (height) options.maxHeight = height;
+
+            // console.log(width, height);
+
+            $elem.fancybox(options);
+
+            $elem.on('click', function () {
+                $elem.closest('table').find('tr').removeClass('state--highlight');
+                $elem.closest('tr').addClass('state--highlight');
+            });
+        });
+
+        $('[data-fancybox][data-type="image"]').fancybox({
+            helpers: {
+                overlay: {
+                    locked: false
+                }
+            }
+        });
+
+        }) //
+        }
+
+        // Ajax for Change Actions status
+        function callActionAjax(element, url ) {
+                    var newData = null;
+                    if (element.data("isaccept") == true) {
+                        newData = false;
+                    } else {
+                        newData = true
+                }
+            var data = { id: element.data("id"), status: newData };
+                    var request = $.post(url, data);
+
+                    request.then(function (response) {
+
+                    if (!response.succeed) {
+                        return alert('خطا! لطفا مجددا تلاش کنید');
+                    }
+
+
+                    element.data("isaccept", newData)
+
+
+                    if (newData) {
+                        element.removeClass("text-danger");
+                        element.addClass("text-success");
+                    } else {
+                         element.removeClass("text-success");
+                        element.addClass("text-danger");
+                    }
+
+                    });
+
+
+        }
+
+
+
+        //  Filters items Events
+        var personFilterItems = $("#PersonFilter .filterItems");
+        var GenderFilterItems = $("#GenderFilter .filterItems");
+        var companyFilterItems = $("#CompanyFilter .filterItems");
+        var statusFilterItems = $("#StatusFilter .filterItems");
+
+        // personFilter
+        personFilterItems.hover(filterItemsHover, filterItemsUnHover);
+        personFilterItems.click(function () {
+            filterItemsClick(personFilterItems, this);
+        })
+        // GenderFilter
+        GenderFilterItems.hover(filterItemsHover, filterItemsUnHover );
+        GenderFilterItems.click(function () {
+            filterItemsClick(GenderFilterItems, this);
+        })
+         // CompanyFilter
+        companyFilterItems.hover(filterItemsHover, filterItemsUnHover );
+        companyFilterItems.click(function () {
+            filterItemsClick(companyFilterItems, this);
+        })
+        // StatusFilter
+        statusFilterItems.hover(filterItemsHover, filterItemsUnHover );
+        statusFilterItems.click(function () {
+            filterItemsClick(statusFilterItems, this);
+        })
+
+
+        // JQuery for Filter Items Hover and Click
+        function filterItemsHover() {
+            var classes = $(this).attr("class");
+            var isActive = classes.search("active");
+            if (isActive == -1) { // not active
+                $(this).addClass("hover");
+            }
+        }
+        function filterItemsUnHover() {
+            $(this).removeClass("hover");
+        }
+        function filterItemsClick(items, element) {
+            items.removeClass("hover");
+            items.removeClass("active");
+            $(element).addClass("active")
+        }
+        // End JQuery for Filter Items Hover and Click
+
+    </script>
+
+    <script>
+        $('#search').on('keyup', (e) => {
+            e.keyCode === 13 ? $('#btnSearch').trigger('click') : ''
+        })
+    </script>
+}
+
+
+
+@*<div id="gridcontainer" class="mt-5">
+        <partial name="_UsersList" model="Model" />
+    </div>*@

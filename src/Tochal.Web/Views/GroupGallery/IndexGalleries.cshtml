@@ -1,0 +1,141 @@
+﻿@using System.Collections.Generic
+@using Alamut.Data.Paging
+@using Tochal.Core.DomainModels.SSOT
+@using Tochal.Core.DomainModels.DTO.ContentEntity
+@using Tochal.AppService.Helpers
+@using Tochal.Core.DomainModels.Entity.Content
+@using Tochal.Core.DomainModels.DTO
+@using Tochal.Core.DomainModels.Entity.Content
+@model SearchCriteriaPageModel<List<GroupGalleryDTO>, GroupGallerySearchViewModel, int>
+@{
+    ViewBag.Title = " دسته بندی گالری";
+    int count = 1;
+}
+
+<style>
+    table, tr {
+        border: 1px solid #ddd;
+    }
+
+    table {
+        border-radius: 25px;
+    }
+
+    td, th {
+        padding: 10px;
+        text-align: center;
+    }
+
+    tfoot td {
+        padding: 0px 10px;
+    }
+
+    thead {
+        background-color: #ddd;
+        color: #464646;
+    }
+    @@media (max-width:990px){
+         .show900{
+             width:82%;
+         }
+    }
+    @@media (max-width:500px){
+         .show900{
+             width:100%;
+         }
+    }
+</style>
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">داشبورد</a></li>
+        <li class="breadcrumb-item active" aria-current="page">دسته بندی گالری</li>
+    </ol>
+</nav>
+<div class="content _page-scroll animate-panel padding-0">
+    <div class="col-md-12" style="margin-bottom:10px">
+        <div class="col-md-2"></div>
+        <div class="col-lg-8"> 
+            <form asp-action="Create" asp-controller="GroupGallery" id="contentForm" class="form-horizontal" enctype="multipart/form-data">
+                <input type="hidden" name="GalleryType" value="@GalleryTypeSSOT.Image" />
+                <input type="hidden" name="GalleryForType" value="@GalleryForTypeSSOT.Content" />
+
+                <div class="form-group row" dir="rtl">
+                    <label dir="rtl" class="control-label col-sm-2"> عنوان:</label>
+                    <div class="col-sm-7">
+                        <input type="text" class="form-control" name="Title" placeholder=" عنوان">
+                    </div>
+                    <div class="col-md-3">
+                        <input type="submit" value="ثبت" class="btn btn-block btn-info">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="text-center container col-md-12">
+        <div class="col-md-2"></div>
+        <table class="col-md-8 show900">
+            <thead>
+                <tr>
+                    <th>ردیف</th>
+                    <th>عنوان</th>
+                    <th>اقدامات</th>
+                </tr>
+            </thead>
+            <tbody>
+               
+                @foreach (var item in Model.PageModel)
+                {
+                    <tr>
+                        <td>@(count++)</td>
+                        <td>@item?.Title</td>
+                        <td>
+                            <a asp-action="Index" asp-controller="Gallery" asp-route-GroupGalleryId="@item.Id"><i class="fa fa-image fa-lg text-success margin-left-10" data-toggle="tooltip" title="مدیریت تصاویر"></i></a>
+                            <a asp-action="Edit" asp-controller="GroupGallery" asp-route-id="@item.Id"><i class="fa fa-edit fa-lg text-info margin-left-10" data-toggle="tooltip" title="ویرایش نام"></i></a>
+                            <a asp-action="Delete" asp-controller="GroupGallery" asp-route-GalleryType="@GalleryTypeSSOT.Image"asp-route-GalleryForType="@GalleryForTypeSSOT.Content"  asp-route-id="@item.Id" data-role="confirm"><i class="fa fa-trash fa-lg text-danger" aria-hidden="true" data-toggle="tooltip" title="حذف گالری"></i></a>
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+            <tfoot>
+
+                <tr>
+                    <td colspan="5">
+                        <nav aria-label="..." style="height:60px">
+                            <ul class="pagination">
+                                <li class="page-item disabled">
+                                    <span class="page-link">««</span>
+                                </li>
+                                <li class="page-item disabled">
+                                    <span class="page-link">«</span>
+                                </li>
+                                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item">
+                                    <span class="page-link" style="padding:3px 12px">
+                                        <input type="text" name="" value="2" class="form-control" style="background-color:#3498db;height: 23px;width: 50px;text-align: center;" />
+                                        @*<span class="sr-only">(current)</span>*@
+                                    </span>
+                                    <span class="hide goToPage">
+                                        <input type="text" name="" value="2" class="form-control" />
+                                    </span>
+                                </li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#">»</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#">»»</a>
+                                </li>
+                            </ul>
+                        </nav>
+                        <div class="text-center size-10">
+                            تعداد کل صفحات: <span>@Model.TotalCount</span>
+                        </div>
+                    </td>
+                </tr>
+
+            </tfoot>
+        </table>
+    </div>
+</div>

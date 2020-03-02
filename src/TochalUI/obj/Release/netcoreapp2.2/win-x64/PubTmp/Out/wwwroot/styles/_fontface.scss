@@ -1,0 +1,32 @@
+@font-face {
+  font-family: "IranSans";
+  src: url("~/fonts/IRANSansWeb.eot"),
+    /* IE9 Compat Modes */ url("~/fonts/IRANSansWeb.woff2") format("woff2"),
+    /* Super Modern Browsers */ url("~/fonts/IRANSansWeb.woff") format("woff"),
+    /* Pretty Modern Browsers */ url("~/fonts/IRANSansWeb.ttf")
+      format("truetype"); /* Safari, Android, iOS */
+}
+
+@font-face {
+  font-family: "BYekan";
+  src: url("~/fonts/1.eot") format("eot"),
+    url("~/fonts/3.woff") format("woff"),
+    url("~/fonts/2.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "DYekan";
+  src: local('â˜º'), url("~/fonts/DimaYekanWeb.woff") format("woff"),
+    url("~/fonts/DimaYekanWeb.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+    font-family: "DYekan_bold";
+    src: url("~/fonts/DimaYekanWebBold.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+  }

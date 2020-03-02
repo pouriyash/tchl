@@ -1,0 +1,645 @@
+/*--------------------------------------------------
+  Registration and Login Page v4
+----------------------------------------------------*/
+
+html {
+    min-height: 100%;
+    position: relative;
+}
+
+.image-block {
+    padding: 0;
+    overflow: hidden;
+}
+
+.image-block-o {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+}
+
+
+/* Form block */
+.form-block {
+    padding: 50px 159px;
+    background: #fff;
+    height: 100vh;
+}
+
+
+    /* Form Header */
+
+    .form-block h2 {
+        text-transform: uppercase;
+    }
+
+
+    /* Input fields */
+
+    .form-block .input-group input.form-control,
+    .form-block .input-group select.form-control,
+    .form-block .input-group textarea.form-control {
+        background: transparent;
+        border-right: none;
+        padding-right: 10px;
+        padding-left: 10px;
+        height: 50px;
+        background-color: white !important;
+        border-color: #d0d0d0 !important;
+        box-shadow: none !important;
+        border-right: none;
+        color: #666;
+        text-align: right;
+        direction: ltr;
+        font-size: 14px;
+        -webkit-transition: 0.5s;
+        transition: 0.5s;
+    }
+
+    .form-block .input-group select.form-control {
+        font-size: 12px;
+        direction: rtl;
+        padding-right: 6px;
+    }
+
+    .form-block .input-group input.form-control::placeholder {
+        font-size: 12px;
+    }
+
+    .form-block .input-group textarea.form-control {
+        resize: none;
+    }
+
+        .form-block .input-group textarea.form-control::placeholder {
+            font-size: 12px;
+            direction: rtl;
+        }
+
+    .form-block .input-group input.form-control:-webkit-autofill,
+    .form-block .input-group input.form-control:-webkit-autofill:hover,
+    .form-block .input-group input.form-control:-webkit-autofill:focus input:-webkit-autofill,
+    .form-block .input-group input.form-control:-webkit-autofill,
+    .form-block .input-group input.form-control:-webkit-autofill:hover textarea:-webkit-autofill:focus,
+    .form-block .input-group input.form-control:-webkit-autofill,
+    .form-block .input-group input.form-control:-webkit-autofill:hover,
+    .form-block .input-group input.form-control:-webkit-autofill:focus {
+        -webkit-box-shadow: 0 0 0px 1000px #fff inset !important;
+        transition: background-color 5000s ease-in-out 0s !important;
+    }
+
+    .form-block .list-unstyled {
+        margin: 0 -5px;
+        padding: 10px 0 13px;
+    }
+
+
+    /* Input fields icons */
+
+    .form-block .input-group-addon {
+        min-width: 40px;
+        background: transparent;
+        border-color: #d0d0d0 !important;
+        padding-left: 0;
+    }
+
+        .form-block .input-group-addon i {
+            font-size: 16px;
+            position: relative;
+            top: 1px;
+        }
+
+    .form-block .form-control:focus {
+        box-shadow: none;
+        border-color: #999;
+    }
+
+.input-group-addon:first-child {
+    border-right: 1px solid #d0d0d0 !important;
+}
+
+
+/* Buttons */
+
+.form-block .btn-u,
+.form-block .btn {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-transform: uppercase;
+}
+
+
+/* Social buttons */
+
+.login-block .social-login {
+    color: rgba(0, 0, 0, .5);
+    padding-top: 60px;
+    border-top: 1px solid #eee;
+    position: relative;
+}
+
+.login-block .or {
+    position: absolute;
+    border: 1px solid #eee;
+    width: 70px;
+    height: 70px;
+    top: -35px;
+    right: 50%;
+    margin-right: -35px;
+    text-transform: uppercase;
+    background: #fff;
+    line-height: 70px;
+    padding: 0 24px;
+}
+
+.login-block .btn {
+    padding: 12px 20px;
+    font-size: 13px;
+}
+
+    .login-block .btn .fa {
+        position: relative;
+        top: 2px;
+        font-size: 18px;
+        margin-left: 10px;
+    }
+
+.login-block .btn-facebook:focus {
+    color: #4863ae;
+}
+
+.login-block .btn-twitter:focus {
+    color: #46c0fb;
+}
+
+
+/* Bottom part */
+
+.login-block .bottom p {
+    text-transform: uppercase;
+}
+
+.login-block .bottom .btn-u {
+    width: 190px;
+    text-align: center;
+    line-height: 38px;
+}
+
+    .login-block .bottom .btn-u:hover {
+        color: #fff;
+    }
+
+
+/* Registration form */
+
+.reg-block .checkbox label {
+    display: list-item;
+    list-style: none;
+}
+
+.reg-block .checkbox label {
+    max-width: 230px
+}
+
+/* Sticky-Footer */
+
+.sticky-footer {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 160px;
+    padding: 25px 15px 0;
+    text-align: center;
+    border-top: 1px solid #eee;
+    background: transparent;
+}
+
+    .sticky-footer a {
+        color: #0c8e8c;
+    }
+
+        .sticky-footer a:hover {
+            color: #11c7c5;
+        }
+
+    .sticky-footer .copyright-space {
+        margin: 0;
+    }
+
+        .sticky-footer .copyright-space .copyright-text {
+            margin-bottom: 10px;
+        }
+
+#topcontrol:hover {
+    background: #e74c3c;
+}
+
+.img-siteLogo {
+    background-color: #fff;
+    background-position: center;
+    background-size: cover;
+    width: 15%;
+    height: 0;
+    padding-top: 15%;
+    margin: 0 auto 10px;
+}
+
+.box-form-loginTitle {
+    color: #888;
+    font-size: 14px;
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+.box-form-title {
+    font-size: 25px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.box-form-subTitle {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+
+.box-form-input {
+    margin-bottom: 20px;
+}
+
+.form-block-register {
+    color: #11c7c5;
+}
+
+    .form-block-register:hover {
+        color: #0c8e8c;
+        text-decoration: none;
+    }
+
+.register-block {
+    padding-top: 25px !important;
+    padding-bottom: 25px !important;
+}
+
+    .register-block h2 {
+        margin-bottom: 20px;
+    }
+
+    .register-block .box-form-input {
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+
+    .register-block .input-group-addon {
+        border-radius: 0 4px 4px 0;
+    }
+
+
+    .register-block .goal-reg .input-group-addon {
+        vertical-align: -webkit-baseline-middle !important;
+    }
+
+    .register-block textarea.form-control {
+        height: 100px !important;
+    }
+
+    .register-block .input-group.rtl input.form-control,
+    .register-block .input-group.rtl select.form-control,
+    .register-block .input-group.rtl textarea.form-control {
+        direction: rtl;
+    }
+
+    .form-block .login-link,
+    .register-block .login-link {
+        margin-top: 10px;
+    }
+
+.form-block .form-group,
+.form-block.register-block .form-group {
+    margin-bottom: 2px;
+}
+
+@media (min-width: 992px) {
+    .form-block {
+        padding-left: 85px;
+        padding-right: 85px;
+        padding-bottom: 0;
+    }
+
+    .login-block .social-login:before,
+    .login-block .social-login:after {
+        position: absolute;
+        top: -2px;
+        height: 2px;
+        background: #fff;
+        width: 110px;
+        content: "";
+    }
+
+    .login-block .social-login:before {
+        right: 0;
+    }
+
+    .login-block .social-login:after {
+        left: 0;
+    }
+}
+
+@media (min-width: 768px) {
+    .register-block .form-group .col-md-6:first-child,
+    .register-block .form-group .col-sm-6:first-child {
+        padding-left: 5px;
+    }
+
+    .register-block .form-group .col-md-6:last-child,
+    .register-block .form-group .col-sm-6:last-child {
+        padding-right: 5px;
+    }
+}
+
+@media (max-width: 1200px) {
+    .form-block {
+        padding-left: 55px;
+        padding-right: 55px;
+        padding-bottom: 0;
+    }
+
+    .login-block .social-login,
+    .login-block .bottom {
+        text-align: center;
+    }
+
+    .social-login ul li:first-child,
+    .bottom ul li:first-child {
+        margin-bottom: 20px;
+    }
+}
+
+@media (max-width: 991px) {
+    .form-block {
+        padding: 70px 40px;
+        padding-bottom: 0;
+    }
+}
+
+@media (max-width: 767px) {
+    body {
+        margin-bottom: 0;
+    }
+}
+
+@media (max-width: 418px) {
+    .login-block .checkbox {
+        margin-bottom: 30px;
+    }
+
+        .login-block .checkbox ul li:first-child {
+            margin-bottom: 10px;
+        }
+
+        .login-block .checkbox ul li:last-child {
+            float: none !important;
+        }
+}
+
+@media (max-height: 960px) {
+    .img-siteLogo {
+        width: 11%;
+        padding-top: 11%;
+    }
+
+    .register-block h2 {
+        margin-bottom: 5px;
+    }
+
+    .box-form-loginTitle {
+        font-size: 11px;
+        margin-bottom: 8px;
+    }
+
+    .box-form-title {
+        font-size: 20px;
+        margin-bottom: 10px;
+    }
+
+    .box-form-subTitle {
+        font-size: 14px;
+    }
+
+    .footer-logo {
+        width: 35px !important;
+        margin-bottom: 15px;
+    }
+}
+
+@media (max-height: 767px) {
+    .img-siteLogo {
+        width: 9%;
+        padding-top: 9%;
+    }
+
+    .form-block {
+        padding-top: 10px;
+    }
+
+    .site-title {
+        font-size: 15px !important;
+        margin-bottom: 5px !important;
+    }
+
+    .box-form-loginTitle {
+        font-size: 11px;
+        margin-top: 0;
+        margin-bottom: 8px;
+    }
+
+    .box-form-title {
+        font-size: 15px !important;
+        margin-bottom: 8px;
+    }
+
+    .box-form-subTitle {
+        font-size: 12px !important;
+        margin-bottom: 8px;
+    }
+
+    .box-form-input {
+        margin-bottom: 10px;
+    }
+
+    .form-block .input-group input.form-control,
+    .form-block .input-group select.form-control {
+        height: 45px;
+    }
+
+    .checkbox {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .form-block .form-group,
+    .form-block.register-block .form-group {
+        margin-bottom: 2px;
+    }
+
+    .register-block .box-form-input {
+        margin-top: 2px;
+        margin-bottom: 2px;
+    }
+
+    .register-block .img-siteLogo {
+        margin-bottom: 5px;
+    }
+
+    .register-block .box-form-input {
+        margin-bottom: 2px;
+    }
+
+    .register-block .login-link {
+        margin-top: 5px;
+    }
+
+    .register-block textarea.form-control {
+        height: 50px !important;
+    }
+
+    .sticky-footer {
+        padding-top: 10px;
+        height: 120px;
+    }
+
+        .sticky-footer .footer-logo {
+            width: 30px !important;
+            margin-bottom: 10px;
+        }
+
+        .sticky-footer .copyright-space .copyright-text {
+            font-size: 11px;
+            margin-bottom: 6px;
+        }
+
+        .sticky-footer .copyright-space .copyright-link {
+            font-size: 10px;
+            margin-bottom: 6px;
+        }
+
+        .sticky-footer .copyright-space .copyright-version {
+            font-size: 10px;
+            margin-bottom: 0px;
+        }
+}
+
+/* Iran Admin Style */
+.img-iranAdminLogo {
+    background-color: #fff;
+    background-position: center;
+    background-size: cover;
+    width: 65%;
+    height: 0;
+    padding-top: 15%;
+    margin: 0 auto 10px;
+}
+
+@media (max-height: 960px) {
+    .img-iranAdminLogo {
+        width: 65%;
+        padding-top: 15%;
+    }
+}
+
+@media (max-height: 767px) {
+    .img-iranAdminLogo {
+        width: 40%;
+        padding-top: 10%;
+    }
+}
+
+.fullscreen-bg {
+    background-position: 50% 0;
+    background-repeat: no-repeat;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+.dark-translucent-bg {
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-position: 50% 0;
+    background-repeat: no-repeat;
+    z-index: 1;
+    position: relative;
+    overflow: hidden;
+    min-height: calc(100vh - 160px);
+}
+
+    .dark-translucent-bg:after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 2;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.3);
+        -webkit-transition: all 0.2s ease-in-out;
+        -o-transition: all 0.2s ease-in-out;
+        transition: all 0.2s ease-in-out;
+        -webkit-backface-visibility: hidden;
+        -webkit-transform: translateZ(0) scale(1, 1);
+    }
+
+    .dark-translucent-bg > div {
+        z-index: 5;
+        position: relative;
+    }
+
+.form-block.register-block {
+    border-radius: 10px;
+    height: auto !important;
+}
+
+@media (min-width: 992px) {
+    .form-block.register-block {
+        width: 630px;
+        padding-left: 45px;
+        padding-right: 45px;
+    }
+}
+
+@media (max-width: 767px) {
+    .form-block.register-block {
+        width: 90%;
+    }
+}
+
+.register__footer {
+    position: relative;
+    z-index: 5;
+}
+
+    .register__footer .sticky-footer {
+        position: unset;
+        background-color: #fff;
+    }
+
+
+.validate__message {
+    margin-bottom: 6px;
+}
+
+
+.center-block {
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+}
